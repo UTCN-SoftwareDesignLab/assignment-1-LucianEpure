@@ -1,5 +1,12 @@
 package testMain;
 
+
+
+
+import java.sql.Connection;
+
+import database.DBConnectionFactory;
+import jdk.nashorn.internal.runtime.linker.Bootstrap;
 import model.Account;
 import model.builder.AccountBuilder;
 
@@ -12,7 +19,7 @@ public class Main {
 				.setSum(25)
 				.setType("saving")
 				.build();
-		System.out.println(acc.toString());
+		
 	}
 
 }
