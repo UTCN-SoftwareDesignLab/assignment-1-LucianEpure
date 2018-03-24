@@ -31,7 +31,7 @@ public class SQLTableCreationFactory {
                         "  PRIMARY KEY (id)," +
                         "  UNIQUE INDEX id_UNIQUE (id ASC),"+
                         "  CONSTRAINT client_id" +
-                        "    FOREIGN KEY (client_id)" +
+                        "  FOREIGN KEY (client_id)" +
                         "    REFERENCES client (id)" +
                         "    ON DELETE CASCADE" +
                         "    ON UPDATE CASCADE);";
@@ -41,9 +41,17 @@ public class SQLTableCreationFactory {
                         "  id INT NOT NULL AUTO_INCREMENT," +
                         "  username VARCHAR(100) NOT NULL," +
                         "  password VARCHAR(64) NOT NULL," +
+                        "  id_role INT NOT NULL," +
                         "  PRIMARY KEY (id)," +
                         "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-                        "  UNIQUE INDEX username_UNIQUE (username ASC));";
+                        "  UNIQUE INDEX username_UNIQUE (username ASC),"+
+                        "  CONSTRAINT id_role" +
+                        "  FOREIGN KEY (id_role)" +
+                        "    REFERENCES role (id)" +
+                        "    ON DELETE CASCADE" +
+                        "    ON UPDATE CASCADE"+
+                        ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+                
 
 
             case ROLE:

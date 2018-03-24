@@ -3,12 +3,10 @@ package testMain;
 
 
 
-import java.sql.Connection;
 
-import database.DBConnectionFactory;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
 import model.Account;
 import model.builder.AccountBuilder;
+import services.employee.AuthenticationServiceMySQL;
 
 public class Main {
 	
@@ -19,6 +17,15 @@ public class Main {
 				.setSum(25)
 				.setType("saving")
 				.build();
+		
+	
+		AuthenticationServiceMySQL service  = new AuthenticationServiceMySQL(null,null);
+		String encode1= service.encodePassword("3anca#");
+		System.out.println(encode1);
+		String encode2= service.encodePassword("3anca#");
+		System.out.println(encode2);
+		
+		
 		
 	}
 

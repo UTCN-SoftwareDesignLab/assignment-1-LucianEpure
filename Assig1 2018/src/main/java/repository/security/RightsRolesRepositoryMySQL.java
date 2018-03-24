@@ -5,11 +5,10 @@ import model.Role;
 
 import java.sql.*;
 
+
 import static database.Constants.Tables.*;
 
-/**
- * Created by Alex on 11/03/2017.
- */
+
 public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
 
     private final Connection connection;
@@ -56,7 +55,6 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -75,8 +73,7 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
         }
 
         return null;
-    }
-
+}
     @Override
     public Right findRightByTitle(String right) {
         Statement statement;
@@ -107,5 +104,21 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
         } catch (SQLException e) {
 
         }
+    }
+
+	@Override
+	public Role getRoleOfEmployee(Long employeeId) {
+        try {
+            Role role;
+            Statement statement = connection.createStatement();
+            String fetchRoleSql = "Select * from " + EMPLOYEE + " where `_id`=\'" + employeeId + "\'";
+            ResultSet employeeRole = statement.executeQuery(fetchRoleSql);
+                Long roleId = employeeRole.getLong("id_role");
+                role = findRoleById(roleId);
+            return role;
+        } catch (SQLException e) {
+
+        }
+        return null;
     }
 }

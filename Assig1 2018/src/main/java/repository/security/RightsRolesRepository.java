@@ -1,5 +1,6 @@
 package repository.security;
 
+
 import model.Right;
 import model.Role;
 
@@ -21,4 +22,6 @@ public interface RightsRolesRepository {
     Right findRightByTitle(String right);
 
     void addRoleRight(Long roleId, Long rightId);
+    
+    Role getRoleOfEmployee(Long employeeId);
 }

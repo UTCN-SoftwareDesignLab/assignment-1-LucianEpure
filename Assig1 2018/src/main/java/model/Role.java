@@ -5,12 +5,12 @@ import java.util.List;
 public class Role {
 
 	    private Long id;
-	    private String role;
+	    private String roleTitle;
 	    private List<Right> rights;
 
 	    public Role(Long id, String role, List<Right> rights) {
 	        this.id = id;
-	        this.role = role;
+	        this.roleTitle = role;
 	        this.rights = rights;
 	    }
 
@@ -22,12 +22,12 @@ public class Role {
 	        this.id = id;
 	    }
 
-	    public String getRole() {
-	        return role;
+	    public String getRoleTitle() {
+	        return roleTitle;
 	    }
 
-	    public void setRole(String role) {
-	        this.role = role;
+	    public void setRoleTitle(String role) {
+	        this.roleTitle = role;
 	    }
 
 	    public List<Right> getRights() {

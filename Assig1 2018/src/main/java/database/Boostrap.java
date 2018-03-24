@@ -20,7 +20,7 @@ public class Boostrap {
 
 	    public static void main(String[] args) throws SQLException {
 	    	
-	    	//dropAll();
+	    	dropAll();
 
 	    	bootstrapTables();
 
@@ -39,14 +39,14 @@ public class Boostrap {
 	                    " DROP TABLE `role_right`;",
 	                            "TRUNCATE `rights`; ",
 	                            "DROP TABLE `rights`;",
+	                            "TRUNCATE `employee`;",
+	                            "DROP TABLE `employee`;",
 	                            "TRUNCATE `role`;",
 	                            "DROP TABLE `role`;",
 	                            "TRUNCATE `account`;",
 	                            "DROP TABLE  `account`;",
 	                            "TRUNCATE `client`;",
-	                            "DROP TABLE  `client`;",
-	                            "TRUNCATE `employee`;",
-	                            "DROP TABLE `employee`;"};
+	                            "DROP TABLE  `client`;"};
 	            for(String query:dropSQL){
 		            statement.execute(query);
 	            }

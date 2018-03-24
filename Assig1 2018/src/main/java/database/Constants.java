@@ -24,13 +24,13 @@ public class Constants {
         public static final String ROLE_RIGHT = "role_right";
         public static final String EMPLOYEE_ROLE = "user_role";
 
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{EMPLOYEE, CLIENT, ROLE, RIGHTS, ROLE_RIGHT, ACCOUNT};
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{ CLIENT, ROLE, RIGHTS, ROLE_RIGHT, ACCOUNT,EMPLOYEE};
     }
 
     public static class Roles {
         public static final String ADMINISTRATOR = "administrator";
-        public static final String EMPLOYEE = "employee";
-        public static final String[] ROLES = new String[]{ADMINISTRATOR, EMPLOYEE};
+        public static final String REGEMPLOYEE = "regEmployee";
+        public static final String[] ROLES = new String[]{ADMINISTRATOR, REGEMPLOYEE};
     }
 
     public static class Rights {
@@ -64,7 +64,7 @@ public class Constants {
         }
         ROLES_RIGHTS.get(ADMINISTRATOR).addAll(Arrays.asList(ADMINISTRATOR_RIGHTS));
 
-        ROLES_RIGHTS.get(EMPLOYEE).addAll(Arrays.asList(EMPLOYEE_RIGHTS));
+        ROLES_RIGHTS.get(REGEMPLOYEE).addAll(Arrays.asList(EMPLOYEE_RIGHTS));
 
        
 
