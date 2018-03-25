@@ -4,6 +4,7 @@ import static database.Constants.Roles.ADMINISTRATOR;
 import static database.Constants.Roles.REGEMPLOYEE;
 
 import controller.adminControllers.AdminController;
+import controller.regEmployeeControllers.RegEmployeeController;
 import controller.regEmployeeControllers.TransitionControllers.TransitionController;
 import model.Employee;
 import services.employee.AuthenticationService;
@@ -30,7 +31,8 @@ public class DecisionController {
 			RegEmployeeComponentFactory regEmployeeComponentFactory = RegEmployeeComponentFactory.instance();
 			RegEmployeeMenu regEmployeeMenu = new RegEmployeeMenu();
             regEmployeeMenu.setVisible(true);
-            new TransitionController(regEmployeeMenu,regEmployeeComponentFactory);
+            new TransitionController(regEmployeeMenu, regEmployeeComponentFactory);
+            new RegEmployeeController(regEmployeeMenu, regEmployeeComponentFactory.getClientService());
 			//new RegisterRegEmployeeController(regEmployeeMenu,authenticationService);
 		}
 	}

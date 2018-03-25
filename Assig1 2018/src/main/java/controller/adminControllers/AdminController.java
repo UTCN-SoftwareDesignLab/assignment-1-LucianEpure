@@ -76,7 +76,7 @@ public class AdminController {
 		}
 	}
 	
-	private class FireEmployeeButtonListener implements ActionListener{
+	class FireEmployeeButtonListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -89,7 +89,7 @@ public class AdminController {
 	}
 	
 	
-class RegisterRegEmployeeButtonListener implements ActionListener{
+	class RegisterRegEmployeeButtonListener implements ActionListener{
 
 		
 		

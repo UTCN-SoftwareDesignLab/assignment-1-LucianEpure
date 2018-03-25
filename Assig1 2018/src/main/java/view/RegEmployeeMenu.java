@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class RegEmployeeMenu extends JFrame {
 
@@ -21,6 +22,8 @@ public class RegEmployeeMenu extends JFrame {
 	private final DefaultTableModel accountsModel;
 	private JScrollPane accountsH;
 	private JButton addClientBtn;
+	private JButton showAllBtn ;
+	private JButton viewClientBtn;
 
 	public RegEmployeeMenu() {
 		setTitle("Employee menu");
@@ -40,16 +43,12 @@ public class RegEmployeeMenu extends JFrame {
 		contentPane.add(btnAddAccount);
 		
 		JButton btnUpdateClient = new JButton("Update Client");
-		btnUpdateClient.setBounds(10, 56, 122, 23);
+		btnUpdateClient.setBounds(10, 59, 122, 23);
 		contentPane.add(btnUpdateClient);
 		
-		JButton ViewClientBtn = new JButton("View Client");
-		ViewClientBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		ViewClientBtn.setBounds(10, 103, 122, 23);
-		contentPane.add(ViewClientBtn);
+		viewClientBtn = new JButton("View Client");
+		viewClientBtn.setBounds(10, 113, 122, 23);
+		contentPane.add(viewClientBtn);
 		
 		JButton updateAccountBtn = new JButton("Update Account");
 		updateAccountBtn.addActionListener(new ActionListener() {
@@ -66,7 +65,7 @@ public class RegEmployeeMenu extends JFrame {
 		JButton btnViewAccount = new JButton("View Account");
 		btnViewAccount.setBounds(10, 260, 122, 23);
 		contentPane.add(btnViewAccount);
-		Object[] clientsColumns = {  "Name","CNP","address","cardId"};
+		Object[] clientsColumns = {  "Name","address","CNP","cardId"};
 		
 		clientsModel = new DefaultTableModel(clientsColumns, 0);
 		clients = new JTable(clientsModel);
@@ -88,12 +87,23 @@ public class RegEmployeeMenu extends JFrame {
 		accountsH.setBounds(142, 155, 638, 136);
 		contentPane.add(accountsH);
 		
-		JButton showAllBtn = new JButton("Show All");
+		showAllBtn = new JButton("Show All");
 		showAllBtn.setBounds(223, 302, 308, 23);
 		contentPane.add(showAllBtn);
 	}
 	 public void setAddClientListener(ActionListener addClientListener) {
 	        addClientBtn.addActionListener(addClientListener);
 	    }
-
+	 public void setShowAllListener(ActionListener showAllListener) {
+	        showAllBtn.addActionListener(showAllListener);
+	    }
+	 public void setShowClientListener(ActionListener showClientListener) {
+	        viewClientBtn.addActionListener(showClientListener);
+	    }
+	public DefaultTableModel getAccountsModel() {
+			return accountsModel;
+		}
+	public DefaultTableModel getClientsModel() {
+		return clientsModel;
+	}
 }

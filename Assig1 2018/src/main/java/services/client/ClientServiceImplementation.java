@@ -1,21 +1,17 @@
 package services.client;
 
-import static database.Constants.Roles.REGEMPLOYEE;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Account;
+
 import model.Client;
-import model.Employee;
-import model.Role;
+
 import model.builder.ClientBuilder;
-import model.builder.EmployeeBuilder;
+import repository.EntityNotFoundException;
 import repository.client.ClientRepository;
-import repository.employee.EmployeeRepository;
+
 import validators.ClientValidator;
-import validators.EmployeeValidator;
 import validators.Notification;
 
 
@@ -61,11 +57,33 @@ public class ClientServiceImplementation implements ClientService{
 	public Long generateCardIdNumber(){
 		Random rand = new Random();
 		Long generatedCardId;
-		//do{
+		do{
 			generatedCardId = (long) (100000 + rand.nextInt(900000));
-		//}
-		//while()
+		}
+		while(checkIfCardExist(generatedCardId));
 			return generatedCardId;
+	}
+	
+	public boolean checkIfCardExist(Long cardId){
+		List<Client> allClients = clientRepository.findAll();
+		for(Client client:allClients){
+			if(client.getCardIdNumber()==cardId){
+				return true;
+			}
+		}
+		return false;
+	}
+	@Override
+	public Client findClientById(Long id) throws EntityNotFoundException {
+		return clientRepository.findClientById(id);
+	}
+	@Override
+	public Client findClientByCnp(String CNP) throws EntityNotFoundException {
+		return clientRepository.findClientByCNP(CNP);
+	}
+	@Override
+	public Client findClientByCardId(Long cardId) throws EntityNotFoundException {
+		return clientRepository.findClientByCardId(cardId);
 	}
 
 }

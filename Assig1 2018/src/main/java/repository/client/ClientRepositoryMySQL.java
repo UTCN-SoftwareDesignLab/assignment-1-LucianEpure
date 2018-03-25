@@ -3,6 +3,7 @@ package repository.client;
 import static database.Constants.Tables.CLIENT;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import model.Employee;
 import model.Role;
 import model.builder.ClientBuilder;
 import model.builder.EmployeeBuilder;
+import repository.EntityNotFoundException;
 import repository.security.RightsRolesRepository;
 
 public class ClientRepositoryMySQL implements ClientRepository{
@@ -43,16 +45,59 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	}
 
 	@Override
-	public Client findClientByCNP(String CNP) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client findClientByCNP(String CNP)  throws EntityNotFoundException{
+		 try {
+	            Statement statement = connection.createStatement();
+	            String sql = "Select * from "+ CLIENT + " where cnp =" + CNP;
+	            ResultSet rs = statement.executeQuery(sql);
+
+	            if (rs.next()) {
+	                return getClientFromResultSet(rs);
+	            } else {
+	                throw new EntityNotFoundException(CNP, Client.class.getSimpleName());
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new EntityNotFoundException(CNP, Client.class.getSimpleName());
+	        }
 	}
 
 	@Override
-	public Client findClientById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client findClientById(Long id)  throws EntityNotFoundException {
+		 try {
+	            Statement statement = connection.createStatement();
+	            String sql = "Select * from "+ CLIENT +" where id =" + id;
+	            ResultSet rs = statement.executeQuery(sql);
+
+	            if (rs.next()) {
+	                return getClientFromResultSet(rs);
+	            } else {
+	                throw new EntityNotFoundException(id, Client.class.getSimpleName());
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new EntityNotFoundException(id, Client.class.getSimpleName());
+	        }
 	}
+	
+	@Override
+	public Client findClientByCardId(Long cardId) throws EntityNotFoundException {
+		 try {
+	            Statement statement = connection.createStatement();
+	            String sql = "Select * from "+ CLIENT + " where cardIdNumber =" + cardId;
+	            ResultSet rs = statement.executeQuery(sql);
+
+	            if (rs.next()) {
+	                return getClientFromResultSet(rs);
+	            } else {
+	                throw new EntityNotFoundException(cardId, Client.class.getSimpleName());
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new EntityNotFoundException(cardId, Client.class.getSimpleName());
+	        }
+	}
+
 
 	@Override
 	public boolean addClient(Client client) {
@@ -69,25 +114,26 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	            return false;
+	        }
 	}
-		
-	}
-
+	
+	
 	@Override
 	public Client updateClient(Client account) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	 private Client getClientFromResultSet(ResultSet rs) throws SQLException {
-		
-	        return new ClientBuilder()
-	                .setId(rs.getLong("id"))
-	                .setClientName(rs.getString("name"))
-	                .setClientName(rs.getString("address"))
-	                .setClientCNP(rs.getString("cnp"))
-	                .setClientCardIdNumber(rs.getLong("cardIdNumber"))
-	                .build();
-	    }
+
+	
+	private Client getClientFromResultSet(ResultSet rs) throws SQLException {
+        return new ClientBuilder()
+                .setId(rs.getLong("id"))
+                .setClientName(rs.getString("name"))
+                .setClientAddress(rs.getString("address"))
+                .setClientCNP(rs.getString("cnp"))
+                .setClientCardIdNumber(rs.getLong("cardIdNumber"))
+                .build();
+    }
 
 }

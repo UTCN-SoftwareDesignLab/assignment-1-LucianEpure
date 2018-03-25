@@ -169,17 +169,7 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
         }
 	}
 
-		
-		 private Employee getEmployeeFromResultSet(ResultSet rs) throws SQLException {
-			 Role role = rightsRolesRepository.findRoleById(rs.getLong("id_role"));
-		        return new EmployeeBuilder()
-		                .setId(rs.getLong("id"))
-		                .setUsername(rs.getString("username"))
-		                .setPassword(rs.getString("password"))
-		                .setRole(role)
-		                .build();
-		    }
-
+	
 
 		@Override
 		public boolean updateEmployee(Employee employee) {
@@ -202,6 +192,18 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
            
 			
 		}
+		
+		
+		 private Employee getEmployeeFromResultSet(ResultSet rs) throws SQLException {
+			 Role role = rightsRolesRepository.findRoleById(rs.getLong("id_role"));
+		        return new EmployeeBuilder()
+		                .setId(rs.getLong("id"))
+		                .setUsername(rs.getString("username"))
+		                .setPassword(rs.getString("password"))
+		                .setRole(role)
+		                .build();
+		    }
+
 
 
 }
