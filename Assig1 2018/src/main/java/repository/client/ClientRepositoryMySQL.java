@@ -3,6 +3,7 @@ package repository.client;
 import static database.Constants.Tables.CLIENT;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,9 +55,22 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	}
 
 	@Override
-	public Client addClient(Client account) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean addClient(Client client) {
+		 try {
+			 System.out.println(client.getCNP());
+	            PreparedStatement insertQuery = connection
+	                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?, ?)");
+	            insertQuery.setString(1, client.getName());
+	            insertQuery.setString(2, client.getAddress());
+	            insertQuery.setString(3, client.getCNP());
+	            insertQuery.setLong(4, client.getCardIdNumber());
+	            insertQuery.executeUpdate();
+	            return true;
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	}
+		
 	}
 
 	@Override

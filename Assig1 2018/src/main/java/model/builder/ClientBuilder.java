@@ -7,6 +7,11 @@ import model.Client;
 public class ClientBuilder {
 
 	private Client client;
+	
+	public ClientBuilder(){
+		this.client = new Client();
+	}
+	
 	public ClientBuilder setId(Long id){
 		client.setId(id);
 		return this;
@@ -17,6 +22,7 @@ public class ClientBuilder {
 		return this;
 	}
 	public ClientBuilder setClientName(String name){
+		System.out.println(name);
 		client.setName(name);
 		return this;
 	}

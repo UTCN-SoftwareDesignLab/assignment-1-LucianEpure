@@ -3,16 +3,14 @@ package controller;
 import static database.Constants.Roles.ADMINISTRATOR;
 import static database.Constants.Roles.REGEMPLOYEE;
 
-import controller.adminControllers.FireEmployeeController;
-import controller.adminControllers.RegisterRegEmployeeController;
-import controller.adminControllers.ShowAllController;
-import controller.adminControllers.ShowEmployeeController;
-import controller.adminControllers.UpdateRegEmployeeController;
+import controller.adminControllers.AdminController;
+import controller.regEmployeeControllers.TransitionControllers.TransitionController;
 import model.Employee;
 import services.employee.AuthenticationService;
 import services.employee.EmployeeService;
 import testMain.AdminComponentFactory;
 import testMain.ComponentFactory;
+import testMain.RegEmployeeComponentFactory;
 import view.AdministratorMenu;
 import view.RegEmployeeMenu;
 
@@ -26,15 +24,13 @@ public class DecisionController {
 			AdminComponentFactory adminComponentFactory = AdminComponentFactory.instance();
 			AdministratorMenu administratorMenu = new AdministratorMenu();
             administratorMenu.setVisible(true);
-			new RegisterRegEmployeeController(administratorMenu,authenticationService);
-			new FireEmployeeController(administratorMenu,adminComponentFactory.getEmployeeService());
-			new ShowEmployeeController(administratorMenu,adminComponentFactory.getEmployeeService());
-			new ShowAllController(administratorMenu, adminComponentFactory.getEmployeeService());
-			new UpdateRegEmployeeController(administratorMenu, adminComponentFactory.getEmployeeService());
+			new AdminController(administratorMenu,adminComponentFactory.getEmployeeService(),authenticationService);
 		}
 		else if(employee.getRole().getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){
+			RegEmployeeComponentFactory regEmployeeComponentFactory = RegEmployeeComponentFactory.instance();
 			RegEmployeeMenu regEmployeeMenu = new RegEmployeeMenu();
             regEmployeeMenu.setVisible(true);
+            new TransitionController(regEmployeeMenu,regEmployeeComponentFactory);
 			//new RegisterRegEmployeeController(regEmployeeMenu,authenticationService);
 		}
 	}

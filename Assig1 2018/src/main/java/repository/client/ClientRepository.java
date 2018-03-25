@@ -12,7 +12,7 @@ public interface ClientRepository {
     
 	public Client findClientById(Long id);
 	
-	public Client addClient(Client account);
+	public boolean addClient(Client client);
 	
 	public Client updateClient(Client account);
 	

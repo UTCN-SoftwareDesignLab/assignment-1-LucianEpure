@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +20,7 @@ public class RegEmployeeMenu extends JFrame {
 	private JTable accounts;
 	private final DefaultTableModel accountsModel;
 	private JScrollPane accountsH;
-
+	private JButton addClientBtn;
 
 	public RegEmployeeMenu() {
 		setTitle("Employee menu");
@@ -33,9 +31,9 @@ public class RegEmployeeMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnAddClient = new JButton("Add Client");
-		btnAddClient.setBounds(10, 11, 122, 23);
-		contentPane.add(btnAddClient);
+		addClientBtn = new JButton("Add Client");
+		addClientBtn.setBounds(10, 11, 122, 23);
+		contentPane.add(addClientBtn);
 		
 		JButton btnAddAccount = new JButton("Add Account");
 		btnAddAccount.setBounds(10, 158, 122, 23);
@@ -94,5 +92,8 @@ public class RegEmployeeMenu extends JFrame {
 		showAllBtn.setBounds(223, 302, 308, 23);
 		contentPane.add(showAllBtn);
 	}
+	 public void setAddClientListener(ActionListener addClientListener) {
+	        addClientBtn.addActionListener(addClientListener);
+	    }
 
 }
