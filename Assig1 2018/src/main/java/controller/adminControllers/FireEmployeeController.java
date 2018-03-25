@@ -20,10 +20,10 @@ public class FireEmployeeController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String username = administratorMenu.getFireEmployee();
-			
+			String username = administratorMenu.getFireEmployee();			
 			employeeService.fireEmployee(username);
 			administratorMenu.setFireEmployee("");
+			administratorMenu.getEmployeesModel().setRowCount(0);
 		}
 		
 	}

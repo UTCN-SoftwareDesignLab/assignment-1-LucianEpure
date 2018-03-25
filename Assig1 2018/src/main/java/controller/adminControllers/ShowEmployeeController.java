@@ -23,10 +23,11 @@ public class ShowEmployeeController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			administratorMenu.getEmployeesModel().setRowCount(0);
 			String username = administratorMenu.getShowEmployeeTf().getText();
 			Employee employee = employeeService.findByUsername(username);
 			administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRole().getRoleTitle(), employee.getUsername()});
-			 administratorMenu.setShowEmployeeTf("");
+			administratorMenu.setShowEmployeeTf("");
 		}
 	}
 }

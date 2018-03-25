@@ -1,7 +1,6 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,19 +19,25 @@ public class AdministratorMenu extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField usernameTf;
-
 	private JTextField passwordTf;
+	
 	private JTextField showEmployeeTf;
+	
 	private JTextField fireEmployeeTf;
-	private JTextField deleteUsernameTf;
-	private JTextField deletePasswordTf;
+
+	private JTextField updateUsernameTf;
+	private JTextField updatedUsernameTf;
+	private JTextField updatedPasswordTf;
+	
 	private JButton registerEmployeeBtn;
 	private JButton fireEmployeeBtn;
 	private JButton showEmployeeBtn;
 	private JButton showAllBtn;
+	private JButton updateEmployeeBtn;
 	private JTable employees;
 	private final DefaultTableModel employeesModel;
 	private JScrollPane employeesH;
+
 	
 
 
@@ -106,31 +111,31 @@ public class AdministratorMenu extends JFrame {
 		fireEmployeeBtn.setBounds(202, 137, 121, 23);
 		contentPane.add(fireEmployeeBtn);
 		
-		JLabel lblUsername_3 = new JLabel("Username");
+		JLabel lblUsername_3 = new JLabel("Old User");
 		lblUsername_3.setBounds(25, 192, 70, 14);
 		contentPane.add(lblUsername_3);
 		
 		JLabel lblPassword_1 = new JLabel("Password");
-		lblPassword_1.setBounds(25, 221, 70, 14);
+		lblPassword_1.setBounds(25, 247, 70, 14);
 		contentPane.add(lblPassword_1);
 		
-		deleteUsernameTf = new JTextField();
-		deleteUsernameTf.setColumns(10);
-		deleteUsernameTf.setBounds(93, 189, 86, 20);
-		contentPane.add(deleteUsernameTf);
+		updateUsernameTf = new JTextField();
+		updateUsernameTf.setColumns(10);
+		updateUsernameTf.setBounds(93, 189, 86, 20);
+		contentPane.add(updateUsernameTf);
 		
-		deletePasswordTf = new JTextField();
-		deletePasswordTf.setColumns(10);
-		deletePasswordTf.setBounds(93, 218, 86, 20);
-		contentPane.add(deletePasswordTf);
+		updatedPasswordTf = new JTextField();
+		updatedPasswordTf.setColumns(10);
+		updatedPasswordTf.setBounds(93, 244, 86, 20);
+		contentPane.add(updatedPasswordTf);
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(25, 179, 294, 2);
 		contentPane.add(separator_2);
 		
-		JButton updateBtn = new JButton("Update");
-		updateBtn.setBounds(202, 188, 121, 47);
-		contentPane.add(updateBtn);
+		updateEmployeeBtn = new JButton("Update");
+		updateEmployeeBtn.setBounds(202, 188, 121, 73);
+		contentPane.add(updateEmployeeBtn);
 		
 		Object[] employeeColumn = {  "Type","Username"};
 		
@@ -140,20 +145,29 @@ public class AdministratorMenu extends JFrame {
 		
 		employeesH = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		employeesH.setViewportView(employees);
-		employeesH.setBounds(337, 6, 281, 229);
+		employeesH.setBounds(337, 6, 281, 268);
 		contentPane.add(employeesH);
 		
 		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(25, 246, 298, 2);
+		separator_3.setBounds(25, 272, 298, 2);
 		contentPane.add(separator_3);
 		
 		showAllBtn = new JButton("Show all");
-		showAllBtn.setBounds(25, 260, 89, 23);
+		showAllBtn.setBounds(25, 285, 89, 23);
 		contentPane.add(showAllBtn);
+		
+		JLabel lbl_Username4 = new JLabel("New User");
+		lbl_Username4.setBounds(25, 217, 70, 14);
+		contentPane.add(lbl_Username4);
+		
+		updatedUsernameTf = new JTextField();
+		updatedUsernameTf.setBounds(93, 216, 86, 20);
+		contentPane.add(updatedUsernameTf);
+		updatedUsernameTf.setColumns(10);
 		
 	}
 
-	
+	//GEtters and Setters .................................................................................................
 	public String getUsername(){
 		return usernameTf.getText();
 	}
@@ -193,20 +207,51 @@ public class AdministratorMenu extends JFrame {
 	public DefaultTableModel getEmployeesModel() {
 		return employeesModel;
 	}
+	
+	
+	public JTextField getUpdateUsernameTf() {
+		return updateUsernameTf;
+	}
 
+
+	public void setUpdateUsernameTf(String text) {
+		updateUsernameTf.setText(text);
+	}
+
+
+	public JTextField getUpdatedPasswordTf() {
+		return updatedPasswordTf;
+	}
+
+
+	public void setUpdatedPasswordTf(String text) {
+		updatedPasswordTf.setText(text);
+	}
 	
-	  public void setRegisterRegEmployeeButtonListener(ActionListener RegisterRegEmployeeButtonListener) {
-	        registerEmployeeBtn.addActionListener(RegisterRegEmployeeButtonListener);
+	public JTextField getUpdatedUsernameTf() {
+		return updatedUsernameTf;
+	}
+
+	public void setUpdatedUsernameTf(String text) {
+		updatedUsernameTf.setText(text);
+	}
+	//GEtters and Setters Done.................................................................................................
+	//Controllers Setters......................................................................................................
+	  public void setRegisterRegEmployeeButtonListener(ActionListener registerRegEmployeeButtonListener) {
+	        registerEmployeeBtn.addActionListener(registerRegEmployeeButtonListener);
 	    }
-	  public void setFireEmployeeButtonListener(ActionListener FireEmployeeButtonListener) {
-	       fireEmployeeBtn.addActionListener(FireEmployeeButtonListener);
+	  public void setFireEmployeeButtonListener(ActionListener fireEmployeeButtonListener) {
+	       fireEmployeeBtn.addActionListener(fireEmployeeButtonListener);
 	    }
 	
-	  public void setShowEmployeeButtonListener(ActionListener ShowEmployeeButtonListener){
-		  showEmployeeBtn.addActionListener(ShowEmployeeButtonListener);
+	  public void setShowEmployeeButtonListener(ActionListener showEmployeeButtonListener){
+		  showEmployeeBtn.addActionListener(showEmployeeButtonListener);
 	  }
 	  
-	  public void setShowAllButtonListener(ActionListener ShowAllButtonListener){
-		  showAllBtn.addActionListener(ShowAllButtonListener);
+	  public void setShowAllButtonListener(ActionListener showAllButtonListener){
+		  showAllBtn.addActionListener(showAllButtonListener);
+	  }
+	  public void setUpdateEmployeeButtonListener(ActionListener updateRegEmployeeListener){
+		  updateEmployeeBtn.addActionListener(updateRegEmployeeListener);
 	  }
 }

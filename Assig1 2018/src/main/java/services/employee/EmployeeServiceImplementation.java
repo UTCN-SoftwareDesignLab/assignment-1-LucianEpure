@@ -3,7 +3,10 @@ package services.employee;
 import java.util.List;
 
 import model.Employee;
+import model.builder.EmployeeBuilder;
 import repository.employee.EmployeeRepository;
+import validators.EmployeeValidator;
+import validators.Notification;
 
 public class EmployeeServiceImplementation implements EmployeeService{
 
@@ -27,6 +30,39 @@ public class EmployeeServiceImplementation implements EmployeeService{
 	public List<Employee> showAll() {
 		return employeeRepository.findAll();
 	}
+
+	@Override
+	public Notification<Boolean> updateEmployee(Employee employee,String newUsername, String newPassword) {
+		
+		Employee newEmployee = new EmployeeBuilder()
+                .setUsername(newUsername)
+                .setPassword(newPassword)
+                .setRole(employee.getRole())
+                .setId(employee.getId())
+                .build();
+		System.out.println(newEmployee.getUsername());
+		System.out.println(newEmployee.getPassword());
+		System.out.println(newEmployee.getRole().getRoleTitle());
+		System.out.println(newEmployee.getId());
+
+
+		EmployeeValidator employeeValidator = new EmployeeValidator(newEmployee);
+        boolean employeeValid = employeeValidator.validate();
+        Notification<Boolean> employeeUpdateNotification = new Notification<>();
+
+        if (!employeeValid) {
+            employeeValidator.getErrors().forEach(employeeUpdateNotification::addError);
+           employeeUpdateNotification.setResult(Boolean.FALSE);
+            return employeeUpdateNotification;
+        } else {
+            newEmployee.setPassword(AuthenticationServiceMySQL.encodePassword(newPassword));
+            employeeUpdateNotification.setResult(employeeRepository.updateEmployee(newEmployee));
+            System.out.println(employeeUpdateNotification.getResult());
+            return  employeeUpdateNotification;
+        }
+	}
+
+	
     
 
 }

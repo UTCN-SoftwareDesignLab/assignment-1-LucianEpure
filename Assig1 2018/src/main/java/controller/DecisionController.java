@@ -7,6 +7,7 @@ import controller.adminControllers.FireEmployeeController;
 import controller.adminControllers.RegisterRegEmployeeController;
 import controller.adminControllers.ShowAllController;
 import controller.adminControllers.ShowEmployeeController;
+import controller.adminControllers.UpdateRegEmployeeController;
 import model.Employee;
 import services.employee.AuthenticationService;
 import services.employee.EmployeeService;
@@ -29,6 +30,7 @@ public class DecisionController {
 			new FireEmployeeController(administratorMenu,adminComponentFactory.getEmployeeService());
 			new ShowEmployeeController(administratorMenu,adminComponentFactory.getEmployeeService());
 			new ShowAllController(administratorMenu, adminComponentFactory.getEmployeeService());
+			new UpdateRegEmployeeController(administratorMenu, adminComponentFactory.getEmployeeService());
 		}
 		else if(employee.getRole().getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){
 			RegEmployeeMenu regEmployeeMenu = new RegEmployeeMenu();

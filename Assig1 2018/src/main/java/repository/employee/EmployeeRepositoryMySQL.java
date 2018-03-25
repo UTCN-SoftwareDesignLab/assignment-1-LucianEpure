@@ -17,6 +17,7 @@ import model.Employee;
 import model.Role;
 import model.builder.EmployeeBuilder;
 import repository.security.RightsRolesRepository;
+import validators.EmployeeValidator;
 import validators.Notification;
 
 public class EmployeeRepositoryMySQL implements EmployeeRepository {
@@ -178,6 +179,29 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 		                .setRole(role)
 		                .build();
 		    }
+
+
+		@Override
+		public boolean updateEmployee(Employee employee) {
+			PreparedStatement updateEmployeeQuery;
+			try {
+				updateEmployeeQuery = connection    
+				        .prepareStatement("UPDATE " + EMPLOYEE + " SET username=?, password=?, id_role=? WHERE id=?;");
+				updateEmployeeQuery.setString(1, employee.getUsername());
+	            updateEmployeeQuery.setString(2, employee.getPassword());
+	            updateEmployeeQuery.setLong(3, employee.getRole().getId());
+	            updateEmployeeQuery.setLong(4, employee.getId());
+	            updateEmployeeQuery.executeUpdate();
+
+	            return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+           
+			
+		}
 
 
 }

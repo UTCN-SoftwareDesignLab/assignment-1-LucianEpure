@@ -82,7 +82,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 	        }
 	    }
 	 
-	 public String encodePassword(String password) {
+	 public static String encodePassword(String password) {
 	        try {
 	            MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	            byte[] hash = digest.digest(password.getBytes("UTF-8"));

@@ -17,6 +17,8 @@ public interface EmployeeRepository {
 	    
 	    boolean saveEmployee(Employee employee);
 	    //added 24.03.2018
+	    boolean updateEmployee(Employee employee);
+	    
 	    void removeRegEmployee(String username);
 	    
 	    void removeAll();

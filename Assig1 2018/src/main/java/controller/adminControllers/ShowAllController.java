@@ -23,10 +23,11 @@ public class ShowAllController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			administratorMenu.getEmployeesModel().setRowCount(0);
 			List<Employee> employees = employeeService.showAll();
 			for(Employee employee:employees)
 				administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRole().getRoleTitle(), employee.getUsername()});
+			
 		}
 	}
 }
