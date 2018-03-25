@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import model.Employee;
 import services.employee.AuthenticationService;
 import validators.Notification;
 import view.LoginForm;

@@ -1,4 +1,4 @@
-package controller;
+package controller.adminControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

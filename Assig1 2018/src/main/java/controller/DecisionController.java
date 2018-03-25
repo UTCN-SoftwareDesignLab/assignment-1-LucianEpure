@@ -2,6 +2,11 @@ package controller;
 
 import static database.Constants.Roles.ADMINISTRATOR;
 import static database.Constants.Roles.REGEMPLOYEE;
+
+import controller.adminControllers.FireEmployeeController;
+import controller.adminControllers.RegisterRegEmployeeController;
+import controller.adminControllers.ShowAllController;
+import controller.adminControllers.ShowEmployeeController;
 import model.Employee;
 import services.employee.AuthenticationService;
 import services.employee.EmployeeService;
@@ -22,6 +27,8 @@ public class DecisionController {
             administratorMenu.setVisible(true);
 			new RegisterRegEmployeeController(administratorMenu,authenticationService);
 			new FireEmployeeController(administratorMenu,adminComponentFactory.getEmployeeService());
+			new ShowEmployeeController(administratorMenu,adminComponentFactory.getEmployeeService());
+			new ShowAllController(administratorMenu, adminComponentFactory.getEmployeeService());
 		}
 		else if(employee.getRole().getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){
 			RegEmployeeMenu regEmployeeMenu = new RegEmployeeMenu();

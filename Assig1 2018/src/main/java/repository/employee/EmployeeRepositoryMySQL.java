@@ -35,7 +35,7 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 		List<Employee> regEmployees = new ArrayList<Employee>();
 		 try {
 	            Statement statement = connection.createStatement();
-	            String sqlQuery = "Select * from book";
+	            String sqlQuery = "Select * from "+ EMPLOYEE;
 	            ResultSet rs = statement.executeQuery(sqlQuery);
 
 	            while (rs.next()) {

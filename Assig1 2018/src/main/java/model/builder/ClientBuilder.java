@@ -7,6 +7,10 @@ import model.Client;
 public class ClientBuilder {
 
 	private Client client;
+	public ClientBuilder setId(Long id){
+		client.setId(id);
+		return this;
+	}
 	
 	public ClientBuilder setClientCNP(String CNP){
 		client.setCNP(CNP);

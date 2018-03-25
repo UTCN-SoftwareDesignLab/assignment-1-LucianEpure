@@ -5,13 +5,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 
 public class AdministratorMenu extends JFrame {
 
@@ -25,13 +28,19 @@ public class AdministratorMenu extends JFrame {
 	private JTextField deletePasswordTf;
 	private JButton registerEmployeeBtn;
 	private JButton fireEmployeeBtn;
+	private JButton showEmployeeBtn;
+	private JButton showAllBtn;
+	private JTable employees;
+	private final DefaultTableModel employeesModel;
+	private JScrollPane employeesH;
+	
 
 
 
 	public AdministratorMenu() {
 		setTitle("Administrator menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 644, 300);
+		setBounds(100, 100, 644, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,9 +81,9 @@ public class AdministratorMenu extends JFrame {
 		contentPane.add(showEmployeeTf);
 		showEmployeeTf.setColumns(10);
 		
-		JButton ShowEmployeeBtn = new JButton("Show");
-		ShowEmployeeBtn.setBounds(202, 87, 121, 23);
-		contentPane.add(ShowEmployeeBtn);
+		showEmployeeBtn = new JButton("Show");
+		showEmployeeBtn.setBounds(202, 87, 121, 23);
+		contentPane.add(showEmployeeBtn);
 		
 		JLabel lblUsername_2 = new JLabel("Username");
 		lblUsername_2.setBounds(25, 141, 70, 14);
@@ -122,14 +131,29 @@ public class AdministratorMenu extends JFrame {
 		JButton updateBtn = new JButton("Update");
 		updateBtn.setBounds(202, 188, 121, 47);
 		contentPane.add(updateBtn);
-	}
-	public JButton getRegisterEmployeeBtn() {
-		return registerEmployeeBtn;
+		
+		Object[] employeeColumn = {  "Type","Username"};
+		
+		employeesModel = new DefaultTableModel(employeeColumn, 0);
+		employees = new JTable(employeesModel);
+		employees.setBounds(231, 15, 388, 246);
+		
+		employeesH = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		employeesH.setViewportView(employees);
+		employeesH.setBounds(337, 6, 281, 229);
+		contentPane.add(employeesH);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(25, 246, 298, 2);
+		contentPane.add(separator_3);
+		
+		showAllBtn = new JButton("Show all");
+		showAllBtn.setBounds(25, 260, 89, 23);
+		contentPane.add(showAllBtn);
+		
 	}
 
-	public void setRegisterEmployeeBtn(JButton registerEmployeeBtn) {
-		this.registerEmployeeBtn = registerEmployeeBtn;
-	}	
+	
 	public String getUsername(){
 		return usernameTf.getText();
 	}
@@ -156,10 +180,33 @@ public class AdministratorMenu extends JFrame {
 		passwordTf.setText(text);
 	}
 	
+	public JTextField getShowEmployeeTf() {
+		return showEmployeeTf;
+	}
+
+
+	public void setShowEmployeeTf(String text) {
+		showEmployeeTf.setText(text);
+	}
+
+
+	public DefaultTableModel getEmployeesModel() {
+		return employeesModel;
+	}
+
+	
 	  public void setRegisterRegEmployeeButtonListener(ActionListener RegisterRegEmployeeButtonListener) {
 	        registerEmployeeBtn.addActionListener(RegisterRegEmployeeButtonListener);
 	    }
 	  public void setFireEmployeeButtonListener(ActionListener FireEmployeeButtonListener) {
 	       fireEmployeeBtn.addActionListener(FireEmployeeButtonListener);
 	    }
+	
+	  public void setShowEmployeeButtonListener(ActionListener ShowEmployeeButtonListener){
+		  showEmployeeBtn.addActionListener(ShowEmployeeButtonListener);
+	  }
+	  
+	  public void setShowAllButtonListener(ActionListener ShowAllButtonListener){
+		  showAllBtn.addActionListener(ShowAllButtonListener);
+	  }
 }

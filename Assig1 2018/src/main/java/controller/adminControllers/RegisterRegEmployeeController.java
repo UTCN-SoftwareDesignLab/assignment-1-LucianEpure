@@ -1,4 +1,4 @@
-package controller;
+package controller.adminControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +21,8 @@ public class RegisterRegEmployeeController {
 	
 	class RegisterRegEmployeeButtonListener implements ActionListener{
 
+		
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			 String username = administratorMenu.getUsername();
