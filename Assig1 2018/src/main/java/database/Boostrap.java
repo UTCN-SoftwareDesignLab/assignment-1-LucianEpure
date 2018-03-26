@@ -39,6 +39,8 @@ public class Boostrap {
 	                    " DROP TABLE `role_right`;",
 	                            "TRUNCATE `rights`; ",
 	                            "DROP TABLE `rights`;",
+	                            "TRUNCATE `employee_role`;",
+	                            "DROP TABLE `employee_role`;",
 	                            "TRUNCATE `employee`;",
 	                            "DROP TABLE `employee`;",
 	                            "TRUNCATE `role`;",

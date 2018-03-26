@@ -24,6 +24,7 @@ public class RegEmployeeMenu extends JFrame {
 	private JButton addClientBtn;
 	private JButton showAllBtn ;
 	private JButton viewClientBtn;
+	private JButton updateClientBtn;
 
 	public RegEmployeeMenu() {
 		setTitle("Employee menu");
@@ -42,9 +43,9 @@ public class RegEmployeeMenu extends JFrame {
 		btnAddAccount.setBounds(10, 158, 122, 23);
 		contentPane.add(btnAddAccount);
 		
-		JButton btnUpdateClient = new JButton("Update Client");
-		btnUpdateClient.setBounds(10, 59, 122, 23);
-		contentPane.add(btnUpdateClient);
+		updateClientBtn = new JButton("Update Client");
+		updateClientBtn.setBounds(10, 59, 122, 23);
+		contentPane.add(updateClientBtn);
 		
 		viewClientBtn = new JButton("View Client");
 		viewClientBtn.setBounds(10, 113, 122, 23);
@@ -100,6 +101,9 @@ public class RegEmployeeMenu extends JFrame {
 	 public void setShowClientListener(ActionListener showClientListener) {
 	        viewClientBtn.addActionListener(showClientListener);
 	    }
+	 public void setUpdateClientListener(ActionListener updateClientListener){
+		 	updateClientBtn.addActionListener(updateClientListener);
+	 }
 	public DefaultTableModel getAccountsModel() {
 			return accountsModel;
 		}

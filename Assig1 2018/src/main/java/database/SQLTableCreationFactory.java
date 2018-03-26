@@ -14,7 +14,7 @@ public class SQLTableCreationFactory {
                         "  id int(11) NOT NULL AUTO_INCREMENT," +
                         "  name varchar(100) NOT NULL," +
                         "  address varchar(100) NOT NULL," +
-                        "  cnp varchar(12) NOT NULL," +
+                        "  cnp varchar(20) NOT NULL," +
                         "  cardIdNumber int(20) NOT NULL,"+
                         "  PRIMARY KEY (id)," +
                         "  UNIQUE INDEX cnp_UNIQUE (cnp ASC),"+
@@ -89,7 +89,25 @@ public class SQLTableCreationFactory {
                         "    REFERENCES `rights` (id)" +
                         "    ON DELETE CASCADE" +
                         "    ON UPDATE CASCADE);";
-
+            case EMPLOYEE_ROLE:
+                return "\tCREATE TABLE IF NOT EXISTS employee_role (" +
+                        "  id INT NOT NULL AUTO_INCREMENT," +
+                        "  employee_id INT NOT NULL," +
+                        "  role_id INT NOT NULL," +
+                        "  PRIMARY KEY (id)," +
+                        "  UNIQUE INDEX id_UNIQUE (id ASC)," +
+                        "  INDEX employee_id_idx (employee_id ASC)," +
+                        "  INDEX role_id_idx (role_id ASC)," +
+                        "  CONSTRAINT employee_fkid" +
+                        "    FOREIGN KEY (employee_id)" +
+                        "    REFERENCES employee (id)" +
+                        "    ON DELETE CASCADE" +
+                        "    ON UPDATE CASCADE," +
+                        "  CONSTRAINT role_fkid" +
+                        "    FOREIGN KEY (role_id)" +
+                        "    REFERENCES role (id)" +
+                        "    ON DELETE CASCADE" +
+                        "    ON UPDATE CASCADE);";
            default:
                 return "";
 

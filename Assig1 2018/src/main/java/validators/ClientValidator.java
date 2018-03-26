@@ -42,7 +42,7 @@ public class ClientValidator {
 		if(cardId<100000){
 			errors.add("Too short cardId");
 		}
-		if(cardId>900000){
+		if(cardId>999999){
 			errors.add("Too long cardId");
 		}
 	}

@@ -13,6 +13,7 @@ public class ClientBuilder {
 	}
 	
 	public ClientBuilder setId(Long id){
+		System.out.println(id);
 		client.setId(id);
 		return this;
 	}
@@ -22,7 +23,7 @@ public class ClientBuilder {
 		return this;
 	}
 	public ClientBuilder setClientName(String name){
-		System.out.println(name);
+	
 		client.setName(name);
 		return this;
 	}

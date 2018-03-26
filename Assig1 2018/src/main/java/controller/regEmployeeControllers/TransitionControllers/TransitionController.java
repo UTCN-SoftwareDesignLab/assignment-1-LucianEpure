@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 
 import controller.regEmployeeControllers.AddClientController;
 import controller.regEmployeeControllers.ShowClientController;
+import controller.regEmployeeControllers.UpdateClientController;
 import testMain.RegEmployeeComponentFactory;
 import view.AddClientView;
 import view.RegEmployeeMenu;
 import view.ShowClient;
+import view.UpdateClientView;
 
 public class TransitionController {
 
@@ -20,6 +22,7 @@ public class TransitionController {
 			this.regEmployeeComponentFactory = regEmployeeComponentFactory;
 			regEmployeeMenu.setAddClientListener(new AddClientTransitionButtonListener());
 			regEmployeeMenu.setShowClientListener(new ShowClientTransitionButtonListener());
+			regEmployeeMenu.setUpdateClientListener(new UpdateClientTransitionButtonListener());
 	}
 	
 	class AddClientTransitionButtonListener implements ActionListener{
@@ -40,6 +43,16 @@ public class TransitionController {
 		showClientView.setVisible(true);
 		new ShowClientController(showClientView,regEmployeeMenu,regEmployeeComponentFactory.getClientService());
 		}
+	}
+	class UpdateClientTransitionButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		UpdateClientView updateClientView = new UpdateClientView();
+		updateClientView.setVisible(true);
+		new UpdateClientController(updateClientView, regEmployeeMenu,regEmployeeComponentFactory.getClientService());
+		}
+		
 	}
 
 

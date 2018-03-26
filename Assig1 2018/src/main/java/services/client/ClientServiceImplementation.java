@@ -1,17 +1,20 @@
 package services.client;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+import model.Account;
 import model.Client;
-
+import model.Employee;
 import model.builder.ClientBuilder;
+import model.builder.EmployeeBuilder;
 import repository.EntityNotFoundException;
 import repository.client.ClientRepository;
-
+import services.employee.AuthenticationServiceMySQL;
 import validators.ClientValidator;
+import validators.EmployeeValidator;
 import validators.Notification;
 
 
@@ -36,6 +39,7 @@ public class ClientServiceImplementation implements ClientService{
                .setClientAddress(address)
                .setClientCNP(CNP)
                .setClientCardIdNumber(cardId)
+               .setAccounts(new ArrayList<Account>())
                .build();
 
         ClientValidator clientValidator = new ClientValidator(client);
@@ -84,6 +88,31 @@ public class ClientServiceImplementation implements ClientService{
 	@Override
 	public Client findClientByCardId(Long cardId) throws EntityNotFoundException {
 		return clientRepository.findClientByCardId(cardId);
+	}
+	@Override
+	public Notification<Boolean> updateClient(Client client, String name, String address,  String cardId) {
+		Client newClient = new ClientBuilder()
+				.setId(client.getId())
+               .setClientName(name)
+               .setClientAddress(address)
+               .setClientCNP(client.getCNP())
+               .setClientCardIdNumber(Long.parseLong(cardId))
+               .setAccounts(client.getAccounts())
+                .build();
+	
+		ClientValidator clientValidator = new ClientValidator(newClient);
+        boolean clientValid = clientValidator.validate();
+        Notification<Boolean> clientUpdateNotification = new Notification<>();
+
+        if (!clientValid) {
+            clientValidator.getErrors().forEach(clientUpdateNotification::addError);
+            clientUpdateNotification.setResult(Boolean.FALSE);
+            return clientUpdateNotification;
+        } else {
+           clientUpdateNotification.setResult(clientRepository.updateClient(newClient));
+            System.out.println(clientUpdateNotification.getResult());
+            return  clientUpdateNotification;
+        }
 	}
 
 }

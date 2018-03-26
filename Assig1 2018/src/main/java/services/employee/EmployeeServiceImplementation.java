@@ -40,12 +40,7 @@ public class EmployeeServiceImplementation implements EmployeeService{
                 .setRole(employee.getRole())
                 .setId(employee.getId())
                 .build();
-		System.out.println(newEmployee.getUsername());
-		System.out.println(newEmployee.getPassword());
-		System.out.println(newEmployee.getRole().getRoleTitle());
-		System.out.println(newEmployee.getId());
-
-
+	
 		EmployeeValidator employeeValidator = new EmployeeValidator(newEmployee);
         boolean employeeValid = employeeValidator.validate();
         Notification<Boolean> employeeUpdateNotification = new Notification<>();

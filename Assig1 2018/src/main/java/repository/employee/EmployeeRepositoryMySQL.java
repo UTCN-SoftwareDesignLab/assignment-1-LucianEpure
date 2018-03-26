@@ -95,7 +95,6 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	
 	@Override
 	public boolean saveAdmin(Employee admin) {
-		// TODO Auto-generated method stub
 		Role role = rightsRolesRepository.findRoleByTitle(ADMINISTRATOR);
 		Long idRole = role.getId();
 		try {
@@ -114,7 +113,6 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	            admin.setId(adminId);
 	            return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -189,8 +187,6 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 				e.printStackTrace();
 				return false;
 			}
-           
-			
 		}
 		
 		

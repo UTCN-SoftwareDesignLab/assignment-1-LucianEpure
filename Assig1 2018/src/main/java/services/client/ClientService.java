@@ -3,6 +3,7 @@ package services.client;
 import java.util.List;
 
 import model.Client;
+import model.Employee;
 import repository.EntityNotFoundException;
 import validators.Notification;
 
@@ -19,4 +20,6 @@ public interface ClientService {
 	public Client findClientByCardId(Long cardId) throws EntityNotFoundException;
 	
 	public Long generateCardIdNumber();
+	
+	public Notification<Boolean> updateClient(Client client,String name, String address,  String cardId);
 }

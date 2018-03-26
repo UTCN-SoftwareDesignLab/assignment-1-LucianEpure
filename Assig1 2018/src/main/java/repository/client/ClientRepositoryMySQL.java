@@ -1,6 +1,7 @@
 package repository.client;
 
 import static database.Constants.Tables.CLIENT;
+import static database.Constants.Tables.EMPLOYEE;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -119,9 +120,25 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	
 	
 	@Override
-	public Client updateClient(Client account) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean updateClient(Client client) {
+			PreparedStatement updateClientQuery;
+			try {
+				System.out.println(client.getId());
+				updateClientQuery = connection    
+				        .prepareStatement("UPDATE " + CLIENT + " SET name=?, address=?, cardIdNumber=? WHERE id=?;");
+				updateClientQuery.setString(1, client.getName());
+	            updateClientQuery.setString(2, client.getAddress());
+	            updateClientQuery.setLong(3, client.getCardIdNumber());
+	            updateClientQuery.setLong(4, client.getId());
+	            updateClientQuery.executeUpdate();
+
+	            return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		
 	}
 	
 
@@ -134,6 +151,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
                 .setClientCNP(rs.getString("cnp"))
                 .setClientCardIdNumber(rs.getLong("cardIdNumber"))
                 .build();
+       
     }
 
 }

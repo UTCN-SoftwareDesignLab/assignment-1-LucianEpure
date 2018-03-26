@@ -121,4 +121,36 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
         }
         return null;
     }
+	/* @Override
+	    public void addRolesToEmployee(Employee employee, List<Role> roles) {
+	        try {
+	            for (Role role : roles) {
+	                PreparedStatement insertEmployeeRoleStatement = connection
+	                        .prepareStatement("INSERT INTO `employee_role` values (null, ?, ?)");
+	                insertEmployeeRoleStatement.setLong(1, employee.getId());
+	                insertEmployeeRoleStatement.setLong(2, role.getId());
+	                insertEmployeeRoleStatement.executeUpdate();
+	            }
+	        } catch (SQLException e) {
+
+	        }
+	    }
+
+	    @Override
+	    public List<Role> findRolesForUser(Long employeeId) {
+	        try {
+	            List<Role> roles = new ArrayList<>();
+	            Statement statement = connection.createStatement();
+	            String fetchRoleSql = "Select * from " + EMPLOYEE_ROLE + " where `employee_id`=\'" + employeeId + "\'";
+	            ResultSet employeeRoleResultSet = statement.executeQuery(fetchRoleSql);
+	            while (employeeRoleResultSet.next()) {
+	                long roleId = employeeRoleResultSet.getLong("role_id");
+	                roles.add(findRoleById(roleId));
+	            }
+	            return roles;
+	        } catch (SQLException e) {
+
+	        }
+	        return null;
+	}*/
 }

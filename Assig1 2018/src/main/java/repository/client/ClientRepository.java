@@ -17,7 +17,7 @@ public interface ClientRepository {
 	
 	public boolean addClient(Client client);
 	
-	public Client updateClient(Client account);
+	public boolean updateClient(Client account);
 	
 	
 }

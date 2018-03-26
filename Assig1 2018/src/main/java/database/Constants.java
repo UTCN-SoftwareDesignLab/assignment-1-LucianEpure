@@ -22,9 +22,9 @@ public class Constants {
         public static final String ROLE = "role";
         public static final String RIGHTS = "rights";
         public static final String ROLE_RIGHT = "role_right";
-        public static final String EMPLOYEE_ROLE = "user_role";
+        public static final String EMPLOYEE_ROLE = "employee_role";
 
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{ CLIENT, ROLE, RIGHTS, ROLE_RIGHT, ACCOUNT,EMPLOYEE};
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{ CLIENT, ROLE, RIGHTS, ROLE_RIGHT, ACCOUNT,EMPLOYEE,EMPLOYEE_ROLE};
     }
 
     public static class Roles {
