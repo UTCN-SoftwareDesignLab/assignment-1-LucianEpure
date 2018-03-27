@@ -24,9 +24,6 @@ public class AddClientController {
 	}
 	
 	class AddClientButtonListener implements ActionListener{
-
-		
-		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String name = addClientView.getClientNameTf().getText();

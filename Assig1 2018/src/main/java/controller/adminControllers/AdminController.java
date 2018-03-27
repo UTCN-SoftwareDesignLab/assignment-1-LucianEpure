@@ -59,7 +59,7 @@ public class AdminController {
 			administratorMenu.getEmployeesModel().setRowCount(0);
 			String username = administratorMenu.getShowEmployeeTf().getText();
 			Employee employee = employeeService.findByUsername(username);
-			administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRole().getRoleTitle(), employee.getUsername()});
+			administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRoles().get(0).getRoleTitle(), employee.getUsername()});
 			administratorMenu.setShowEmployeeTf("");
 		}
 	}
@@ -71,7 +71,7 @@ public class AdminController {
 			administratorMenu.getEmployeesModel().setRowCount(0);
 			List<Employee> employees = employeeService.showAll();
 			for(Employee employee:employees)
-				administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRole().getRoleTitle(), employee.getUsername()});
+				administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRoles().get(0).getRoleTitle(), employee.getUsername()});
 			
 		}
 	}

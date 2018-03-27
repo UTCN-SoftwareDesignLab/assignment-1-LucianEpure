@@ -37,7 +37,7 @@ public class LoginController {
                 JOptionPane.showMessageDialog(loginForm.getContentPane(), loginNotification.getFormattedErrors());
             } else {
                 JOptionPane.showMessageDialog(loginForm.getContentPane(), "Login successful!");
-                System.out.println(loginNotification.getResult().getRole().getRoleTitle());
+                System.out.println(loginNotification.getResult().getRoles().get(0).getRoleTitle());
                 DecisionController.decideWhichView(loginNotification.getResult(), authenticationService);
                 loginForm.dispose();
             }

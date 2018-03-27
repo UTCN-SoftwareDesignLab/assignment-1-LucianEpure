@@ -1,6 +1,8 @@
 package model.builder;
 
 
+import java.util.List;
+
 import model.Employee;
 import model.Role;
 
@@ -23,8 +25,8 @@ public class EmployeeBuilder {
 	        return this;
 	    }
 
-	    public EmployeeBuilder setRole(Role role) {
-	       employee.setRole(role);
+	    public EmployeeBuilder setRoles(List<Role> roles) {
+	       employee.setRoles(roles);
 	        return this;
 	    }
 	    

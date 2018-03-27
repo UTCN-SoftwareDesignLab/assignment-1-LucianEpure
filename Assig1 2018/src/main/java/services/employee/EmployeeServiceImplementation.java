@@ -37,7 +37,7 @@ public class EmployeeServiceImplementation implements EmployeeService{
 		Employee newEmployee = new EmployeeBuilder()
                 .setUsername(newUsername)
                 .setPassword(newPassword)
-                .setRole(employee.getRole())
+                .setRoles(employee.getRoles())
                 .setId(employee.getId())
                 .build();
 	

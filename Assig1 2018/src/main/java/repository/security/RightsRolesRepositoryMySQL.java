@@ -1,10 +1,12 @@
 package repository.security;
 
+import model.Employee;
 import model.Right;
 import model.Role;
 
 import java.sql.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import static database.Constants.Tables.*;
 
@@ -121,7 +123,7 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
         }
         return null;
     }
-	/* @Override
+	 @Override
 	    public void addRolesToEmployee(Employee employee, List<Role> roles) {
 	        try {
 	            for (Role role : roles) {
@@ -152,5 +154,5 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
 
 	        }
 	        return null;
-	}*/
+	}
 }

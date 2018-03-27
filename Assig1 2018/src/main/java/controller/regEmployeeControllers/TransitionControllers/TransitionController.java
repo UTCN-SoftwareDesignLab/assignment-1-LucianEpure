@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import controller.regEmployeeControllers.AddClientController;
+import controller.regEmployeeControllers.RegEmployeeController;
 import controller.regEmployeeControllers.ShowClientController;
 import controller.regEmployeeControllers.UpdateClientController;
+import services.client.ClientService;
 import testMain.RegEmployeeComponentFactory;
 import view.AddClientView;
 import view.RegEmployeeMenu;
@@ -14,12 +16,16 @@ import view.UpdateClientView;
 
 public class TransitionController {
 
-	private final RegEmployeeComponentFactory regEmployeeComponentFactory;
+
 	private final RegEmployeeMenu regEmployeeMenu;
+	private final ClientService clientService;
+	private final RegEmployeeController regEmployeeController;
+
 	public TransitionController(RegEmployeeMenu regEmployeeMenu,
-			RegEmployeeComponentFactory regEmployeeComponentFactory) {
+			ClientService clientService, RegEmployeeController regEmployeeController) {
 			this.regEmployeeMenu = regEmployeeMenu;
-			this.regEmployeeComponentFactory = regEmployeeComponentFactory;
+			this.clientService = clientService;
+			this.regEmployeeController = regEmployeeController;
 			regEmployeeMenu.setAddClientListener(new AddClientTransitionButtonListener());
 			regEmployeeMenu.setShowClientListener(new ShowClientTransitionButtonListener());
 			regEmployeeMenu.setUpdateClientListener(new UpdateClientTransitionButtonListener());
@@ -31,7 +37,7 @@ public class TransitionController {
 		public void actionPerformed(ActionEvent e) {
 		AddClientView addClientView = new AddClientView();
 		addClientView.setVisible(true);
-		new AddClientController(addClientView,regEmployeeComponentFactory.getClientService());
+		new AddClientController(addClientView,clientService);
 		}
 	}
 	
@@ -41,7 +47,7 @@ public class TransitionController {
 		public void actionPerformed(ActionEvent e) {
 		ShowClient showClientView = new ShowClient();
 		showClientView.setVisible(true);
-		new ShowClientController(showClientView,regEmployeeMenu,regEmployeeComponentFactory.getClientService());
+		new ShowClientController(showClientView,regEmployeeMenu,clientService);
 		}
 	}
 	class UpdateClientTransitionButtonListener implements ActionListener{
@@ -50,7 +56,7 @@ public class TransitionController {
 		public void actionPerformed(ActionEvent e) {
 		UpdateClientView updateClientView = new UpdateClientView();
 		updateClientView.setVisible(true);
-		new UpdateClientController(updateClientView, regEmployeeMenu,regEmployeeComponentFactory.getClientService());
+		new UpdateClientController(updateClientView, regEmployeeMenu,clientService,regEmployeeController);
 		}
 		
 	}

@@ -21,17 +21,16 @@ public class DecisionController {
 	
 	
 	 public static void decideWhichView(Employee employee,AuthenticationService authenticationService){
-		if(employee.getRole().getRoleTitle().equalsIgnoreCase(ADMINISTRATOR)){
+		if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(ADMINISTRATOR)){
 			AdminComponentFactory adminComponentFactory = AdminComponentFactory.instance();
 			AdministratorMenu administratorMenu = new AdministratorMenu();
             administratorMenu.setVisible(true);
 			new AdminController(administratorMenu,adminComponentFactory.getEmployeeService(),authenticationService);
 		}
-		else if(employee.getRole().getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){
+		else if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){
 			RegEmployeeComponentFactory regEmployeeComponentFactory = RegEmployeeComponentFactory.instance();
 			RegEmployeeMenu regEmployeeMenu = new RegEmployeeMenu();
             regEmployeeMenu.setVisible(true);
-            new TransitionController(regEmployeeMenu, regEmployeeComponentFactory);
             new RegEmployeeController(regEmployeeMenu, regEmployeeComponentFactory.getClientService());
 			//new RegisterRegEmployeeController(regEmployeeMenu,authenticationService);
 		}

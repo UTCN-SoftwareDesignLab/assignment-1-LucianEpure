@@ -4,6 +4,8 @@ import static database.Constants.Roles.REGEMPLOYEE;
 import static database.Constants.Roles.ADMINISTRATOR;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Employee;
 import model.Role;
@@ -36,11 +38,13 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 
 	 @Override
 	    public Notification<Boolean> registerEmployee(String username, String password) {
+		 	List<Role> employeeRoles = new ArrayList<Role> ();
 	        Role employeeRole = rightsRolesRepository.findRoleByTitle(REGEMPLOYEE);
+	        employeeRoles.add(employeeRole);
 	        Employee employee = new EmployeeBuilder()
 	                .setUsername(username)
 	                .setPassword(password)
-	                .setRole(employeeRole)
+	                .setRoles(employeeRoles)
 	                .build();
 
 	        EmployeeValidator employeeValidator = new EmployeeValidator(employee);
@@ -61,10 +65,12 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 	 @Override
 	    public Notification<Boolean> registerAdministrator(String username, String password) {
 	        Role adminRole = rightsRolesRepository.findRoleByTitle(ADMINISTRATOR);
+	        List<Role> adminRoles = new ArrayList<Role>();
+	        adminRoles.add(adminRole);
 	        Employee administrator = new EmployeeBuilder()
 	                .setUsername(username)
 	                .setPassword(password)
-	                .setRole(adminRole)
+	                .setRoles(adminRoles)
 	                .build();
 
 	        EmployeeValidator employeeValidator = new EmployeeValidator(administrator);

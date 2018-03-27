@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -16,6 +17,7 @@ public class RegEmployeeMenu extends JFrame {
 
 	private JPanel contentPane;
 	private JTable clients;
+
 	private final DefaultTableModel clientsModel;
 	private JScrollPane clientsH;
 	private JTable accounts;
@@ -92,6 +94,9 @@ public class RegEmployeeMenu extends JFrame {
 		showAllBtn.setBounds(223, 302, 308, 23);
 		contentPane.add(showAllBtn);
 	}
+	public void setTableListener(MouseListener tableListener){
+		clients.addMouseListener(tableListener);
+	}
 	 public void setAddClientListener(ActionListener addClientListener) {
 	        addClientBtn.addActionListener(addClientListener);
 	    }
@@ -109,5 +114,17 @@ public class RegEmployeeMenu extends JFrame {
 		}
 	public DefaultTableModel getClientsModel() {
 		return clientsModel;
+	}
+	public JTable getClients() {
+		return clients;
+	}
+	public void setClients(JTable clients) {
+		this.clients = clients;
+	}
+	public JTable getAccounts() {
+		return accounts;
+	}
+	public void setAccounts(JTable accounts) {
+		this.accounts = accounts;
 	}
 }
