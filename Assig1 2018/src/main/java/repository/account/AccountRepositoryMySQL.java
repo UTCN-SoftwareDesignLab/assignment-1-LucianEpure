@@ -1,6 +1,7 @@
 package repository.account;
 
 import static database.Constants.Tables.ACCOUNT;
+import static database.Constants.Tables.CLIENT;
 import static database.Constants.Tables.EMPLOYEE;
 
 import java.sql.Connection;
@@ -17,6 +18,7 @@ import model.Client;
 import model.Role;
 import model.builder.AccountBuilder;
 import model.builder.ClientBuilder;
+import repository.EntityNotFoundException;
 
 public class AccountRepositoryMySQL implements AccountRepository{
 
@@ -27,14 +29,39 @@ public class AccountRepositoryMySQL implements AccountRepository{
 	    }
 	@Override
 	public List<Account> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Account> accounts = new ArrayList<>();
+        Statement statement;
+		try {
+			statement = connection.createStatement();
+			 String fetchAccountsSql = "Select * from " + ACCOUNT ;
+		        ResultSet accountsResultSet = statement.executeQuery(fetchAccountsSql);
+		        while (accountsResultSet.next()) {
+		            accounts.add(getAccountFromResultSet(accountsResultSet));
+		        }
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		return accounts;
+       
 	}
 
 	@Override
-	public Account findAccountById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Account findAccountById(Long id)  throws EntityNotFoundException{
+		 try {
+	            Statement statement = connection.createStatement();
+	            String sql = "Select * from "+ ACCOUNT + " where id =" + id;
+	            ResultSet rs = statement.executeQuery(sql);
+
+	            if (rs.next()) {
+	                return getAccountFromResultSet(rs);
+	            } else {
+	                throw new EntityNotFoundException(id, Account.class.getSimpleName());
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new EntityNotFoundException(id, Client.class.getSimpleName());
+	        }
 	}
 
 	@Override
@@ -55,9 +82,24 @@ public class AccountRepositoryMySQL implements AccountRepository{
 	}
 
 	@Override
-	public Account updateAccount(Account account) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean updateAccount(Account account, Long clientId) {
+		PreparedStatement updateAccountQuery;
+		try {
+			
+			updateAccountQuery = connection    
+			        .prepareStatement("UPDATE " + ACCOUNT + " SET type=?, sum=?, date=?, client_id=? WHERE id=?;");
+			updateAccountQuery.setString(1, account.getType());
+            updateAccountQuery.setDouble(2, account.getSum());
+            updateAccountQuery.setDate(3, java.sql.Date.valueOf(account.getDate()));
+            updateAccountQuery.setLong(4, clientId);
+            updateAccountQuery.setLong(5,account.getId());
+            updateAccountQuery.executeUpdate();
+
+            return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -77,9 +119,20 @@ public class AccountRepositoryMySQL implements AccountRepository{
 	}
 
 	@Override
-	public Client findClientId(Account account) {
-		// TODO Auto-generated method stub
+	public Long findClientId(Account account) {
+		 try {
+			Statement statement = connection.createStatement();
+			 String fetchAccountsSql = "Select * from " + ACCOUNT + " where `id`=\'" + account.getId() + "\'";
+			 ResultSet rs = statement.executeQuery(fetchAccountsSql);
+			  if (rs.next()){
+				  return rs.getLong("client_id");
+			  }
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 		return null;
+		
 	}
 	@Override
 	public List<Account> findAccountsOfClient(Long clientId) {
@@ -102,7 +155,7 @@ public class AccountRepositoryMySQL implements AccountRepository{
         return new AccountBuilder()
                 .setId(rs.getLong("id"))
                 .setType(rs.getString("type"))
-                .setSum(rs.getInt("sum"))
+                .setSum(rs.getDouble("sum"))
                 .setDate(rs.getDate("date").toLocalDate())
                 .build();
        

@@ -31,6 +31,9 @@ public class RegEmployeeMenu extends JFrame {
 	private JButton updateAccountBtn;
 	private JButton removeAccountBtn;
 	private JButton showAccountsBtn;
+	private JButton viewAccountBtn;
+	private JButton transactionBtn;
+	private JButton processBillBtn;
 
 	public RegEmployeeMenu() {
 		setTitle("Employee menu");
@@ -65,9 +68,9 @@ public class RegEmployeeMenu extends JFrame {
 		removeAccountBtn.setBounds(10, 226, 122, 23);
 		contentPane.add(removeAccountBtn);
 		
-		JButton btnViewAccount = new JButton("View Account");
-		btnViewAccount.setBounds(10, 260, 122, 23);
-		contentPane.add(btnViewAccount);
+		viewAccountBtn = new JButton("View Account");
+		viewAccountBtn.setBounds(10, 260, 122, 23);
+		contentPane.add(viewAccountBtn);
 		Object[] clientsColumns = {  "Name","address","CNP","cardId"};
 		
 		clientsModel = new DefaultTableModel(clientsColumns, 0);
@@ -91,12 +94,20 @@ public class RegEmployeeMenu extends JFrame {
 		contentPane.add(accountsH);
 		
 		showAllBtn = new JButton("Show All");
-		showAllBtn.setBounds(128, 308, 253, 23);
+		showAllBtn.setBounds(142, 308, 156, 23);
 		contentPane.add(showAllBtn);
 		
 		showAccountsBtn = new JButton("Show accounts");
-		showAccountsBtn.setBounds(454, 308, 186, 23);
+		showAccountsBtn.setBounds(308, 308, 156, 23);
 		contentPane.add(showAccountsBtn);
+		
+		transactionBtn = new JButton("Transaction");
+		transactionBtn.setBounds(474, 308, 156, 23);
+		contentPane.add(transactionBtn);
+		
+		processBillBtn = new JButton("Bill Process");
+		processBillBtn.setBounds(640, 308, 140, 23);
+		contentPane.add(processBillBtn);
 	}
 	public void setTableListenerClients(MouseListener tableListener){
 		clients.addMouseListener(tableListener);
@@ -119,11 +130,23 @@ public class RegEmployeeMenu extends JFrame {
 	 public void setAddAccountListener(ActionListener addAccountListener) {
 	        addAccountBtn.addActionListener(addAccountListener);
 	    }
-	 public void setShowAccountsListener(ActionListener showAccountsListener) {
-	        showAccountsBtn.addActionListener(showAccountsListener);
+	 public void setShowAccountsListener(ActionListener showClientAccountsListener) {
+		 viewAccountBtn.addActionListener(showClientAccountsListener);
 	    }
-	 public void setRemoveAccountsListener(ActionListener removeAccountsListener) {
+	 public void setShowAllAccountsListener(ActionListener showAllAccountsListener) {
+	        showAccountsBtn.addActionListener(showAllAccountsListener);
+	    }
+	 public void setRemoveAccountListener(ActionListener removeAccountsListener) {
 	        removeAccountBtn.addActionListener(removeAccountsListener);
+	    }
+	 public void setUpdateAccountListener(ActionListener updateAccountsListener) {
+	        updateAccountBtn.addActionListener(updateAccountsListener);
+	    }
+	 public void setTransactionListener(ActionListener transactionListener) {
+	        transactionBtn.addActionListener(transactionListener);
+	    }
+	 public void setProcessBillListener(ActionListener processBillListener) {
+	        updateAccountBtn.addActionListener(processBillListener);
 	    }
 	public DefaultTableModel getAccountsModel() {
 			return accountsModel;

@@ -29,7 +29,8 @@ public class RegEmployeeController {
 			regEmployeeMenu.setTableListenerClients(new TableListenerClients());
 			regEmployeeMenu.setTableListenerAccounts(new TableListenerAccounts());
 			regEmployeeMenu.setShowAccountsListener(new ShowAccountsListener());
-			regEmployeeMenu.setRemoveAccountsListener(new RemoveAccountListener());
+			regEmployeeMenu.setShowAllAccountsListener(new ViewAllAccountsListener());
+			regEmployeeMenu.setRemoveAccountListener(new RemoveAccountListener());
 			new TransitionController(regEmployeeMenu, clientService, accountService, this);
 
 	}
@@ -54,10 +55,22 @@ public class RegEmployeeController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			regEmployeeMenu.getAccountsModel().setRowCount(0);
-			String clientCnp = regEmployeeMenu.getClients().getValueAt(selectedRow, selectedCol).toString();
-			List<Account> accounts = accountService.showAll(clientCnp);
+			String clientCnp = regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString();
+			List<Account> accounts = accountService.showAllAccountsOfClient(clientCnp);
 			for(Account account:accounts){
-				regEmployeeMenu.getAccountsModel().addRow(new Object[] {regEmployeeMenu.getClients().getValueAt(selectedRow, 1),account.getId(),account.getType(), account.getSum(), account.getDate()});
+				regEmployeeMenu.getAccountsModel().addRow(new Object[] {"Mr/Mrs",account.getId(),account.getType(), account.getSum(), account.getDate()});
+			}
+		}
+	}
+	
+	class ViewAllAccountsListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			regEmployeeMenu.getAccountsModel().setRowCount(0);
+			List<Account> accounts = accountService.showAllAccounts();
+			for(Account account:accounts){
+				regEmployeeMenu.getAccountsModel().addRow(new Object[] {regEmployeeMenu.getClients().getValueAt(selectedRow, 0),account.getId(),account.getType(), account.getSum(), account.getDate()});
 			}
 		}
 	}

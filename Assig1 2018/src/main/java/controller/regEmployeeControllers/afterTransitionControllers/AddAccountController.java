@@ -23,7 +23,7 @@ public class AddAccountController {
 				this.accountService = accountService;
 				this.regEmployeeMenu = regEmployeeMenu;
 				addAccountView.setAddListener(new AddAccountButtonListener());	
-				addAccountView.getClientTf().setText((String) regEmployeeMenu.getClients().getValueAt(regEmployeeController.getSelectedRow(), regEmployeeController.getSelectedCol()));
+				addAccountView.getClientTf().setText((String) regEmployeeMenu.getClients().getValueAt(regEmployeeController.getSelectedRow(), 2));
 
 			}
 			

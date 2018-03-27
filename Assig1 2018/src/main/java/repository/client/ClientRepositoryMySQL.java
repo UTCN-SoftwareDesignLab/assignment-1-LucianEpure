@@ -122,7 +122,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	public boolean updateClient(Client client) {
 			PreparedStatement updateClientQuery;
 			try {
-				System.out.println(client.getId());
+			
 				updateClientQuery = connection    
 				        .prepareStatement("UPDATE " + CLIENT + " SET name=?, address=?, cardIdNumber=? WHERE id=?;");
 				updateClientQuery.setString(1, client.getName());

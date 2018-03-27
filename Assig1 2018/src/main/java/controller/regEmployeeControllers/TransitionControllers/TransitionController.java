@@ -7,6 +7,8 @@ import controller.regEmployeeControllers.RegEmployeeController;
 import controller.regEmployeeControllers.afterTransitionControllers.AddAccountController;
 import controller.regEmployeeControllers.afterTransitionControllers.AddClientController;
 import controller.regEmployeeControllers.afterTransitionControllers.ShowClientController;
+import controller.regEmployeeControllers.afterTransitionControllers.TransactionController;
+import controller.regEmployeeControllers.afterTransitionControllers.UpdateAccountController;
 import controller.regEmployeeControllers.afterTransitionControllers.UpdateClientController;
 import services.account.AccountService;
 import services.client.ClientService;
@@ -15,6 +17,8 @@ import view.AddAccount;
 import view.AddClientView;
 import view.RegEmployeeMenu;
 import view.ShowClient;
+import view.TransactionView;
+import view.UpdateAccountView;
 import view.UpdateClientView;
 
 public class TransitionController {
@@ -35,6 +39,9 @@ public class TransitionController {
 			regEmployeeMenu.setShowClientListener(new ShowClientTransitionButtonListener());
 			regEmployeeMenu.setUpdateClientListener(new UpdateClientTransitionButtonListener());
 			regEmployeeMenu.setAddAccountListener(new AddAccountTransitionButtonListener());
+			regEmployeeMenu.setUpdateAccountListener(new UpdateAccountTransitionButtonListener());
+			regEmployeeMenu.setTransactionListener(new TransactionTransitionButtonListener());
+			regEmployeeMenu.setProcessBillListener(new ProcessBillTransitionButtonListener());
 	}
 	
 	class AddClientTransitionButtonListener implements ActionListener{
@@ -74,6 +81,35 @@ public class TransitionController {
 		addAccountView.setVisible(true);
 		new AddAccountController(addAccountView,accountService, regEmployeeMenu,regEmployeeController);
 		}
+	}
+	
+	class UpdateAccountTransitionButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UpdateAccountView updateAccountView = new UpdateAccountView();
+			updateAccountView.setVisible(true);
+			new UpdateAccountController(regEmployeeMenu, accountService, updateAccountView, regEmployeeController);
+		}
+		
+	}
+	class TransactionTransitionButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TransactionView transactionView = new TransactionView();
+			transactionView.setVisible(true);
+			new TransactionController(transactionView,accountService);
+		}
+		
+	}
+	class ProcessBillTransitionButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+		
 	}
 
 

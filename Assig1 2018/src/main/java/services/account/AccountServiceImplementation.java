@@ -7,10 +7,12 @@ import java.util.List;
 import model.Account;
 import model.Client;
 import model.builder.AccountBuilder;
+import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.client.ClientRepository;
 import validators.AccountValidator;
+import validators.ClientValidator;
 import validators.Notification;
 
 public class AccountServiceImplementation implements AccountService{
@@ -23,6 +25,9 @@ public class AccountServiceImplementation implements AccountService{
 	        this.clientRepository = clientRepository;
 	        clientC = new Client();
 	    }
+	 
+	 
+	 
 	@Override
 	public Notification<Boolean> addAccount(String type, Double sum, LocalDate accountDate, String client) {
 
@@ -30,7 +35,7 @@ public class AccountServiceImplementation implements AccountService{
 		try {
 			clientC = clientRepository.findClientByCNP(client);
 		} catch (EntityNotFoundException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
         Account account = new AccountBuilder()
@@ -42,8 +47,7 @@ public class AccountServiceImplementation implements AccountService{
         AccountValidator accountValidator = new AccountValidator(account);
         boolean accountValid = accountValidator.validate();
         Notification<Boolean> accountAddNotification = new Notification<>();
-      //  accountAddNotification.setResult(accountRepository.addAccount(account,clientC.getId()));
-       
+    
 
         if (!accountValid) {
             accountValidator.getErrors().forEach(accountAddNotification::addError);
@@ -56,7 +60,7 @@ public class AccountServiceImplementation implements AccountService{
 	}
 
 	@Override
-	public List<Account> showAll(String client) {
+	public List<Account> showAllAccountsOfClient(String client) {
 		try {
 			clientC = clientRepository.findClientByCNP(client);
 		} catch (EntityNotFoundException e) {
@@ -64,10 +68,52 @@ public class AccountServiceImplementation implements AccountService{
 		}
 		return accountRepository.findAccountsOfClient(clientC.getId());
 	}
+	
+	@Override
+	public List<Account> showAllAccounts() {
+		
+		return accountRepository.findAll();
+	}
+	
+	
 	@Override
 	public boolean removeAccount(Long id) {
 		return accountRepository.removeAccount(id);
 	}
+	@Override
+	
+	
+	public Notification<Boolean> updateAccount(Account account, String type, Double sum, LocalDate date) {
+		Account newAccount = new AccountBuilder()
+			   .setId(account.getId())
+			   .setType(type)
+               .setSum(sum)
+               .setDate(date)
+                .build();
+	
+		AccountValidator accountValidator = new AccountValidator(newAccount);
+        boolean accountValid = accountValidator.validate();
+        Notification<Boolean> accountUpdateNotification = new Notification<>();
+
+        if (!accountValid) {
+            accountValidator.getErrors().forEach(accountUpdateNotification::addError);
+            accountUpdateNotification.setResult(Boolean.FALSE);
+            return accountUpdateNotification;
+        } else {
+           accountUpdateNotification.setResult(accountRepository.updateAccount(newAccount,accountRepository.findClientId(newAccount)));
+            System.out.println(accountUpdateNotification.getResult());
+            return  accountUpdateNotification;
+        }
+	}
+	@Override
+	public Account findById(Long id) throws EntityNotFoundException {
+		return accountRepository.findAccountById(id);
+	}
+	@Override
+	public Long findClientId(Account account) {
+		return accountRepository.findClientId(account);
+	}
+
 
 	
 }

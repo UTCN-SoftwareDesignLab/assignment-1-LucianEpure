@@ -40,7 +40,6 @@ public class UpdateClientController {
 			String cardId = updateClientView.getCardIdTf().getText();
 				try {
 					Client client = clientService.findClientByCnp(cnp);
-					System.out.println("out"+client.getId());
 					Notification<Boolean> updateNotification = clientService.updateClient(client,name,address,cardId);
 		            if (updateNotification.hasErrors()) {
 		                JOptionPane.showMessageDialog(regEmployeeMenu.getContentPane(), updateNotification.getFormattedErrors());
