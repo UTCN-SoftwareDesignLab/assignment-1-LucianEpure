@@ -45,7 +45,7 @@ public class ClientServiceImplementation implements ClientService{
         ClientValidator clientValidator = new ClientValidator(client);
         boolean clientValid = clientValidator.validate();
         Notification<Boolean> clientAddNotification = new Notification<>();
-        clientAddNotification.setResult(clientRepository.addClient(client));
+       // clientAddNotification.setResult(clientRepository.addClient(client));
        
 
         if (!clientValid) {

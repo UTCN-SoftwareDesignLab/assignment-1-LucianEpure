@@ -1,10 +1,11 @@
-package controller.regEmployeeControllers;
+package controller.regEmployeeControllers.afterTransitionControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import controller.regEmployeeControllers.RegEmployeeController;
 import model.Client;
 import model.Employee;
 import repository.EntityNotFoundException;
@@ -16,14 +17,12 @@ import view.UpdateClientView;
 public class UpdateClientController {
 
 	private final UpdateClientView updateClientView;
-	private final RegEmployeeController regEmployeeController;
 	private final RegEmployeeMenu regEmployeeMenu;
 	private final ClientService clientService;
 	
 	public UpdateClientController( UpdateClientView updateClientView, RegEmployeeMenu regEmployeeMenu,ClientService clientService, RegEmployeeController regEmployeeController){
 		this.updateClientView = updateClientView;
 		this.regEmployeeMenu = regEmployeeMenu;
-		this.regEmployeeController = regEmployeeController;
 		this.clientService = clientService;
 		updateClientView.setUpdateActionListener(new UpdateClientButtonListener());
 		updateClientView.setGenerateCardIdActionListener(new GenerateCardIdButtonListener());

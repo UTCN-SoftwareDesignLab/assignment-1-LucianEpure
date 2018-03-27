@@ -2,6 +2,8 @@ package testMain;
 import database.DBConnectionFactory;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
+import repository.account.AccountRepository;
+import repository.account.AccountRepositoryMySQL;
 import repository.client.ClientRepository;
 import repository.client.ClientRepositoryMySQL;
 import repository.employee.EmployeeRepository;
@@ -21,6 +23,7 @@ public class ComponentFactory {
 
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
+    private final AccountRepository accountRepository;
     private final RightsRolesRepository rightsRolesRepository;
 
     private static ComponentFactory instance;
@@ -35,6 +38,7 @@ public class ComponentFactory {
     private ComponentFactory() {
         Connection connection = new DBConnectionFactory().getConnectionWrapper(false).getConnection();
         this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
+        this.accountRepository = new AccountRepositoryMySQL(connection);
         this.employeeRepository = new EmployeeRepositoryMySQL(connection, rightsRolesRepository);
         this.authenticationService = new AuthenticationServiceMySQL(this.employeeRepository, this.rightsRolesRepository);
         this.clientRepository = new ClientRepositoryMySQL(connection);
@@ -54,6 +58,9 @@ public class ComponentFactory {
     
     public ClientRepository getClientRepository(){
     	return clientRepository;
+    }
+    public AccountRepository getAccountRepository(){
+    	return accountRepository;
     }
 
 }

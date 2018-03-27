@@ -103,7 +103,6 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	@Override
 	public boolean addClient(Client client) {
 		 try {
-			 System.out.println(client.getCNP());
 	            PreparedStatement insertQuery = connection
 	                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?, ?)");
 	            insertQuery.setString(1, client.getName());

@@ -27,6 +27,10 @@ public class RegEmployeeMenu extends JFrame {
 	private JButton showAllBtn ;
 	private JButton viewClientBtn;
 	private JButton updateClientBtn;
+	private JButton addAccountBtn;
+	private JButton updateAccountBtn;
+	private JButton removeAccountBtn;
+	private JButton showAccountsBtn;
 
 	public RegEmployeeMenu() {
 		setTitle("Employee menu");
@@ -41,9 +45,9 @@ public class RegEmployeeMenu extends JFrame {
 		addClientBtn.setBounds(10, 11, 122, 23);
 		contentPane.add(addClientBtn);
 		
-		JButton btnAddAccount = new JButton("Add Account");
-		btnAddAccount.setBounds(10, 158, 122, 23);
-		contentPane.add(btnAddAccount);
+		addAccountBtn = new JButton("Add Account");
+		addAccountBtn.setBounds(10, 158, 122, 23);
+		contentPane.add(addAccountBtn);
 		
 		updateClientBtn = new JButton("Update Client");
 		updateClientBtn.setBounds(10, 59, 122, 23);
@@ -53,17 +57,13 @@ public class RegEmployeeMenu extends JFrame {
 		viewClientBtn.setBounds(10, 113, 122, 23);
 		contentPane.add(viewClientBtn);
 		
-		JButton updateAccountBtn = new JButton("Update Account");
-		updateAccountBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		updateAccountBtn = new JButton("Update Account");
 		updateAccountBtn.setBounds(10, 192, 122, 23);
 		contentPane.add(updateAccountBtn);
-		
-		JButton btnRemoveAccount = new JButton("Remove Account");
-		btnRemoveAccount.setBounds(10, 226, 122, 23);
-		contentPane.add(btnRemoveAccount);
+
+		removeAccountBtn = new JButton("Remove Account");
+		removeAccountBtn.setBounds(10, 226, 122, 23);
+		contentPane.add(removeAccountBtn);
 		
 		JButton btnViewAccount = new JButton("View Account");
 		btnViewAccount.setBounds(10, 260, 122, 23);
@@ -79,7 +79,7 @@ public class RegEmployeeMenu extends JFrame {
 		clientsH.setBounds(142, 8, 638, 128);
 		contentPane.add(clientsH);
 		
-		Object[] accountsColumn = {  "Type","Sum","Date"};
+		Object[] accountsColumn = {"Client", "Id","Type","Sum","Date"};
 		
 		accountsModel = new DefaultTableModel(accountsColumn, 0);
 		accounts = new JTable(accountsModel);
@@ -91,11 +91,18 @@ public class RegEmployeeMenu extends JFrame {
 		contentPane.add(accountsH);
 		
 		showAllBtn = new JButton("Show All");
-		showAllBtn.setBounds(223, 302, 308, 23);
+		showAllBtn.setBounds(128, 308, 253, 23);
 		contentPane.add(showAllBtn);
+		
+		showAccountsBtn = new JButton("Show accounts");
+		showAccountsBtn.setBounds(454, 308, 186, 23);
+		contentPane.add(showAccountsBtn);
 	}
-	public void setTableListener(MouseListener tableListener){
+	public void setTableListenerClients(MouseListener tableListener){
 		clients.addMouseListener(tableListener);
+	}
+	public void setTableListenerAccounts(MouseListener tableListener){
+		accounts.addMouseListener(tableListener);
 	}
 	 public void setAddClientListener(ActionListener addClientListener) {
 	        addClientBtn.addActionListener(addClientListener);
@@ -109,6 +116,15 @@ public class RegEmployeeMenu extends JFrame {
 	 public void setUpdateClientListener(ActionListener updateClientListener){
 		 	updateClientBtn.addActionListener(updateClientListener);
 	 }
+	 public void setAddAccountListener(ActionListener addAccountListener) {
+	        addAccountBtn.addActionListener(addAccountListener);
+	    }
+	 public void setShowAccountsListener(ActionListener showAccountsListener) {
+	        showAccountsBtn.addActionListener(showAccountsListener);
+	    }
+	 public void setRemoveAccountsListener(ActionListener removeAccountsListener) {
+	        removeAccountBtn.addActionListener(removeAccountsListener);
+	    }
 	public DefaultTableModel getAccountsModel() {
 			return accountsModel;
 		}

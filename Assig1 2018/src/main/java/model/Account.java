@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Account {
@@ -7,7 +8,7 @@ public class Account {
 	private Long id;
 	private String type;
 	private double sum;
-	private Date date;
+	private LocalDate date;
 	
 	public Long getId() {
 		return id;
@@ -27,11 +28,11 @@ public class Account {
 	public void setSum(double sum) {
 		this.sum = sum;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDate accountDate) {
+		this.date = accountDate;
 	}
 	@Override
 	public String toString() {

@@ -31,7 +31,7 @@ public class DecisionController {
 			RegEmployeeComponentFactory regEmployeeComponentFactory = RegEmployeeComponentFactory.instance();
 			RegEmployeeMenu regEmployeeMenu = new RegEmployeeMenu();
             regEmployeeMenu.setVisible(true);
-            new RegEmployeeController(regEmployeeMenu, regEmployeeComponentFactory.getClientService());
+            new RegEmployeeController(regEmployeeMenu, regEmployeeComponentFactory.getClientService(), regEmployeeComponentFactory.getAccountService());
 			//new RegisterRegEmployeeController(regEmployeeMenu,authenticationService);
 		}
 	}

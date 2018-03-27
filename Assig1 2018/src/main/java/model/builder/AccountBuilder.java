@@ -1,5 +1,6 @@
 package model.builder;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import model.Account;
@@ -10,6 +11,10 @@ public class AccountBuilder {
 	
 	public AccountBuilder(){
 		this.account = new Account();
+	}
+	public AccountBuilder setId(Long id){
+		account.setId(id);
+		return this;
 	}
 	
 	public AccountBuilder setType(String type){
@@ -22,13 +27,14 @@ public class AccountBuilder {
 		return this;
 	}
 	
-	public AccountBuilder setDate(Date date){
-		account.setDate(date);
+	public AccountBuilder setDate(LocalDate accountDate){
+		account.setDate(accountDate);
 		return this;
 	}
 	
 	public Account build(){
 		return this.account;
 	}
+	
 	
 }

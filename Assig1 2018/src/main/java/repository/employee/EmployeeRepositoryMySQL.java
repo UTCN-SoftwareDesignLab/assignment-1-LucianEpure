@@ -133,9 +133,8 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	            long adminId = rs.getLong(1);
 	            admin.setId(adminId);
 	            
-	            List<Role> roles = new ArrayList<Role>();
-	            roles.add(admin.getRoles().get(0));
-	            rightsRolesRepository.addRolesToEmployee(admin, roles);
+	          
+	            rightsRolesRepository.addRolesToEmployee(admin, admin.getRoles());
 	            return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -161,9 +160,8 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	            long employeeId = rs.getLong(1);
 	            employee.setId(employeeId);
 	            
-	            List<Role> roles = new ArrayList<Role>();
-	            roles.add(employee.getRoles().get(0));
-	            rightsRolesRepository.addRolesToEmployee(employee, roles);
+	           
+	            rightsRolesRepository.addRolesToEmployee(employee, employee.getRoles());
 	            return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -1,4 +1,4 @@
-package controller.regEmployeeControllers;
+package controller.regEmployeeControllers.afterTransitionControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package controller.regEmployeeControllers;
+package controller.regEmployeeControllers.afterTransitionControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ import view.AddClientView;
 import view.AdministratorMenu;
 import view.RegEmployeeMenu;
 
-public class AddClientController {
+    public class AddClientController {
 	private final AddClientView addClientView;
 	private final ClientService clientService;
 	
