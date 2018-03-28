@@ -155,4 +155,17 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
 	        }
 	        return null;
 	}
+	    
+		@Override
+		public void removeEmployeeRole(Long id) {
+			try {
+				PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM `"+ EMPLOYEE_ROLE + "` WHERE employee_id = ?");
+				deleteQuery.setLong(1,id);
+				deleteQuery.executeUpdate(); 
+		} catch (SQLException e) {
+		    e.printStackTrace();
+	    }
+		}
+	    
+	    
 }

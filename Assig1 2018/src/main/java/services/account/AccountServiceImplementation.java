@@ -6,14 +6,17 @@ import java.util.List;
 
 import model.Account;
 import model.Client;
+import model.Transaction;
 import model.builder.AccountBuilder;
 import model.builder.ClientBuilder;
+import model.builder.TransactionBuilder;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.client.ClientRepository;
 import validators.AccountValidator;
 import validators.ClientValidator;
 import validators.Notification;
+import validators.TransactionValidator;
 
 public class AccountServiceImplementation implements AccountService{
 
@@ -112,6 +115,54 @@ public class AccountServiceImplementation implements AccountService{
 	@Override
 	public Long findClientId(Account account) {
 		return accountRepository.findClientId(account);
+	}
+
+
+
+	@Override
+	public Notification<Boolean> performTransaction(Long id1, Long id2, double sum) throws EntityNotFoundException {
+
+			double accountFromNewBalance;
+			double accountToNewBalance;
+			Account accountFrom = accountRepository.findAccountById(id1);
+			Account accountTo = accountRepository.findAccountById(id2);
+			Long clientIdFrom = accountRepository.findClientId(accountFrom);
+			Long clientIdTo = accountRepository.findClientId(accountTo);
+			
+			Transaction transaction = new TransactionBuilder()
+					.setAccountFrom(accountFrom)
+					.setAccountTo(accountTo)
+					.setSum(sum)
+					.build();
+				
+			TransactionValidator transactionValidator = new TransactionValidator(transaction);
+	        boolean transactionValid = transactionValidator.validate();
+	        Notification<Boolean> transactionNotification = new Notification<>();
+	    	
+	        if (!transactionValid) {
+	            transactionValidator.getErrors().forEach(transactionNotification::addError);
+	            System.out.println("hehe");
+		    	System.out.println(accountFrom.getSum()+" "+ accountTo.getSum()+" "+sum);
+	            transactionNotification.setResult(Boolean.FALSE);
+	            return transactionNotification;
+	        } else {
+	        	
+	  			accountFromNewBalance = accountFrom.getSum() - sum;
+				accountToNewBalance = accountTo.getSum() + sum;
+				accountFrom.setSum(accountFromNewBalance);
+				accountTo.setSum(accountToNewBalance);
+				accountRepository.updateAccount(accountFrom, clientIdFrom);
+				accountRepository.updateAccount(accountTo, clientIdTo); 	
+				 transactionNotification.setResult(true);       
+	             return  transactionNotification;
+	        }	
+	}
+	
+	public boolean checkIfEnoughMoney(Account account, double sum){
+		if(account.getSum()>= sum)
+			return true;
+		else
+			return false;
 	}
 
 

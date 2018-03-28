@@ -58,7 +58,7 @@ public class RegEmployeeController {
 			String clientCnp = regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString();
 			List<Account> accounts = accountService.showAllAccountsOfClient(clientCnp);
 			for(Account account:accounts){
-				regEmployeeMenu.getAccountsModel().addRow(new Object[] {"Mr/Mrs",account.getId(),account.getType(), account.getSum(), account.getDate()});
+				regEmployeeMenu.getAccountsModel().addRow(new Object[] {regEmployeeMenu.getClients().getValueAt(selectedRow, 0),account.getId(),account.getType(), account.getSum(), account.getDate()});
 			}
 		}
 	}
@@ -70,7 +70,7 @@ public class RegEmployeeController {
 			regEmployeeMenu.getAccountsModel().setRowCount(0);
 			List<Account> accounts = accountService.showAllAccounts();
 			for(Account account:accounts){
-				regEmployeeMenu.getAccountsModel().addRow(new Object[] {regEmployeeMenu.getClients().getValueAt(selectedRow, 0),account.getId(),account.getType(), account.getSum(), account.getDate()});
+				regEmployeeMenu.getAccountsModel().addRow(new Object[] {"Mr/Mrs",account.getId(),account.getType(), account.getSum(), account.getDate()});
 			}
 		}
 	}

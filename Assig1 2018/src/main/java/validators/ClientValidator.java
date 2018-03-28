@@ -2,6 +2,7 @@ package validators;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.mysql.jdbc.StringUtils;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
@@ -14,6 +15,7 @@ public class ClientValidator {
 	
 	private final List<String> errors;
 	private final Client client;
+	private final String CNP_VALIDATION_REGEX = "[0-9]+";
 	
 	public ClientValidator(Client client) {
 		this.client = client;
@@ -33,9 +35,9 @@ public class ClientValidator {
 		if(CNP.length()>13){
 			errors.add("Too long CNP");
 		}
-		if(!isInteger(CNP)){
-			errors.add("No character allowed");
-		}		
+		   if (!Pattern.compile(CNP_VALIDATION_REGEX).matcher(CNP).matches()) {
+	            errors.add("No letters in CNP!");
+	        }
 	}
 	
 	public void validateCardId(Long cardId){

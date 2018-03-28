@@ -5,20 +5,25 @@ import java.util.List;
 import model.Employee;
 import model.builder.EmployeeBuilder;
 import repository.employee.EmployeeRepository;
+import repository.security.RightsRolesRepository;
 import validators.EmployeeValidator;
 import validators.Notification;
 
 public class EmployeeServiceImplementation implements EmployeeService{
 
 	private final EmployeeRepository employeeRepository;
+	private final RightsRolesRepository rightsRolesRepository;
 
-    public EmployeeServiceImplementation(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImplementation(EmployeeRepository employeeRepository,RightsRolesRepository rightsRolesRepository) {
         this.employeeRepository = employeeRepository;
+        this.rightsRolesRepository = rightsRolesRepository;
     }
 
+
 	@Override
-	public void fireEmployee(String username) {
-		employeeRepository.removeRegEmployee(username);
+	public void fireEmployeeById(Long id) {
+		employeeRepository.removeRegEmployeeById(id);
+		rightsRolesRepository.removeEmployeeRole(id);
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class EmployeeServiceImplementation implements EmployeeService{
 
         if (!employeeValid) {
             employeeValidator.getErrors().forEach(employeeUpdateNotification::addError);
-           employeeUpdateNotification.setResult(Boolean.FALSE);
+            employeeUpdateNotification.setResult(Boolean.FALSE);
             return employeeUpdateNotification;
         } else {
             newEmployee.setPassword(AuthenticationServiceMySQL.encodePassword(newPassword));

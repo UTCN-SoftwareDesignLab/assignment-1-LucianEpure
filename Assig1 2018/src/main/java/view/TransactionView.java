@@ -17,6 +17,7 @@ public class TransactionView extends JFrame {
 	private JPanel contentPane;
 	private JTextField fromTf;
 	private JTextField toTf;
+
 	private JTextField sumTf;
 	private JButton processBtn;
 
@@ -64,4 +65,17 @@ public class TransactionView extends JFrame {
 	public void setProcess(ActionListener processListener){
 		processBtn.addActionListener(processListener);
 	}
+	
+	public JTextField getFromTf() {
+		return fromTf;
+	}
+
+	public JTextField getToTf() {
+		return toTf;
+	}
+
+	public JTextField getSumTf() {
+		return sumTf;
+	}
+
 }

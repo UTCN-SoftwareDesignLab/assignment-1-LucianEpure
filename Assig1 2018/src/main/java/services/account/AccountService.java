@@ -25,5 +25,5 @@ public interface AccountService {
 	
 	public boolean removeAccount(Long id);
 	
-	public boolean performTransaction(Long id1, Long id2);
+	public Notification<Boolean> performTransaction(Long id1, Long id2, double sum) throws EntityNotFoundException;
 }

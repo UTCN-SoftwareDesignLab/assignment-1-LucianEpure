@@ -1,5 +1,6 @@
 package testMain;
 
+import repository.security.RightsRolesRepository;
 import services.employee.EmployeeService;
 import services.employee.EmployeeServiceImplementation;
 
@@ -17,7 +18,8 @@ public class AdminComponentFactory {
     }
 	
 	private AdminComponentFactory() {  
-        this.employeeService = new EmployeeServiceImplementation(ComponentFactory.instance().getUserRepository());
+        this.employeeService = new EmployeeServiceImplementation(ComponentFactory.instance().getUserRepository(),ComponentFactory.instance().getRightsRolesRepository());
+      
     }
 	public EmployeeService getEmployeeService() {
 		return employeeService;

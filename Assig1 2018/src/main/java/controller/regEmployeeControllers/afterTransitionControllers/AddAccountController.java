@@ -6,8 +6,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import javax.swing.JOptionPane;
+
+import controller.DecisionController;
 import controller.regEmployeeControllers.RegEmployeeController;
+import model.Employee;
 import services.account.AccountService;
+import validators.Notification;
 import view.AddAccount;
 import view.RegEmployeeMenu;
 
@@ -36,10 +41,19 @@ public class AddAccountController {
 					String date = addAccountView.getDateTf().getText();
 					String client = addAccountView.getClientTf().getText();
 					
-					//String string = "January 2, 2010";
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+					
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 					LocalDate accDate = LocalDate.parse(date, formatter);
-					accountService.addAccount(type,Double.parseDouble(sum), accDate, client);
+					
+					
+					Notification<Boolean> addAccountNotification = accountService.addAccount(type,Double.parseDouble(sum), accDate, client);
+		            if (addAccountNotification.hasErrors()) {
+		                JOptionPane.showMessageDialog(addAccountView.getContentPane(), addAccountNotification.getFormattedErrors());
+		            } else {
+		                JOptionPane.showMessageDialog(addAccountView.getContentPane(), "Account added!");
+		            
+		               addAccountView.dispose();
+		            }
 				}
 			}
 

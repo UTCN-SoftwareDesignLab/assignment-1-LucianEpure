@@ -19,7 +19,8 @@ public interface EmployeeRepository {
 	    //added 24.03.2018
 	    boolean updateEmployee(Employee employee);
 	    
-	    void removeRegEmployee(String username);
 	    
 	    void removeAll();
+	    
+		void removeRegEmployeeById(Long id);
 }

@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
@@ -37,32 +38,30 @@ public class AdministratorMenu extends JFrame {
 	private JTable employees;
 	private final DefaultTableModel employeesModel;
 	private JScrollPane employeesH;
+	private JTextField idTf;
 
 	
-
-
-
 	public AdministratorMenu() {
 		setTitle("Administrator menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 644, 358);
+		setBounds(100, 100, 749, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		usernameTf = new JTextField();
-		usernameTf.setBounds(93, 10, 86, 20);
+		usernameTf.setBounds(93, 10, 208, 20);
 		contentPane.add(usernameTf);
 		usernameTf.setColumns(10);
 		
 		passwordTf = new JTextField();
-		passwordTf.setBounds(93, 41, 86, 20);
+		passwordTf.setBounds(93, 41, 208, 20);
 		contentPane.add(passwordTf);
 		passwordTf.setColumns(10);
 		
 		registerEmployeeBtn = new JButton("Register \r\nEmployee");
-		registerEmployeeBtn.setBounds(202, 10, 121, 52);
+		registerEmployeeBtn.setBounds(311, 9, 121, 52);
 		contentPane.add(registerEmployeeBtn);
 		
 		JLabel lblUsername = new JLabel("Username");
@@ -82,12 +81,12 @@ public class AdministratorMenu extends JFrame {
 		contentPane.add(lblUsername_1);
 		
 		showEmployeeTf = new JTextField();
-		showEmployeeTf.setBounds(93, 88, 86, 20);
+		showEmployeeTf.setBounds(93, 88, 208, 20);
 		contentPane.add(showEmployeeTf);
 		showEmployeeTf.setColumns(10);
 		
 		showEmployeeBtn = new JButton("Show");
-		showEmployeeBtn.setBounds(202, 87, 121, 23);
+		showEmployeeBtn.setBounds(311, 87, 121, 23);
 		contentPane.add(showEmployeeBtn);
 		
 		JLabel lblUsername_2 = new JLabel("Username");
@@ -99,7 +98,7 @@ public class AdministratorMenu extends JFrame {
 		contentPane.add(separator_1);
 		
 		fireEmployeeTf = new JTextField();
-		fireEmployeeTf.setBounds(93, 138, 86, 20);
+		fireEmployeeTf.setBounds(93, 138, 112, 20);
 		contentPane.add(fireEmployeeTf);
 		fireEmployeeTf.setColumns(10);
 		
@@ -108,7 +107,7 @@ public class AdministratorMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		fireEmployeeBtn.setBounds(202, 137, 121, 23);
+		fireEmployeeBtn.setBounds(311, 137, 121, 23);
 		contentPane.add(fireEmployeeBtn);
 		
 		JLabel lblUsername_3 = new JLabel("Old User");
@@ -121,12 +120,12 @@ public class AdministratorMenu extends JFrame {
 		
 		updateUsernameTf = new JTextField();
 		updateUsernameTf.setColumns(10);
-		updateUsernameTf.setBounds(93, 189, 86, 20);
+		updateUsernameTf.setBounds(93, 189, 208, 20);
 		contentPane.add(updateUsernameTf);
 		
 		updatedPasswordTf = new JTextField();
 		updatedPasswordTf.setColumns(10);
-		updatedPasswordTf.setBounds(93, 244, 86, 20);
+		updatedPasswordTf.setBounds(93, 244, 208, 20);
 		contentPane.add(updatedPasswordTf);
 		
 		JSeparator separator_2 = new JSeparator();
@@ -134,10 +133,10 @@ public class AdministratorMenu extends JFrame {
 		contentPane.add(separator_2);
 		
 		updateEmployeeBtn = new JButton("Update");
-		updateEmployeeBtn.setBounds(202, 188, 121, 73);
+		updateEmployeeBtn.setBounds(311, 189, 121, 73);
 		contentPane.add(updateEmployeeBtn);
 		
-		Object[] employeeColumn = {  "Type","Username"};
+		Object[] employeeColumn = { "id", "Type","Username"};
 		
 		employeesModel = new DefaultTableModel(employeeColumn, 0);
 		employees = new JTable(employeesModel);
@@ -145,7 +144,7 @@ public class AdministratorMenu extends JFrame {
 		
 		employeesH = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		employeesH.setViewportView(employees);
-		employeesH.setBounds(337, 6, 281, 268);
+		employeesH.setBounds(442, 6, 281, 268);
 		contentPane.add(employeesH);
 		
 		JSeparator separator_3 = new JSeparator();
@@ -161,9 +160,18 @@ public class AdministratorMenu extends JFrame {
 		contentPane.add(lbl_Username4);
 		
 		updatedUsernameTf = new JTextField();
-		updatedUsernameTf.setBounds(93, 216, 86, 20);
+		updatedUsernameTf.setBounds(93, 216, 208, 20);
 		contentPane.add(updatedUsernameTf);
 		updatedUsernameTf.setColumns(10);
+		
+		idTf = new JTextField();
+		idTf.setBounds(255, 138, 46, 20);
+		contentPane.add(idTf);
+		idTf.setColumns(10);
+		
+		JLabel lblId = new JLabel("id");
+		lblId.setBounds(215, 141, 30, 14);
+		contentPane.add(lblId);
 		
 	}
 
@@ -235,6 +243,23 @@ public class AdministratorMenu extends JFrame {
 	public void setUpdatedUsernameTf(String text) {
 		updatedUsernameTf.setText(text);
 	}
+
+	public JTable getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(JTable employees) {
+		this.employees = employees;
+	}
+	
+	public JTextField getIdTf() {
+		return idTf;
+	}
+
+	public void setIdTf(String text) {
+		idTf.setText(text);
+	}
+
 	//GEtters and Setters Done.................................................................................................
 	//Controllers Setters......................................................................................................
 	  public void setRegisterRegEmployeeButtonListener(ActionListener registerRegEmployeeButtonListener) {
@@ -253,5 +278,8 @@ public class AdministratorMenu extends JFrame {
 	  }
 	  public void setUpdateEmployeeButtonListener(ActionListener updateRegEmployeeListener){
 		  updateEmployeeBtn.addActionListener(updateRegEmployeeListener);
+	  }
+	  public void setTableListener(MouseListener tableListener){
+		  employees.addMouseListener(tableListener);
 	  }
 }

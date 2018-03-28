@@ -2,6 +2,8 @@ package controller.adminControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -17,7 +19,9 @@ public class AdminController {
 	private final AdministratorMenu administratorMenu;
 	private final EmployeeService employeeService;
 	private final AuthenticationService authenticationService;
-	
+	private int selectedRow = 0;
+	private int selectedCol = 3;
+
 	public AdminController(AdministratorMenu administratorMenu, EmployeeService employeeService,AuthenticationService authenticationService){
 		this.administratorMenu = administratorMenu;
 		this.employeeService = employeeService;
@@ -27,6 +31,7 @@ public class AdminController {
 		administratorMenu.setShowAllButtonListener(new ShowAllButtonListener());
 		administratorMenu.setFireEmployeeButtonListener(new FireEmployeeButtonListener());
 		administratorMenu.setRegisterRegEmployeeButtonListener(new RegisterRegEmployeeButtonListener());
+		administratorMenu.setTableListener(new TableListenerEmployees());
 	}
 	
 	class UpdateRegEmployeeButtonListener implements ActionListener{
@@ -59,7 +64,7 @@ public class AdminController {
 			administratorMenu.getEmployeesModel().setRowCount(0);
 			String username = administratorMenu.getShowEmployeeTf().getText();
 			Employee employee = employeeService.findByUsername(username);
-			administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRoles().get(0).getRoleTitle(), employee.getUsername()});
+			administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getId(), employee.getRoles().get(0).getRoleTitle(), employee.getUsername()});
 			administratorMenu.setShowEmployeeTf("");
 		}
 	}
@@ -71,7 +76,7 @@ public class AdminController {
 			administratorMenu.getEmployeesModel().setRowCount(0);
 			List<Employee> employees = employeeService.showAll();
 			for(Employee employee:employees)
-				administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getRoles().get(0).getRoleTitle(), employee.getUsername()});
+				administratorMenu.getEmployeesModel().addRow(new Object[] {employee.getId(),employee.getRoles().get(0).getRoleTitle(), employee.getUsername()});
 			
 		}
 	}
@@ -80,8 +85,11 @@ public class AdminController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String username = administratorMenu.getFireEmployee();			
-			employeeService.fireEmployee(username);
+			
+			String username = administratorMenu.getFireEmployee();	
+			String id = administratorMenu.getIdTf().getText();
+			employeeService.fireEmployeeById(Long.parseLong(id));
+			administratorMenu.setIdTf("");
 			administratorMenu.setFireEmployee("");
 			administratorMenu.getEmployeesModel().setRowCount(0);
 		}
@@ -108,5 +116,42 @@ public class AdminController {
 	            }
 		}
 		
+	}
+	class TableListenerEmployees implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent e) {
+				setSelectedRow(administratorMenu.getEmployees().rowAtPoint(e.getPoint()));
+				setSelectedCol(administratorMenu.getEmployees().columnAtPoint(e.getPoint()));
+				administratorMenu.setFireEmployee(administratorMenu.getEmployees().getValueAt(selectedRow, 2).toString());
+				administratorMenu.setIdTf(administratorMenu.getEmployees().getValueAt(selectedRow, 0).toString());
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e) {	
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+	}
+	
+	
+	
+	public int getSelectedRow() {
+		return selectedRow;
+	}
+	public void setSelectedRow(int selectedRow) {
+		this.selectedRow = selectedRow;
+	}
+	public int getSelectedCol() {
+		return selectedCol;
+	}
+	public void setSelectedCol(int selectedCol) {
+		this.selectedCol = selectedCol;
 	}
 }

@@ -45,22 +45,30 @@ public class UpdateAccountController {
 		String type = updateAccount.getTypeCb().getSelectedItem().toString();
 		String sum = updateAccount.getSumTf().getText();
 		String date = updateAccount.getDateTf().getText();
-		try {
-			Account account = accountService.findById(Long.parseLong(accountId));
+		
+			Account account;
+			try {
+				account = accountService.findById(Long.parseLong(accountId));
+			
 			
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 			LocalDate accDate = LocalDate.parse(date, formatter);
 			Notification<Boolean> updateNotification = accountService.updateAccount(account,type,Double.parseDouble(sum),accDate);
             if (updateNotification.hasErrors()) {
-                JOptionPane.showMessageDialog(regEmployeeMenu.getContentPane(), updateNotification.getFormattedErrors());
+                JOptionPane.showMessageDialog(updateAccount.getContentPane(), updateNotification.getFormattedErrors());
             } else {
-                JOptionPane.showMessageDialog(regEmployeeMenu.getContentPane(), "Update successful!");
+                JOptionPane.showMessageDialog(updateAccount.getContentPane(), "Update successful!");
             }
-		} catch (NumberFormatException | EntityNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(updateAccount.getContentPane(),"Sum is a number");
+
+			} catch (EntityNotFoundException e1) {
+				JOptionPane.showMessageDialog(updateAccount.getContentPane(),"Account not found");
+
+			}
+			updateAccount.dispose();
+		
 		}
 		
 	}

@@ -30,7 +30,7 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	        this.rightsRolesRepository = rightsRolesRepository;
 	    }
 
-	// E BUN
+
 	@Override
 	public List<Employee> findAll() {
 		List<Employee> regEmployees = new ArrayList<Employee>();
@@ -46,7 +46,6 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	            e.printStackTrace();
 	        }
 		return regEmployees;
-		
 	}
 	
 	@Override
@@ -92,31 +91,7 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 		}
 	}
 
-	/*ORIGINAL
-	@Override
-	public boolean saveAdmin(Employee admin) {
-		Role role = rightsRolesRepository.findRoleByTitle(ADMINISTRATOR);
-		Long idRole = role.getId();
-		try {		
-			 PreparedStatement insertStatement = connection
-	                    .prepareStatement("INSERT INTO "+ EMPLOYEE +" values (null, ?, ?, ?)");
-	            insertStatement.setString(1, admin.getUsername());
-	            insertStatement.setString(2, admin.getPassword());
-	            insertStatement.setLong(3, idRole);
-	            insertStatement.executeUpdate();
-	            
-	            ResultSet rs = insertStatement.getGeneratedKeys();
-	            rs.next();
-	            long adminId = rs.getLong(1);
-	            admin.setId(adminId);
-	            return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-*/
-	//MODIFIED
+	
 	@Override
 	public boolean saveAdmin(Employee admin) {
 
@@ -171,16 +146,6 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	}
 
 
-	@Override
-	public void removeRegEmployee(String username) {
-		try {
-			PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM `"+ EMPLOYEE + "` WHERE username = ?");
-			deleteQuery.setString(1,username);
-			deleteQuery.executeUpdate(); 
-	} catch (SQLException e) {
-	    e.printStackTrace();
-    }
-	}
 
 	@Override
 	public void removeAll() {
@@ -214,18 +179,18 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 			}
 		}
 		
-		/* ORIGINAL
-		 private Employee getEmployeeFromResultSet(ResultSet rs) throws SQLException {
-			 Role role = rightsRolesRepository.findRoleById(rs.getLong("id_role"));
-		        return new EmployeeBuilder()
-		                .setId(rs.getLong("id"))
-		                .setUsername(rs.getString("username"))
-		                .setPassword(rs.getString("password"))
-		                .setRole(role)
-		                .build();
-		    }
-*/
-		// MODIFIED
+
+		@Override
+		public void removeRegEmployeeById(Long id) {
+			try {
+				PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM `"+ EMPLOYEE + "` WHERE id = ?");
+				deleteQuery.setLong(1,id);
+				deleteQuery.executeUpdate(); 
+		} catch (SQLException e) {
+		    e.printStackTrace();
+	    }
+		}
+
 		 private Employee getEmployeeFromResultSet(ResultSet rs) throws SQLException {
 			
 		        return new EmployeeBuilder()
@@ -235,6 +200,7 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 		                .setRoles(rightsRolesRepository.findRolesForUser(rs.getLong("id")))
 		                .build();
 		    }
+
 
 
 
