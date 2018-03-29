@@ -12,4 +12,6 @@ public interface AuthenticationService {
 	 Notification<Boolean> registerAdministrator(String username, String password);
 
 	 boolean logout(Employee employee);
+	 
+	 Long obtainId(String username);
 }

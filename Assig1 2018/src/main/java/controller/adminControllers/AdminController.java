@@ -24,6 +24,7 @@ public class AdminController {
 
 	public AdminController(AdministratorMenu administratorMenu, EmployeeService employeeService,AuthenticationService authenticationService){
 		this.administratorMenu = administratorMenu;
+		//this.administratorMenu.setVisible(true);
 		this.employeeService = employeeService;
 		this.authenticationService = authenticationService;
 		administratorMenu.setUpdateEmployeeButtonListener(new UpdateRegEmployeeButtonListener());
@@ -85,8 +86,7 @@ public class AdminController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			String username = administratorMenu.getFireEmployee();	
+	
 			String id = administratorMenu.getIdTf().getText();
 			employeeService.fireEmployeeById(Long.parseLong(id));
 			administratorMenu.setIdTf("");

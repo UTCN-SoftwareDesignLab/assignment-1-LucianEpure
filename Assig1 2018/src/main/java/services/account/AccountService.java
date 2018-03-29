@@ -1,11 +1,9 @@
 package services.account;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import model.Account;
-import model.Client;
 import repository.EntityNotFoundException;
 import validators.Notification;
 
@@ -17,13 +15,13 @@ public interface AccountService {
 	
 	public Account findById(Long id) throws EntityNotFoundException;
 	
-	public Notification<Boolean> addAccount(String type, Double sum, LocalDate accDate, String client);
+	public Notification<Boolean> addAccount(String type, Double sum, LocalDate accDate, Long clientId);
 	
 	public Notification<Boolean> updateAccount(Account account,String type, Double sum,  LocalDate date);
 	
-	public Long findClientId(Account account);
+	public Long findClientId(Long accountId);
 	
 	public boolean removeAccount(Long id);
 	
-	public Notification<Boolean> performTransaction(Long id1, Long id2, double sum) throws EntityNotFoundException;
+	
 }

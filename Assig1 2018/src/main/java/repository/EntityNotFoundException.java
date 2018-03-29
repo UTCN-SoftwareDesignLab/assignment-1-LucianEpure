@@ -1,11 +1,9 @@
 package repository;
 
-/**
- * Created by Alex on 18/03/2017.
- */
 public class EntityNotFoundException extends Exception {
 
-    private Long entityId;
+	private static final long serialVersionUID = 1L;
+	private Long entityId;
     private String entityClass;
     private String entityField;
 

@@ -2,14 +2,15 @@ package controller.regEmployeeControllers.afterTransitionControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
-import controller.regEmployeeControllers.RegEmployeeController;
 import model.Client;
-import model.Employee;
 import repository.EntityNotFoundException;
 import services.client.ClientService;
+import services.record.RecordService;
 import validators.Notification;
 import view.RegEmployeeMenu;
 import view.UpdateClientView;
@@ -19,15 +20,15 @@ public class UpdateClientController {
 	private final UpdateClientView updateClientView;
 	private final RegEmployeeMenu regEmployeeMenu;
 	private final ClientService clientService;
+	private final RecordService recordService;
 	
-	public UpdateClientController( UpdateClientView updateClientView, RegEmployeeMenu regEmployeeMenu,ClientService clientService, RegEmployeeController regEmployeeController){
+	public UpdateClientController( UpdateClientView updateClientView, RegEmployeeMenu regEmployeeMenu,ClientService clientService, RecordService recordService){
 		this.updateClientView = updateClientView;
 		this.regEmployeeMenu = regEmployeeMenu;
 		this.clientService = clientService;
+		this.recordService = recordService;
 		updateClientView.setUpdateActionListener(new UpdateClientButtonListener());
 		updateClientView.setGenerateCardIdActionListener(new GenerateCardIdButtonListener());
-		updateClientView.getCnpTf().setText((String) regEmployeeMenu.getClients().getValueAt(regEmployeeController.getSelectedRow(), regEmployeeController.getSelectedCol()));
-
 	}
 	
 	class UpdateClientButtonListener implements ActionListener{
@@ -38,18 +39,24 @@ public class UpdateClientController {
 			String address = updateClientView.getAddressTf().getText();
 			String cnp = updateClientView.getCnpTf().getText();
 			String cardId = updateClientView.getCardIdTf().getText();
-				try {
-					Client client = clientService.findClientByCnp(cnp);
-					Notification<Boolean> updateNotification = clientService.updateClient(client,name,address,cardId);
+			String date = regEmployeeMenu.getDateTf().getText();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+			LocalDate accDate = LocalDate.parse(date, formatter);
+				
+					Client client;
+					try {
+						client = clientService.findClientByCnp(cnp);
+					    Notification<Boolean> updateNotification = clientService.updateClient(client,name,address,cardId);
+					    recordService.addRecord(client.getId(), "Client updated", accDate);
 		            if (updateNotification.hasErrors()) {
-		                JOptionPane.showMessageDialog(regEmployeeMenu.getContentPane(), updateNotification.getFormattedErrors());
+		                JOptionPane.showMessageDialog(updateClientView.getContentPane(), updateNotification.getFormattedErrors());
 		            } else {
-		                JOptionPane.showMessageDialog(regEmployeeMenu.getContentPane(), "Update successful!");
+		                JOptionPane.showMessageDialog(updateClientView.getContentPane(), "Update successful!");
 		            }
-				} catch (NumberFormatException | EntityNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					} catch (EntityNotFoundException e1) {
+						JOptionPane.showMessageDialog(updateClientView.getContentPane(), "Client not found!");
+						e1.printStackTrace();
+					}
 				
 		
 		}

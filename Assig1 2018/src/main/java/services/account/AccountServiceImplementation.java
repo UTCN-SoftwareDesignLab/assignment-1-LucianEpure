@@ -1,46 +1,32 @@
 package services.account;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import model.Account;
-import model.Client;
-import model.Transaction;
 import model.builder.AccountBuilder;
-import model.builder.ClientBuilder;
-import model.builder.TransactionBuilder;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.client.ClientRepository;
 import validators.AccountValidator;
-import validators.ClientValidator;
 import validators.Notification;
-import validators.TransactionValidator;
 
 public class AccountServiceImplementation implements AccountService{
 
 	private final AccountRepository accountRepository;
 	private final ClientRepository clientRepository;
-	Client clientC;
+
 	 public AccountServiceImplementation(AccountRepository accountRepository, ClientRepository clientRepository) {
 	        this.accountRepository = accountRepository;
 	        this.clientRepository = clientRepository;
-	        clientC = new Client();
 	    }
 	 
 	 
 	 
 	@Override
-	public Notification<Boolean> addAccount(String type, Double sum, LocalDate accountDate, String client) {
+	public Notification<Boolean> addAccount(String type, Double sum, LocalDate accountDate,Long clientId) {
 
 		
-		try {
-			clientC = clientRepository.findClientByCNP(client);
-		} catch (EntityNotFoundException e) {
-		
-			e.printStackTrace();
-		}
         Account account = new AccountBuilder()
                .setType(type)
                .setSum(sum)
@@ -57,7 +43,7 @@ public class AccountServiceImplementation implements AccountService{
             accountAddNotification.setResult(Boolean.FALSE);
             return accountAddNotification;
         } else {
-            accountAddNotification.setResult(accountRepository.addAccount(account,clientC.getId()));
+            accountAddNotification.setResult(accountRepository.addAccount(account,clientId));
             return  accountAddNotification;
         }
 	}
@@ -65,11 +51,11 @@ public class AccountServiceImplementation implements AccountService{
 	@Override
 	public List<Account> showAllAccountsOfClient(String client) {
 		try {
-			clientC = clientRepository.findClientByCNP(client);
+			return accountRepository.findAccountsOfClient(clientRepository.findClientByCNP(client).getId());
 		} catch (EntityNotFoundException e) {
 			e.printStackTrace();
 		}
-		return accountRepository.findAccountsOfClient(clientC.getId());
+		return null;
 	}
 	
 	@Override
@@ -103,7 +89,7 @@ public class AccountServiceImplementation implements AccountService{
             accountUpdateNotification.setResult(Boolean.FALSE);
             return accountUpdateNotification;
         } else {
-           accountUpdateNotification.setResult(accountRepository.updateAccount(newAccount,accountRepository.findClientId(newAccount)));
+           accountUpdateNotification.setResult(accountRepository.updateAccount(newAccount,accountRepository.findClientId(newAccount.getId())));
             System.out.println(accountUpdateNotification.getResult());
             return  accountUpdateNotification;
         }
@@ -113,57 +99,11 @@ public class AccountServiceImplementation implements AccountService{
 		return accountRepository.findAccountById(id);
 	}
 	@Override
-	public Long findClientId(Account account) {
-		return accountRepository.findClientId(account);
+	public Long findClientId(Long id) {
+		return accountRepository.findClientId(id);
 	}
 
 
-
-	@Override
-	public Notification<Boolean> performTransaction(Long id1, Long id2, double sum) throws EntityNotFoundException {
-
-			double accountFromNewBalance;
-			double accountToNewBalance;
-			Account accountFrom = accountRepository.findAccountById(id1);
-			Account accountTo = accountRepository.findAccountById(id2);
-			Long clientIdFrom = accountRepository.findClientId(accountFrom);
-			Long clientIdTo = accountRepository.findClientId(accountTo);
-			
-			Transaction transaction = new TransactionBuilder()
-					.setAccountFrom(accountFrom)
-					.setAccountTo(accountTo)
-					.setSum(sum)
-					.build();
-				
-			TransactionValidator transactionValidator = new TransactionValidator(transaction);
-	        boolean transactionValid = transactionValidator.validate();
-	        Notification<Boolean> transactionNotification = new Notification<>();
-	    	
-	        if (!transactionValid) {
-	            transactionValidator.getErrors().forEach(transactionNotification::addError);
-	            System.out.println("hehe");
-		    	System.out.println(accountFrom.getSum()+" "+ accountTo.getSum()+" "+sum);
-	            transactionNotification.setResult(Boolean.FALSE);
-	            return transactionNotification;
-	        } else {
-	        	
-	  			accountFromNewBalance = accountFrom.getSum() - sum;
-				accountToNewBalance = accountTo.getSum() + sum;
-				accountFrom.setSum(accountFromNewBalance);
-				accountTo.setSum(accountToNewBalance);
-				accountRepository.updateAccount(accountFrom, clientIdFrom);
-				accountRepository.updateAccount(accountTo, clientIdTo); 	
-				 transactionNotification.setResult(true);       
-	             return  transactionNotification;
-	        }	
-	}
-	
-	public boolean checkIfEnoughMoney(Account account, double sum){
-		if(account.getSum()>= sum)
-			return true;
-		else
-			return false;
-	}
 
 
 	

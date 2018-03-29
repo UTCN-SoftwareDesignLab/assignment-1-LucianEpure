@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class RegEmployeeMenu extends JFrame {
 
@@ -34,11 +35,12 @@ public class RegEmployeeMenu extends JFrame {
 	private JButton viewAccountBtn;
 	private JButton transactionBtn;
 	private JButton processBillBtn;
+	private JLabel lblDate;
+	private JTextField dateTf;
 
 	public RegEmployeeMenu() {
 		setTitle("Employee menu");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 806, 381);
+		setBounds(100, 100, 806, 396);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -93,7 +95,7 @@ public class RegEmployeeMenu extends JFrame {
 		accountsH.setBounds(142, 155, 638, 136);
 		contentPane.add(accountsH);
 		
-		showAllBtn = new JButton("Show All");
+		showAllBtn = new JButton("Show clients");
 		showAllBtn.setBounds(142, 308, 156, 23);
 		contentPane.add(showAllBtn);
 		
@@ -108,6 +110,15 @@ public class RegEmployeeMenu extends JFrame {
 		processBillBtn = new JButton("Bill Process");
 		processBillBtn.setBounds(640, 308, 140, 23);
 		contentPane.add(processBillBtn);
+		
+		lblDate = new JLabel("Date         y-m-d");
+		lblDate.setBounds(10, 294, 122, 14);
+		contentPane.add(lblDate);
+		
+		dateTf = new JTextField();
+		dateTf.setBounds(10, 309, 122, 20);
+		contentPane.add(dateTf);
+		dateTf.setColumns(10);
 	}
 	public void setTableListenerClients(MouseListener tableListener){
 		clients.addMouseListener(tableListener);
@@ -146,7 +157,7 @@ public class RegEmployeeMenu extends JFrame {
 	        transactionBtn.addActionListener(transactionListener);
 	    }
 	 public void setProcessBillListener(ActionListener processBillListener) {
-	        updateAccountBtn.addActionListener(processBillListener);
+	       processBillBtn.addActionListener(processBillListener);
 	    }
 	public DefaultTableModel getAccountsModel() {
 			return accountsModel;
@@ -165,5 +176,12 @@ public class RegEmployeeMenu extends JFrame {
 	}
 	public void setAccounts(JTable accounts) {
 		this.accounts = accounts;
+	}
+
+	public JTextField getDateTf() {
+		return dateTf;
+	}
+	public void setDateTf(String text) {
+		this.dateTf.setText(text);
 	}
 }

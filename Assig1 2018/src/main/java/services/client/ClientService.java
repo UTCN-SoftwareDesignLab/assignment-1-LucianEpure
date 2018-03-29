@@ -3,7 +3,6 @@ package services.client;
 import java.util.List;
 
 import model.Client;
-import model.Employee;
 import repository.EntityNotFoundException;
 import validators.Notification;
 

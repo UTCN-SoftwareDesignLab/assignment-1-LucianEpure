@@ -2,8 +2,6 @@ package repository.employee;
 
 import static database.Constants.Tables.EMPLOYEE;
 import static database.Constants.Roles.ADMINISTRATOR;
-import static database.Constants.Roles.REGEMPLOYEE;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +12,8 @@ import java.util.List;
 
 
 import model.Employee;
-import model.Role;
 import model.builder.EmployeeBuilder;
 import repository.security.RightsRolesRepository;
-import validators.EmployeeValidator;
 import validators.Notification;
 
 public class EmployeeRepositoryMySQL implements EmployeeRepository {
@@ -191,8 +187,14 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	    }
 		}
 
+		
+
+
+
+
+
 		 private Employee getEmployeeFromResultSet(ResultSet rs) throws SQLException {
-			
+				
 		        return new EmployeeBuilder()
 		                .setId(rs.getLong("id"))
 		                .setUsername(rs.getString("username"))
@@ -200,7 +202,6 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 		                .setRoles(rightsRolesRepository.findRolesForUser(rs.getLong("id")))
 		                .build();
 		    }
-
 
 
 

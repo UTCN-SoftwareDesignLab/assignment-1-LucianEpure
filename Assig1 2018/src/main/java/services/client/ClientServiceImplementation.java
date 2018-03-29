@@ -7,20 +7,18 @@ import java.util.Random;
 
 import model.Account;
 import model.Client;
-import model.Employee;
 import model.builder.ClientBuilder;
-import model.builder.EmployeeBuilder;
 import repository.EntityNotFoundException;
 import repository.client.ClientRepository;
-import services.employee.AuthenticationServiceMySQL;
 import validators.ClientValidator;
-import validators.EmployeeValidator;
 import validators.Notification;
 
 
 public class ClientServiceImplementation implements ClientService{
 
 	private final ClientRepository clientRepository;
+	
+	
 	
 	  public ClientServiceImplementation(ClientRepository clientRepository) {
 	        this.clientRepository = clientRepository;
@@ -45,9 +43,7 @@ public class ClientServiceImplementation implements ClientService{
         ClientValidator clientValidator = new ClientValidator(client);
         boolean clientValid = clientValidator.validate();
         Notification<Boolean> clientAddNotification = new Notification<>();
-       // clientAddNotification.setResult(clientRepository.addClient(client));
-       
-
+ 
         if (!clientValid) {
             clientValidator.getErrors().forEach(clientAddNotification::addError);
             clientAddNotification.setResult(Boolean.FALSE);
@@ -57,33 +53,15 @@ public class ClientServiceImplementation implements ClientService{
             return  clientAddNotification;
         }
 	}
-	@Override
-	public Long generateCardIdNumber(){
-		Random rand = new Random();
-		Long generatedCardId;
-		do{
-			generatedCardId = (long) (100000 + rand.nextInt(900000));
-		}
-		while(checkIfCardExist(generatedCardId));
-			return generatedCardId;
-	}
 	
-	public boolean checkIfCardExist(Long cardId){
-		List<Client> allClients = clientRepository.findAll();
-		for(Client client:allClients){
-			if(client.getCardIdNumber()==cardId){
-				return true;
-			}
-		}
-		return false;
-	}
 	@Override
 	public Client findClientById(Long id) throws EntityNotFoundException {
 		return clientRepository.findClientById(id);
 	}
 	@Override
 	public Client findClientByCnp(String CNP) throws EntityNotFoundException {
-		return clientRepository.findClientByCNP(CNP);
+		Client client = clientRepository.findClientByCNP(CNP);
+		return client;
 	}
 	@Override
 	public Client findClientByCardId(Long cardId) throws EntityNotFoundException {
@@ -110,9 +88,29 @@ public class ClientServiceImplementation implements ClientService{
             return clientUpdateNotification;
         } else {
            clientUpdateNotification.setResult(clientRepository.updateClient(newClient));
-            System.out.println(clientUpdateNotification.getResult());
             return  clientUpdateNotification;
         }
+	}
+	
+	@Override
+	public Long generateCardIdNumber(){
+		Random rand = new Random();
+		Long generatedCardId;
+		do{
+			generatedCardId = (long) (100000 + rand.nextInt(900000));
+		}
+		while(checkIfCardExist(generatedCardId));
+			return generatedCardId;
+	}
+	
+	public boolean checkIfCardExist(Long cardId){
+		List<Client> allClients = clientRepository.findAll();
+		for(Client client:allClients){
+			if(client.getCardIdNumber()==cardId){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

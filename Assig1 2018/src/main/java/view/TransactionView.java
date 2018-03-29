@@ -23,7 +23,6 @@ public class TransactionView extends JFrame {
 
 	public TransactionView() {
 		setTitle("Transaction");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 244, 184);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

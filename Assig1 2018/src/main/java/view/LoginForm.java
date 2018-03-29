@@ -20,18 +20,14 @@ public class LoginForm extends JFrame{
 	private JButton registerBtn;
 	private JTextField passwordTf;
 
-	/**
-	 * Create the application.
-	 */
+	
 	public LoginForm() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 314, 157);
 		frmLogin.getContentPane().setLayout(null);

@@ -17,14 +17,21 @@ import validators.Notification;
 
 public class AuthenticationServiceMySQL implements AuthenticationService {
 	
-	    private final EmployeeRepository employeeRepository;
-	    private final RightsRolesRepository rightsRolesRepository;
+	private final EmployeeRepository employeeRepository;
+	private final RightsRolesRepository rightsRolesRepository;
 
-	    public AuthenticationServiceMySQL(EmployeeRepository employeeRepository, RightsRolesRepository rightsRolesRepository) {
-	        this.employeeRepository = employeeRepository;
-	        this.rightsRolesRepository = rightsRolesRepository;
-	    }
+    public AuthenticationServiceMySQL(EmployeeRepository employeeRepository, RightsRolesRepository rightsRolesRepository) {
+	     this.employeeRepository = employeeRepository;
+	     this.rightsRolesRepository = rightsRolesRepository;
+	}
 
+	
+
+	@Override
+	public Long obtainId(String username) {
+		Long id = employeeRepository.findByUsername(username).getResult().getId();
+		return id;
+	}
 	@Override
 	public Notification<Employee> login(String username, String password) {
 		return employeeRepository.findByUsernameAndPassword(username, encodePassword(password));
@@ -105,5 +112,6 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 	            throw new RuntimeException(ex);
 	        }
 		}
+
 
 }

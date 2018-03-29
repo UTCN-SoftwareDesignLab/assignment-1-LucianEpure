@@ -18,6 +18,8 @@ public class UpdateClientView extends JFrame {
 	private JTextField nameTf;
 	private JTextField addressTf;
 	private JTextField cnpTf;
+	
+
 	private JTextField cardIdTf;
 	
 	private JButton updateBtn;
@@ -101,4 +103,16 @@ public class UpdateClientView extends JFrame {
 	public JTextField getCnpTf() {
 		return cnpTf;
 	}
+	public void setNameTf(String text) {
+		this.nameTf.setText(text);
+	}
+
+	public void setAddressTf(String text) {
+		this.addressTf.setText(text);
+	}
+
+	public void setCnpTf(String text) {
+		this.cnpTf.setText(text);
+	}
+
 }

@@ -35,8 +35,10 @@ public class Boostrap {
 	            Statement statement = connection.createStatement();
 
 	            String[] dropSQL = {
+	            		 "TRUNCATE `record`; ",
+		                 " DROP TABLE `record`;",
 	            		 "TRUNCATE `role_right`; ",
-	                    " DROP TABLE `role_right`;",
+	                     " DROP TABLE `role_right`;",
 	                            "TRUNCATE `rights`; ",
 	                            "DROP TABLE `rights`;",
 	                            "TRUNCATE `employee_role`;",

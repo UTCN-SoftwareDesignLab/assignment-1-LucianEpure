@@ -41,15 +41,9 @@ public class SQLTableCreationFactory {
                         "  id INT NOT NULL AUTO_INCREMENT," +
                         "  username VARCHAR(100) NOT NULL," +
                         "  password VARCHAR(64) NOT NULL," +
-                      //  "  id_role INT NOT NULL," +
                         "  PRIMARY KEY (id)," +
                         "  UNIQUE INDEX id_UNIQUE (id ASC)," +
                         "  UNIQUE INDEX username_UNIQUE (username ASC)"+
-                       // "  CONSTRAINT id_role" +
-                       // "  FOREIGN KEY (id_role)" +
-                        //"    REFERENCES role (id)" +
-                        //"    ON DELETE CASCADE" +
-                        //"    ON UPDATE CASCADE"+
                         ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
                 
 
@@ -90,7 +84,7 @@ public class SQLTableCreationFactory {
                         "    ON DELETE CASCADE" +
                         "    ON UPDATE CASCADE);";
             case EMPLOYEE_ROLE:
-                return "\tCREATE TABLE IF NOT EXISTS employee_role (" +
+                return " CREATE TABLE IF NOT EXISTS employee_role (" +
                         "  id INT NOT NULL AUTO_INCREMENT," +
                         "  employee_id INT NOT NULL," +
                         "  role_id INT NOT NULL," +
@@ -108,6 +102,27 @@ public class SQLTableCreationFactory {
                         "    REFERENCES role (id)" +
                         "    ON DELETE CASCADE" +
                         "    ON UPDATE CASCADE);";
+            case RECORD:
+            	return " CREATE TABLE IF NOT EXISTS record (" +
+                        "  id INT NOT NULL AUTO_INCREMENT," +
+                        "  employee_id INT NOT NULL," +
+                        "  client_id INT NOT NULL," +
+                        "  name VARCHAR(100) NOT NULL," +
+                        "  date DATETIME NOT NULL," +
+                        "  PRIMARY KEY (id)," +
+                        "  UNIQUE INDEX id_UNIQUE (id ASC)," +
+                        "  INDEX employee_id_idx (employee_id ASC)," +
+                        "  INDEX client_id_idx (client_id ASC)," +
+                        "  CONSTRAINT employee_id_fk" +
+                        "    FOREIGN KEY (employee_id)" +
+                        "    REFERENCES employee (id)" +
+                        "    ON DELETE CASCADE" +
+                        "    ON UPDATE CASCADE," +
+                        "  CONSTRAINT client_id_fk" +
+                        "    FOREIGN KEY (client_id)" +
+                        "    REFERENCES client (id)" +
+                        "    ON DELETE CASCADE" +
+                        "    ON UPDATE CASCADE);"; 
            default:
                 return "";
 

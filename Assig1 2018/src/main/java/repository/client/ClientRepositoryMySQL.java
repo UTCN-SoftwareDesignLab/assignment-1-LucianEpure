@@ -1,10 +1,7 @@
 package repository.client;
 
 import static database.Constants.Tables.CLIENT;
-import static database.Constants.Tables.EMPLOYEE;
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,12 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Client;
-import model.Employee;
-import model.Role;
 import model.builder.ClientBuilder;
-import model.builder.EmployeeBuilder;
 import repository.EntityNotFoundException;
-import repository.security.RightsRolesRepository;
 
 public class ClientRepositoryMySQL implements ClientRepository{
 

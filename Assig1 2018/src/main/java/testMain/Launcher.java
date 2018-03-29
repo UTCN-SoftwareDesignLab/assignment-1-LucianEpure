@@ -1,6 +1,6 @@
 package testMain;
-import controller.LoginController;
-import controller.RegisterController;
+import controller.AuthenticationController;
+
 import view.LoginForm;
 
 
@@ -10,12 +10,17 @@ public class Launcher {
     	
     	
 		
-        ComponentFactory componentFactory = ComponentFactory.instance();
-      
+        //ComponentFactory componentFactory = ComponentFactory.instance();
+        //AdminComponentFactory adminComponentFactory = AdminComponentFactory.instance();
+        //RegEmployeeComponentFactory regEmployeeComponentFactory = RegEmployeeComponentFactory.instance();
+        ControllerFactory controllerFactory = ControllerFactory.instance();
     	LoginForm window = new LoginForm();
 		window.getFrmLogin().setVisible(true);	
-        new LoginController(window, componentFactory.getAuthenticationService());
-        new RegisterController(window, componentFactory.getAuthenticationService());
+        new AuthenticationController(window, controllerFactory.getComponentFactory().getAuthenticationService(),
+        		controllerFactory.getComponentFactory().getRecordService(),
+        		controllerFactory.getAdminViewFactory().getAdministratorMenu(),
+        		controllerFactory.getRegEmpViewFactory().getRegEmployeeMenu());
+        
 
     }
 

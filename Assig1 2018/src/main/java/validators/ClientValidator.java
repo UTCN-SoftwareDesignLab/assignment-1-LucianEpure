@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.mysql.jdbc.StringUtils;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import model.Client;
-import model.Employee;
 
 public class ClientValidator {
 

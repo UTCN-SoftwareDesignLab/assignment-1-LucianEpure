@@ -2,24 +2,32 @@ package controller.regEmployeeControllers.afterTransitionControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
-import controller.DecisionController;
-import model.Employee;
+
 import repository.EntityNotFoundException;
-import services.account.AccountService;
+import services.account.AccountOperations;
+import services.record.RecordService;
 import validators.Notification;
+import view.RegEmployeeMenu;
 import view.TransactionView;
 
 public class TransactionController {
 
 	private final TransactionView transactionView;
-	private final AccountService accountService;
-	public TransactionController(TransactionView transactionView,AccountService accountService){
+	private final AccountOperations accountOperations;
+	private final RecordService recordService;
+	private final RegEmployeeMenu regEmployeeMenu;
+	
+	public TransactionController(TransactionView transactionView,AccountOperations accountOperations, RecordService recordService, RegEmployeeMenu regEmployeeMenu){
 		
 		this.transactionView = transactionView;
-		this.accountService = accountService;
+		this.accountOperations = accountOperations;
+		this.recordService = recordService;
+		this.regEmployeeMenu = regEmployeeMenu;
 		transactionView.setProcess(new ProcessTransactionListener());
 	}
 	
@@ -30,13 +38,16 @@ public class TransactionController {
 			String idFrom = transactionView.getFromTf().getText();
 			String idTo = transactionView.getToTf().getText();
 			String sum = transactionView.getSumTf().getText();
-		
+			String currentDate = regEmployeeMenu.getDateTf().getText();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+			LocalDate accDate = LocalDate.parse(currentDate, formatter);
 			try {
-				Notification<Boolean> transferNotification = accountService.performTransaction(Long.parseLong(idFrom), Long.parseLong(idTo), Double.parseDouble(sum));
+				Notification<Boolean> transferNotification = accountOperations.performTransaction(Long.parseLong(idFrom), Long.parseLong(idTo), Double.parseDouble(sum));
 				 if (transferNotification.hasErrors()) {
 		                JOptionPane.showMessageDialog(transactionView.getContentPane(), transferNotification.getFormattedErrors());
 		            } else {
 		                JOptionPane.showMessageDialog(transactionView.getContentPane(), "Transfer successful!");
+		                recordService.addRecord((accountOperations.getAccountsClientId(Long.parseLong(idFrom))), "Transaction done!", accDate);
 		                transactionView.dispose();
 		            }
 			

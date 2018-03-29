@@ -92,4 +92,16 @@ public class AddAccount extends JFrame {
 		return clientTf;
 	}
 
+	public void setSumTf(String text) {
+		this.sumTf.setText(text);
+	}
+
+	public void setDateTf(String text) {
+		this.dateTf.setText(text);
+	}
+
+	public void setClientTf(String text) {
+		this.clientTf.setText(text);
+	}
+
 }

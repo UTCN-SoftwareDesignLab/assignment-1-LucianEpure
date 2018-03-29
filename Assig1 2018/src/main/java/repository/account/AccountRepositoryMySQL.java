@@ -1,11 +1,7 @@
 package repository.account;
 
 import static database.Constants.Tables.ACCOUNT;
-import static database.Constants.Tables.CLIENT;
-import static database.Constants.Tables.EMPLOYEE;
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +11,7 @@ import java.util.List;
 
 import model.Account;
 import model.Client;
-import model.Role;
 import model.builder.AccountBuilder;
-import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
 
 public class AccountRepositoryMySQL implements AccountRepository{
@@ -119,10 +113,10 @@ public class AccountRepositoryMySQL implements AccountRepository{
 	}
 
 	@Override
-	public Long findClientId(Account account) {
+	public Long findClientId(Long accountId) {
 		 try {
 			Statement statement = connection.createStatement();
-			 String fetchAccountsSql = "Select * from " + ACCOUNT + " where `id`=\'" + account.getId() + "\'";
+			 String fetchAccountsSql = "Select * from " + ACCOUNT + " where `id`=\'" + accountId + "\'";
 			 ResultSet rs = statement.executeQuery(fetchAccountsSql);
 			  if (rs.next()){
 				  return rs.getLong("client_id");

@@ -3,7 +3,6 @@ package repository.account;
 import java.util.List;
 
 import model.Account;
-import model.Client;
 import repository.EntityNotFoundException;
 public interface AccountRepository {
 	
@@ -19,7 +18,7 @@ public interface AccountRepository {
 	
 	public boolean removeAccount(Long accountId);
 	
-	public Long findClientId(Account account);
+	public Long findClientId(Long accountId);
 	
 
 }
