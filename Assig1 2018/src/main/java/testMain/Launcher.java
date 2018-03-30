@@ -18,8 +18,8 @@ public class Launcher {
 		window.getFrmLogin().setVisible(true);	
         new AuthenticationController(window, controllerFactory.getComponentFactory().getAuthenticationService(),
         		controllerFactory.getComponentFactory().getRecordService(),
-        		controllerFactory.getAdminViewFactory().getAdministratorMenu(),
-        		controllerFactory.getRegEmpViewFactory().getRegEmployeeMenu());
+        		controllerFactory.getAdminController(),
+        		controllerFactory.getRegEmployeeController());
         
 
     }

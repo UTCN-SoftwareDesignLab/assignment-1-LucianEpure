@@ -63,4 +63,9 @@ import view.RegEmployeeMenu;
 			addClientView.getCardIdTf().setText(cardNumberId);
 		}
 	}
+	
+
+	public AddClientView getAddClientView() {
+		return addClientView;
+	}
 }

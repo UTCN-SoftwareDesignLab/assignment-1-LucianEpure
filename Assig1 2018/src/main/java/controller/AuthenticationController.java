@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import controller.adminControllers.AdminController;
+import controller.regEmployeeControllers.RegEmployeeController;
 import model.Employee;
 import services.employee.AuthenticationService;
 import services.record.RecordService;
@@ -20,28 +22,30 @@ public class AuthenticationController {
 	    private final LoginForm loginForm;
 	    private final AuthenticationService authenticationService;
 	    private final RecordService recordService;
-	    private final RegEmployeeMenu regEmployeeMenu;
-	    private final AdministratorMenu administratorMenu;
+	    //private final RegEmployeeMenu regEmployeeMenu;
+	    //private final AdministratorMenu administratorMenu;
+	    private final AdminController administrationController;
+	    private final RegEmployeeController regEmployeeController;
 	    private Long employeeId;
 	  
 	   
-	    public AuthenticationController(LoginForm loginForm, AuthenticationService authenticationService, RecordService recordService, AdministratorMenu administratorMenu, RegEmployeeMenu regEmployeeMenu) {
+	    public AuthenticationController(LoginForm loginForm, AuthenticationService authenticationService, RecordService recordService, AdminController administrationController, RegEmployeeController regEmployeeController) {
 	        this.loginForm = loginForm;
 	        this.authenticationService = authenticationService;
 	        this.recordService = recordService;
-	        this.administratorMenu = administratorMenu;
-	        this.regEmployeeMenu =regEmployeeMenu;
+	        this.administrationController = administrationController;
+	        this.regEmployeeController = regEmployeeController;
 	        loginForm.setLoginButtonListener(new LoginButtonListener());
 	        loginForm.setRegisterButtonListener(new RegisterButtonListener());
 	    }
 
 	    public void decideWhichView(Employee employee,AuthenticationService authenticationService){
 			if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(ADMINISTRATOR)){
-				administratorMenu.setVisible(true);
+				administrationController.getAdministratorMenu().setVisible(true);
 			}
 			
 			else if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){	
-				regEmployeeMenu.setVisible(true);
+				regEmployeeController.getRegEmployeeMenu().setVisible(true);
 				recordService.setEmployeeId(employeeId);
 			}
 		}

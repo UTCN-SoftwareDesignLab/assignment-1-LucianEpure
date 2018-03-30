@@ -4,14 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 
 import model.Employee;
+import model.Record;
 import services.employee.AuthenticationService;
 import services.employee.EmployeeService;
+import services.record.RecordService;
 import validators.Notification;
 import view.AdministratorMenu;
 
@@ -19,19 +23,24 @@ public class AdminController {
 	private final AdministratorMenu administratorMenu;
 	private final EmployeeService employeeService;
 	private final AuthenticationService authenticationService;
+	private final RecordService recordService;
 	private int selectedRow = 0;
 	private int selectedCol = 3;
 
-	public AdminController(AdministratorMenu administratorMenu, EmployeeService employeeService,AuthenticationService authenticationService){
+	public AdminController(AdministratorMenu administratorMenu, EmployeeService employeeService,AuthenticationService authenticationService, RecordService recordService){
 		this.administratorMenu = administratorMenu;
 		//this.administratorMenu.setVisible(true);
 		this.employeeService = employeeService;
 		this.authenticationService = authenticationService;
+		this.recordService = recordService;
+		this.administratorMenu.setStartDateTf("2018-05-02");
+		this.administratorMenu.setEndDateTf("2018-10-05");
 		administratorMenu.setUpdateEmployeeButtonListener(new UpdateRegEmployeeButtonListener());
 		administratorMenu.setShowEmployeeButtonListener(new ShowRegEmployeeButtonListener());
 		administratorMenu.setShowAllButtonListener(new ShowAllButtonListener());
 		administratorMenu.setFireEmployeeButtonListener(new FireEmployeeButtonListener());
 		administratorMenu.setRegisterRegEmployeeButtonListener(new RegisterRegEmployeeButtonListener());
+		administratorMenu.setGenerateRecordsButtonListener(new GenerateRecordsButtonListener());
 		administratorMenu.setTableListener(new TableListenerEmployees());
 	}
 	
@@ -117,6 +126,32 @@ public class AdminController {
 		}
 		
 	}
+	
+	class GenerateRecordsButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			String date1 = administratorMenu.getStartDateTf().getText();
+			String date2 = administratorMenu.getEndDateTf().getText();
+			String employeeId = administratorMenu.getEmployees().getValueAt(selectedRow, 0).toString();
+			if(employeeId == null){
+                JOptionPane.showMessageDialog(administratorMenu.getContentPane(), "Select employee!");
+			}
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+			LocalDate accDate1 = LocalDate.parse(date1, formatter);
+			LocalDate accDate2 = LocalDate.parse(date2, formatter);
+			
+			List<Record> records = recordService.generateRecords(Long.parseLong(employeeId), accDate1, accDate2);
+			for(Record record: records){
+				administratorMenu.getRecordsModel().addRow(new Object[] {record.getEmployeeId(),record.getClientId(),record.getOperationName(),record.getDate()});
+			}
+
+			
+		}
+		
+	}
 	class TableListenerEmployees implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -124,6 +159,26 @@ public class AdminController {
 				setSelectedCol(administratorMenu.getEmployees().columnAtPoint(e.getPoint()));
 				administratorMenu.setFireEmployee(administratorMenu.getEmployees().getValueAt(selectedRow, 2).toString());
 				administratorMenu.setIdTf(administratorMenu.getEmployees().getValueAt(selectedRow, 0).toString());
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e) {	
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+	}
+	class TableListenerRecords implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent e) {
+				setSelectedRow(administratorMenu.getRecords().rowAtPoint(e.getPoint()));
+				setSelectedCol(administratorMenu.getRecords().columnAtPoint(e.getPoint()));
 		}
 		
 		@Override
@@ -154,4 +209,8 @@ public class AdminController {
 	public void setSelectedCol(int selectedCol) {
 		this.selectedCol = selectedCol;
 	}
+	public AdministratorMenu getAdministratorMenu() {
+		return administratorMenu;
+	}
+
 }

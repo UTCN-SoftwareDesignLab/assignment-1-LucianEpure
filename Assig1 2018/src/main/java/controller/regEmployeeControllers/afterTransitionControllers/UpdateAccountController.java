@@ -19,11 +19,11 @@ public class UpdateAccountController {
 
 	private final AccountService accountService;
 	private final UpdateAccountView updateAccount;
-	private final RecordService recordService;
+private final RecordService recordService;
 	private final RegEmployeeMenu regEmployeeMenu;
 
 	
-	public UpdateAccountController(RegEmployeeMenu regEmployeeMenu, AccountService accountService, UpdateAccountView updateAccount, RegEmployeeController regEmployeeController,RecordService recordService){
+	public UpdateAccountController(RegEmployeeMenu regEmployeeMenu, AccountService accountService, UpdateAccountView updateAccount,RecordService recordService){
 		this.accountService = accountService;
 		this.updateAccount = updateAccount;
 		this.recordService = recordService;
@@ -65,5 +65,10 @@ public class UpdateAccountController {
 		}
 		
 	}
+	public UpdateAccountView getUpdateAccount() {
+		return updateAccount;
+	}
+
+	
 	
 }

@@ -7,7 +7,6 @@ public class Record {
 	private Long id;
 	private Long clientId;
 	private Long employeeId;
-	private Long accountId;
 	private LocalDate date;
 	private String operationName;
 	public Long getId() {
@@ -27,12 +26,6 @@ public class Record {
 	}
 	public void setEmployeeId(Long employeeId) {
 		this.employeeId = employeeId;
-	}
-	public Long getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
 	}
 	public LocalDate getDate() {
 		return date;

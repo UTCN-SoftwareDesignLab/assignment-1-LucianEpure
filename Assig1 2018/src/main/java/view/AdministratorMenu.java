@@ -36,15 +36,26 @@ public class AdministratorMenu extends JFrame {
 	private JButton showAllBtn;
 	private JButton updateEmployeeBtn;
 	private JTable employees;
+	private JTable records;
+
 	private final DefaultTableModel employeesModel;
+	private final DefaultTableModel recordsModel;
+
 	private JScrollPane employeesH;
+	private JScrollPane recordsH;
 	private JTextField idTf;
+	private JLabel lblStartDate;
+	private JLabel lblEndDate;
+	private JTextField startDateTf;
+
+	private JTextField endDateTf;
+	private JButton generateRecordsBtn;
 
 	
 	public AdministratorMenu() {
 		setTitle("Administrator menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 749, 358);
+		setBounds(100, 100, 765, 571);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -137,7 +148,7 @@ public class AdministratorMenu extends JFrame {
 		contentPane.add(updateEmployeeBtn);
 		
 		Object[] employeeColumn = { "id", "Type","Username"};
-		
+			
 		employeesModel = new DefaultTableModel(employeeColumn, 0);
 		employees = new JTable(employeesModel);
 		employees.setBounds(231, 15, 388, 246);
@@ -147,12 +158,25 @@ public class AdministratorMenu extends JFrame {
 		employeesH.setBounds(442, 6, 281, 268);
 		contentPane.add(employeesH);
 		
+      
+		
+		Object[] recordsColumn = { "Employee", "Client","Name","Date"};
+		
+		recordsModel = new DefaultTableModel(recordsColumn, 0);
+		records = new JTable(recordsModel);
+		records.setBounds(231, 15, 388, 246);
+		
+		recordsH = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		recordsH.setViewportView(records);
+		recordsH.setBounds(25, 346, 698, 175);
+		contentPane.add(recordsH);
+		
 		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(25, 272, 298, 2);
+		separator_3.setBounds(25, 272, 407, 2);
 		contentPane.add(separator_3);
 		
 		showAllBtn = new JButton("Show all");
-		showAllBtn.setBounds(25, 285, 89, 23);
+		showAllBtn.setBounds(311, 285, 121, 23);
 		contentPane.add(showAllBtn);
 		
 		JLabel lbl_Username4 = new JLabel("New User");
@@ -172,6 +196,28 @@ public class AdministratorMenu extends JFrame {
 		JLabel lblId = new JLabel("id");
 		lblId.setBounds(215, 141, 30, 14);
 		contentPane.add(lblId);
+		
+		lblStartDate = new JLabel("Start Date");
+		lblStartDate.setBounds(25, 289, 70, 14);
+		contentPane.add(lblStartDate);
+		
+		lblEndDate = new JLabel("End Date");
+		lblEndDate.setBounds(25, 314, 70, 14);
+		contentPane.add(lblEndDate);
+		
+		startDateTf = new JTextField();
+		startDateTf.setBounds(93, 288, 86, 20);
+		contentPane.add(startDateTf);
+		startDateTf.setColumns(10);
+		
+		endDateTf = new JTextField();
+		endDateTf.setBounds(93, 315, 86, 20);
+		contentPane.add(endDateTf);
+		endDateTf.setColumns(10);
+		
+		generateRecordsBtn = new JButton("Reports");
+		generateRecordsBtn.setBounds(201, 285, 89, 23);
+		contentPane.add(generateRecordsBtn);
 		
 	}
 
@@ -247,6 +293,14 @@ public class AdministratorMenu extends JFrame {
 	public JTable getEmployees() {
 		return employees;
 	}
+	public JTable getRecords() {
+		return records;
+	}
+	
+	public DefaultTableModel getRecordsModel() {
+		return recordsModel;
+	}
+
 
 	public void setEmployees(JTable employees) {
 		this.employees = employees;
@@ -259,6 +313,23 @@ public class AdministratorMenu extends JFrame {
 	public void setIdTf(String text) {
 		idTf.setText(text);
 	}
+	
+	public JTextField getStartDateTf() {
+		return startDateTf;
+	}
+
+	public JTextField getEndDateTf() {
+		return endDateTf;
+	}
+	public void setStartDateTf(String text) {
+		this.startDateTf.setText(text);
+	}
+
+	public void setEndDateTf(String text) {
+		this.endDateTf.setText(text);
+	}
+
+	
 
 	//GEtters and Setters Done.................................................................................................
 	//Controllers Setters......................................................................................................
@@ -281,5 +352,9 @@ public class AdministratorMenu extends JFrame {
 	  }
 	  public void setTableListener(MouseListener tableListener){
 		  employees.addMouseListener(tableListener);
+	  }
+	  
+	  public void setGenerateRecordsButtonListener(ActionListener generateRecordsListener){
+		  generateRecordsBtn.addActionListener(generateRecordsListener);
 	  }
 }

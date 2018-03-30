@@ -1,8 +1,10 @@
 package services.employee;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import model.Employee;
+import model.Record;
 import validators.Notification;
 
 public interface EmployeeService {
@@ -15,4 +17,6 @@ public interface EmployeeService {
 	public Notification<Boolean> updateEmployee(Employee employee,String newUsername, String newPassword);
 
 	public void fireEmployeeById(Long id);
+	
+
 }

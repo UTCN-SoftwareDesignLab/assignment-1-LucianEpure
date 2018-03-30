@@ -61,4 +61,10 @@ public class ProcessBillsController{
 		}
 		 
 	 }
+	 
+	 public ProcessBillsView getProcessBillsView() {
+			return processBillsView;
+		}
+
+		
 }

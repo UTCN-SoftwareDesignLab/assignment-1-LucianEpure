@@ -95,17 +95,17 @@ public class ClientServiceImplementation implements ClientService{
 	@Override
 	public Long generateCardIdNumber(){
 		Random rand = new Random();
+		List<Client> allClients = clientRepository.findAll();
 		Long generatedCardId;
 		do{
 			generatedCardId = (long) (100000 + rand.nextInt(900000));
 		}
-		while(checkIfCardExist(generatedCardId));
+		while(checkIfCardExist(allClients,generatedCardId));
 			return generatedCardId;
 	}
 	
-	public boolean checkIfCardExist(Long cardId){
-		List<Client> allClients = clientRepository.findAll();
-		for(Client client:allClients){
+	public boolean checkIfCardExist(List<Client> clients, Long cardId){
+		for(Client client:clients){
 			if(client.getCardIdNumber()==cardId){
 				return true;
 			}

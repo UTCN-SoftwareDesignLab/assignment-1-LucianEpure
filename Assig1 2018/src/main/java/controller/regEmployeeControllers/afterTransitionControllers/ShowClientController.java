@@ -48,4 +48,9 @@ public class ShowClientController {
 		}
 		
 	}
+
+	public ShowClient getShowClientView() {
+		return showClientView;
+	}
+
 }

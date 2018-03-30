@@ -18,7 +18,7 @@ import view.UpdateClientView;
 public class UpdateClientController {
 
 	private final UpdateClientView updateClientView;
-	private final RegEmployeeMenu regEmployeeMenu;
+private final RegEmployeeMenu regEmployeeMenu;
 	private final ClientService clientService;
 	private final RecordService recordService;
 	
@@ -72,4 +72,9 @@ public class UpdateClientController {
 		}
 		
 	}
+	public UpdateClientView getUpdateClientView() {
+		return updateClientView;
+	}
+
+	
 }

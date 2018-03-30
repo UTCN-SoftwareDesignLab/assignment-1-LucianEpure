@@ -22,11 +22,6 @@ public class RecordBuilder {
 		return this;
 	}
 	
-	public RecordBuilder setAccountId(Long id){
-		record.setAccountId(id);
-		return this;
-	}
-	
 	public RecordBuilder setEmployeeId(Long id){
 		record.setEmployeeId(id);
 		return this;

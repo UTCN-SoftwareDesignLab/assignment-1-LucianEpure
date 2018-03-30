@@ -18,7 +18,7 @@ import view.TransactionView;
 public class TransactionController {
 
 	private final TransactionView transactionView;
-	private final AccountOperations accountOperations;
+private final AccountOperations accountOperations;
 	private final RecordService recordService;
 	private final RegEmployeeMenu regEmployeeMenu;
 	
@@ -61,5 +61,10 @@ public class TransactionController {
 		}
 
 	}	
+	public TransactionView getTransactionView() {
+		return transactionView;
+	}
+
+	
 	
 }

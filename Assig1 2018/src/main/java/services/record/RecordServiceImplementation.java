@@ -1,6 +1,7 @@
 package services.record;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import model.Record;
 import model.builder.RecordBuilder;
@@ -25,6 +26,12 @@ public class RecordServiceImplementation implements RecordService{
 						.build();
 		recordRepository.addRecord(record);
 		
+	}
+	
+
+	@Override
+	public List<Record> generateRecords(Long employeeId, LocalDate date1, LocalDate date2) {
+		return recordRepository.getRecords(employeeId, date1, date2);
 	}
     @Override
 	public Long getEmployeeId() {

@@ -17,6 +17,10 @@ import view.AddAccount;
 public class AddAccountController {
 	
 			private final AddAccount addAccountView;
+			public AddAccount getAddAccountView() {
+				return addAccountView;
+			}
+
 			private final AccountService accountService;
 			private final RecordService recordService;
 			private final ClientService clientService;
