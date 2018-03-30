@@ -1,10 +1,11 @@
 package validators;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 
 import model.Client;
 
@@ -53,12 +54,7 @@ public class ClientValidator {
 
 	 public boolean isInteger( String input )
 	 {
-	    try{
-	       Long.parseLong(input);
+	    Long.parseLong(input);
 	       return true;
-	    }
-	    catch(ParseException e){
-	       return false;
-	    }
 	 }
 }
