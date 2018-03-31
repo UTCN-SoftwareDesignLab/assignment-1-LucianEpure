@@ -12,8 +12,8 @@ public interface ClientRepository {
     public Client findClientByCNP(String CNP) throws EntityNotFoundException;
     
 	public Client findClientById(Long id) throws EntityNotFoundException;
-	
-	public Client findClientByCardId(Long cardId) throws EntityNotFoundException;
+
+	public void removeAll();
 	
 	public boolean addClient(Client client);
 	

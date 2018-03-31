@@ -102,6 +102,21 @@ public class SQLTableCreationFactory {
                         "    REFERENCES role (id)" +
                         "    ON DELETE CASCADE" +
                         "    ON UPDATE CASCADE);";
+
+            case BILL:
+                return "CREATE TABLE IF NOT EXISTS bill (" +
+                        "  id INT NOT NULL AUTO_INCREMENT," +
+                        "  code INT NOT NULL," +
+                        "  sum DECIMAL(18,5) NOT NULL," +
+                        "  account_id INT NOT NULL," +
+                        "  PRIMARY KEY (id)," +
+                        "  UNIQUE INDEX id_UNIQUE (id ASC),"+
+                        "  CONSTRAINT account_fkid" +
+                        "  FOREIGN KEY (account_id)" +
+                        "    REFERENCES account (id)" +
+                        "    ON DELETE CASCADE" +
+                        "    ON UPDATE CASCADE);";
+                
             case RECORD:
             	return " CREATE TABLE IF NOT EXISTS record (" +
                         "  id INT NOT NULL AUTO_INCREMENT," +

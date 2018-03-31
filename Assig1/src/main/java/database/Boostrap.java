@@ -4,7 +4,6 @@ import static database.Constants.getRolesRights;
 import static database.Constants.Rights.RIGHTS;
 import static database.Constants.Roles.ROLES;
 import static database.Constants.Schemas.SCHEMAS;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +17,7 @@ import repository.security.RightsRolesRepositoryMySQL;
 public class Boostrap {
 	 private static RightsRolesRepository rightsRolesRepository;
 
+
 	    public static void main(String[] args) throws SQLException {
 	    	
 	    	dropAll();
@@ -25,6 +25,7 @@ public class Boostrap {
 	    	bootstrapTables();
 
 	        bootstrapUserData();
+	        
 	    }
 
 	    private static void dropAll() throws SQLException {
@@ -37,6 +38,8 @@ public class Boostrap {
 	            String[] dropSQL = {
 	            		 "TRUNCATE `record`; ",
 		                 " DROP TABLE `record`;",
+		                 "TRUNCATE `bill`;",
+		                 " DROP TABLE `bill`;",
 	            		 "TRUNCATE `role_right`; ",
 	                     " DROP TABLE `role_right`;",
 	                            "TRUNCATE `rights`; ",
@@ -118,5 +121,9 @@ public class Boostrap {
 	            }
 	        }
 	    }
+	    
+
+	    
+	   
 
 }

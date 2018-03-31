@@ -16,8 +16,6 @@ public interface ClientService {
 	
 	public Client findClientByCnp(String CNP) throws EntityNotFoundException;
 	
-	public Client findClientByCardId(Long cardId) throws EntityNotFoundException;
-	
 	public Long generateCardIdNumber();
 	
 	public Notification<Boolean> updateClient(Client client,String name, String address,  String cardId);

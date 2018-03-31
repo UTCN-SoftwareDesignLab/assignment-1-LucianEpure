@@ -52,5 +52,9 @@ public class ShowClientController {
 	public ShowClient getShowClientView() {
 		return showClientView;
 	}
+	
+	public void activateView(){
+		showClientView.setVisible(true);
+	}
 
 }

@@ -1,13 +1,10 @@
 package services.employee;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import model.Employee;
-import model.Record;
 import model.builder.EmployeeBuilder;
 import repository.employee.EmployeeRepository;
-import repository.record.RecordRepository;
 import repository.security.RightsRolesRepository;
 import validators.EmployeeValidator;
 import validators.Notification;
@@ -28,6 +25,13 @@ public class EmployeeServiceImplementation implements EmployeeService{
 		employeeRepository.removeRegEmployeeById(id);
 		rightsRolesRepository.removeEmployeeRole(id);
 	}
+	
+
+	@Override
+	public Notification<Employee> findById(Long id) {
+		return  employeeRepository.findRegEmployeeById(id);
+	}
+
 
 	@Override
 	public Employee findByUsername(String username) {
@@ -64,6 +68,7 @@ public class EmployeeServiceImplementation implements EmployeeService{
             return  employeeUpdateNotification;
         }
 	}
+
 
 
 

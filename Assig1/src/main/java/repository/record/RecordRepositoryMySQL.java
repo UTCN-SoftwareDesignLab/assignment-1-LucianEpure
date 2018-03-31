@@ -1,5 +1,9 @@
 package repository.record;
 
+import static database.Constants.Tables.RECORD;
+import static database.Constants.Tables.ACCOUNT;
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Employee;
 import model.Record;
-import model.builder.EmployeeBuilder;
 import model.builder.RecordBuilder;
 
 public class RecordRepositoryMySQL implements RecordRepository{
@@ -21,11 +23,24 @@ public class RecordRepositoryMySQL implements RecordRepository{
 		 this.connection = connection;
 	 }
 
+		@Override
+		public void removeAll() {
+			 try {
+					Statement statement = connection.createStatement();
+					String sql = "DELETE from "+ACCOUNT+" where id >= 0";
+					statement.executeUpdate(sql);
+					String sqlResetIncrement = "ALTER TABLE "+RECORD+" AUTO_INCREMENT = 1";
+					statement.executeUpdate(sqlResetIncrement);
+			 		} catch (SQLException e) {
+			 			e.printStackTrace();
+			 		}
+		}
+		 
 	@Override
 	public boolean addRecord(Record record) {
 		 try {
 	            PreparedStatement insertQuery = connection
-	                    .prepareStatement("INSERT INTO record values (null, ?, ?, ?, ?)");
+	                    .prepareStatement("INSERT INTO "+RECORD+ " values (null, ?, ?, ?, ?)");
 	            insertQuery.setLong(1, record.getEmployeeId());
 	            insertQuery.setLong(2, record.getClientId());
 	            insertQuery.setString(3, record.getOperationName());
@@ -44,7 +59,7 @@ public class RecordRepositoryMySQL implements RecordRepository{
 		
 		try {
 			Statement statement = connection.createStatement();
-			String fetchRecordSQL = "Select * from record where employee_id= " + employeeId.toString() + " and date >= '" +date1.toString() +"' and date <= '"+date2.toString()+"'";
+			String fetchRecordSQL = "Select * from "+RECORD+" where employee_id= " + employeeId.toString() + " and date >= '" +date1.toString() +"' and date <= '"+date2.toString()+"'";
 			ResultSet rs= statement.executeQuery(fetchRecordSQL);
 			while(rs.next()) {
 				Record record = getRecordFromResultSet(rs);
@@ -69,7 +84,8 @@ public class RecordRepositoryMySQL implements RecordRepository{
 	                .setName(rs.getString("name"))
 	                .build();
 	    }
-	 
+
+
 
 	
 }

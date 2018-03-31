@@ -21,6 +21,19 @@ public class AccountRepositoryMySQL implements AccountRepository{
 	 public AccountRepositoryMySQL(Connection connection) {
 	        this.connection = connection;
 	    }
+	 
+		@Override
+		public void removeAll() {
+			 try {
+					Statement statement = connection.createStatement();
+	      	String sql = "DELETE from "+ACCOUNT+" where id >= 0";
+	      	statement.executeUpdate(sql);
+	      	String sqlResetIncrement = "ALTER TABLE "+ACCOUNT+" AUTO_INCREMENT = 1";
+	     	statement.executeUpdate(sqlResetIncrement);
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			}
+		}
 	@Override
 	public List<Account> findAll() {
 		List<Account> accounts = new ArrayList<>();
@@ -62,7 +75,7 @@ public class AccountRepositoryMySQL implements AccountRepository{
 	public boolean addAccount(Account account,Long clientId) {
 		try {
             PreparedStatement insertQuery = connection
-                    .prepareStatement("INSERT INTO account values (null, ?, ?, ?, ?)");
+                    .prepareStatement("INSERT INTO "+ACCOUNT+" values (null, ?, ?, ?, ?)");
             insertQuery.setString(1, account.getType());
             insertQuery.setDouble(2, account.getSum());
             insertQuery.setDate(3, java.sql.Date.valueOf(account.getDate()));
@@ -154,5 +167,6 @@ public class AccountRepositoryMySQL implements AccountRepository{
                 .build();
        
     }
+
 
 }

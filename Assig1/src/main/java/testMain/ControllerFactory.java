@@ -56,7 +56,7 @@ public class ControllerFactory {
 		
 		this.addClientController = new AddClientController(regEmpViewFactory.getRegEmployeeMenu(),regEmpViewFactory.getAddClientView(),componentFactory.getClientService(),componentFactory.getRecordService());
 		
-		this.addAccountController = new AddAccountController(regEmpViewFactory.getAddAccount(),componentFactory.getAccountService(),componentFactory.getClientService(),componentFactory.getRecordService());
+		this.addAccountController = new AddAccountController(regEmpViewFactory.getAddAccount(),componentFactory.getAccountService(),componentFactory.getClientService(),componentFactory.getRecordService(), regEmpViewFactory.getRegEmployeeMenu());
 		
 		this.processBillsController = new ProcessBillsController(componentFactory.getAccountOperations(),componentFactory.getClientService(),regEmpViewFactory.getProcessBills(), regEmpViewFactory.getRegEmployeeMenu(),componentFactory.getRecordService());
 		

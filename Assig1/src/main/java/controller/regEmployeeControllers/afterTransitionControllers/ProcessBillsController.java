@@ -66,5 +66,8 @@ public class ProcessBillsController{
 			return processBillsView;
 		}
 
-		
+	public void activateView(int selectedRow){
+		processBillsView.setClientTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());
+		processBillsView.setVisible(true);
+	}
 }

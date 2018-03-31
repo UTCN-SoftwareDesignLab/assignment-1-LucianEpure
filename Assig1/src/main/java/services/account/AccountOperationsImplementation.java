@@ -9,6 +9,7 @@ import model.builder.BillBuilder;
 import model.builder.TransactionBuilder;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
+import repository.bill.BillRepository;
 import validators.BillValidator;
 import validators.Notification;
 import validators.TransactionValidator;
@@ -17,8 +18,10 @@ public class AccountOperationsImplementation implements AccountOperations{
 	
 	
 	private final AccountRepository accountRepository;
-	public AccountOperationsImplementation(AccountRepository accountRepository){
+	private final BillRepository billRepository;
+	public AccountOperationsImplementation(AccountRepository accountRepository, BillRepository billRepository){
 		 this.accountRepository = accountRepository;
+		 this.billRepository = billRepository;
 	}
 	
 	@Override
@@ -78,14 +81,22 @@ public class AccountOperationsImplementation implements AccountOperations{
 		BillValidator billValidator = new BillValidator(bill);
         boolean billValid = billValidator.validate();
         Notification<Boolean> billNotification = new Notification<>();
+      
+        if(billRepository.findBillById(bill.getBillNumber()))
+        {
+        	billNotification.addError("Already paied!");
+        	billValid = false;
+        }
         
         if (!billValid) {
             billValidator.getErrors().forEach(billNotification::addError);
             billNotification.setResult(Boolean.FALSE);
             return billNotification;
         } else {
+        		
         		newBalance = bill.getAccount().getSum() - sum;
         		bill.getAccount().setSum(newBalance);
+        		billRepository.addBill(bill);
         		accountRepository.updateAccount(bill.getAccount(), clientId);
         		billNotification.setResult(true);       
                  return  billNotification;

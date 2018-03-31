@@ -22,14 +22,7 @@ import services.account.AccountOperations;
 import services.account.AccountService;
 import services.client.ClientService;
 import services.record.RecordService;
-import view.AddAccount;
-import view.AddClientView;
-import view.ProcessBillsView;
 import view.RegEmployeeMenu;
-import view.ShowClient;
-import view.TransactionView;
-import view.UpdateAccountView;
-import view.UpdateClientView;
 
 public class RegEmployeeController {
 
@@ -47,35 +40,6 @@ private final ClientService clientService;
 	private int selectedRow = 0;
 	
 
-	/*public RegEmployeeController(RegEmployeeMenu regEmployeeMenu,ClientService clientService,AccountService accountService,AccountOperations accountOperations, RecordService recordService
-			,AddClientView addClientView, ShowClient showClient, UpdateClientView updateClientView, AddAccount addAccount
-			,UpdateAccountView updateAccountView, TransactionView transactionView, ProcessBillsView processBillsView) {
-			this.regEmployeeMenu = regEmployeeMenu;
-			this.clientService = clientService;
-			this.accountService = accountService;
-			this.recordService = recordService;
-			this.addClientView = addClientView;
-			this.showClient = showClient;
-			this.updateClientView = updateClientView;
-			this.addAccount = addAccount;
-			this.updateAccountView = updateAccountView;
-			this.transactionView = transactionView;
-			this.processBillsView = processBillsView;
-			this.regEmployeeMenu.setDateTf("2018-05-2");
-			regEmployeeMenu.setShowAllListener(new ShowAllListener());
-			regEmployeeMenu.setShowAccountsListener(new ShowAccountsListener());
-			regEmployeeMenu.setShowAllAccountsListener(new ViewAllAccountsListener());
-			regEmployeeMenu.setRemoveAccountListener(new RemoveAccountListener());
-			regEmployeeMenu.setAddClientListener(new AddClientTransitionButtonListener());
-			regEmployeeMenu.setShowClientListener(new ShowClientTransitionButtonListener());
-			regEmployeeMenu.setUpdateClientListener(new UpdateClientTransitionButtonListener());
-			regEmployeeMenu.setAddAccountListener(new AddAccountTransitionButtonListener());
-			regEmployeeMenu.setUpdateAccountListener(new UpdateAccountTransitionButtonListener());
-			regEmployeeMenu.setTransactionListener(new TransactionTransitionButtonListener());
-			regEmployeeMenu.setProcessBillListener(new ProcessBillTransitionButtonListener());
-			regEmployeeMenu.setTableListenerClients(new TableListenerClients());
-			regEmployeeMenu.setTableListenerAccounts(new TableListenerAccounts());
-	}*/
 	public RegEmployeeController(RegEmployeeMenu regEmployeeMenu,ClientService clientService,AccountService accountService,AccountOperations accountOperations, RecordService recordService
 	,AddClientController addClientController,AddAccountController addAccountController, ProcessBillsController processBillsController, ShowClientController showClientController
 	,TransactionController transactionController, UpdateClientController updateClientController, UpdateAccountController updateAccountController)
@@ -129,15 +93,16 @@ private final ClientService clientService;
 			String currentDate = regEmployeeMenu.getDateTf().getText();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 			LocalDate accDate = LocalDate.parse(currentDate, formatter);
-			
-			List<Account> accounts = accountService.showAllAccountsOfClient(clientCnp);
 			try {
-				recordService.addRecord(clientService.findClientByCnp(clientCnp).getId(), "View account", accDate);
-			} catch (EntityNotFoundException e1) {
-				e1.printStackTrace();
-			}
-			for(Account account:accounts){
-				regEmployeeMenu.getAccountsModel().addRow(new Object[] {regEmployeeMenu.getClients().getValueAt(selectedRow, 0),account.getId(),account.getType(), account.getSum(), account.getDate()});
+				Long clientId = clientService.findClientByCnp(clientCnp).getId();
+				List<Account> accounts = accountService.showAllAccountsOfClient(clientId);
+				recordService.addRecord(clientId, "View account", accDate);
+				for(Account account:accounts){
+					regEmployeeMenu.getAccountsModel().addRow(new Object[] {regEmployeeMenu.getClients().getValueAt(selectedRow, 0),account.getId(),account.getType(), account.getSum(), account.getDate()});
+				}
+			} catch (EntityNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
 			}
 		}
 	}
@@ -169,32 +134,27 @@ private final ClientService clientService;
 	class AddClientTransitionButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		addClientController.getAddClientView().setVisible(true);
+		addClientController.activateView();
 		}
 	}
 	
 	class ShowClientTransitionButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		showClientController.getShowClientView().setVisible(true);
+		showClientController.activateView();
 		}
 	}
 	class UpdateClientTransitionButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		updateClientController.getUpdateClientView().setAddressTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 1).toString());
-		updateClientController.getUpdateClientView().setNameTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 0).toString());
-		updateClientController.getUpdateClientView().setCnpTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());
-		updateClientController.getUpdateClientView().setCardIdTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 3).toString());
-		updateClientController.getUpdateClientView().setVisible(true);
+		updateClientController.activateView(selectedRow);
 		}
 	}
 	class AddAccountTransitionButtonListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		addAccountController.getAddAccountView().setClientTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());	
-		addAccountController.getAddAccountView().setVisible(true);
+		addAccountController.activateView(selectedRow);
 		}
 	}
 	
@@ -203,16 +163,14 @@ private final ClientService clientService;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			updateAccountController.getUpdateAccount().setAccountIdTf(regEmployeeMenu.getAccounts().getValueAt(selectedRow,1).toString());
-			updateAccountController.getUpdateAccount().setSumTf(regEmployeeMenu.getAccounts().getValueAt(selectedRow,3).toString());
-			updateAccountController.getUpdateAccount().setVisible(true);
+			updateAccountController.activateView(selectedRow);
 		}		
 	}
 	class TransactionTransitionButtonListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {	
-			transactionController.getTransactionView().setVisible(true);
+			transactionController.activateView();
 		}
 		
 	}
@@ -220,8 +178,8 @@ private final ClientService clientService;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			processBillsController.getProcessBillsView().setVisible(true);
-	}
+			processBillsController.activateView(selectedRow);
+		}
 	}
 	
 	class TableListenerClients implements MouseListener{
@@ -271,7 +229,9 @@ private final ClientService clientService;
 	public RegEmployeeMenu getRegEmployeeMenu() {
 		return regEmployeeMenu;
 	}
-
+	public void activate(){
+		this.regEmployeeMenu.setVisible(true);
+	}
 
 	
 

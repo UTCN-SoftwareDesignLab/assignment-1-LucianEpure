@@ -14,9 +14,7 @@ import model.Employee;
 import services.employee.AuthenticationService;
 import services.record.RecordService;
 import validators.Notification;
-import view.AdministratorMenu;
 import view.LoginForm;
-import view.RegEmployeeMenu;
 
 public class AuthenticationController {
 	    private final LoginForm loginForm;
@@ -39,13 +37,13 @@ public class AuthenticationController {
 	        loginForm.setRegisterButtonListener(new RegisterButtonListener());
 	    }
 
-	    public void decideWhichView(Employee employee,AuthenticationService authenticationService){
+	    public void decideWhichView(Employee employee){
 			if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(ADMINISTRATOR)){
-				administrationController.getAdministratorMenu().setVisible(true);
+				administrationController.activate();
 			}
 			
 			else if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){	
-				regEmployeeController.getRegEmployeeMenu().setVisible(true);
+				regEmployeeController.activate();
 				recordService.setEmployeeId(employeeId);
 			}
 		}
@@ -61,9 +59,8 @@ public class AuthenticationController {
 	                JOptionPane.showMessageDialog(loginForm.getContentPane(), loginNotification.getFormattedErrors());
 	            } else {
 	                JOptionPane.showMessageDialog(loginForm.getContentPane(), "Login successful!");
-	                System.out.println(loginNotification.getResult().getRoles().get(0).getRoleTitle());
 	                employeeId = authenticationService.obtainId(username);  //id of the employee, I send it to throught Dec controller to be set in the coressponding factory
-	                decideWhichView(loginNotification.getResult(), authenticationService);
+	                decideWhichView(loginNotification.getResult());
 	                loginForm.dispose();
 	            }
 	        }      

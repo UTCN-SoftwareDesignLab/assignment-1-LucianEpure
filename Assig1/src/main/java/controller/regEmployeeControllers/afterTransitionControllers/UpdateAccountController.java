@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
-import controller.regEmployeeControllers.RegEmployeeController;
 import repository.EntityNotFoundException;
 import services.account.AccountService;
 import services.record.RecordService;
@@ -67,6 +66,12 @@ private final RecordService recordService;
 	}
 	public UpdateAccountView getUpdateAccount() {
 		return updateAccount;
+	}
+	public void activateView(int selectedRow){
+		updateAccount.setAccountIdTf(regEmployeeMenu.getAccounts().getValueAt(selectedRow,1).toString());
+		updateAccount.setSumTf(regEmployeeMenu.getAccounts().getValueAt(selectedRow,3).toString());
+		updateAccount.setVisible(true);
+		
 	}
 
 	

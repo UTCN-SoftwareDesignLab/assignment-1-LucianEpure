@@ -68,4 +68,8 @@ import view.RegEmployeeMenu;
 	public AddClientView getAddClientView() {
 		return addClientView;
 	}
+	
+	public void activateView(){
+		addClientView.setVisible(true);
+	}
 }

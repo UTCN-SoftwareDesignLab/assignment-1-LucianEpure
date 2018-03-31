@@ -159,6 +159,7 @@ public class AdminController {
 				setSelectedCol(administratorMenu.getEmployees().columnAtPoint(e.getPoint()));
 				administratorMenu.setFireEmployee(administratorMenu.getEmployees().getValueAt(selectedRow, 2).toString());
 				administratorMenu.setIdTf(administratorMenu.getEmployees().getValueAt(selectedRow, 0).toString());
+				administratorMenu.setUpdateUsernameTf(administratorMenu.getEmployees().getValueAt(selectedRow, 2).toString());
 		}
 		
 		@Override
@@ -211,6 +212,9 @@ public class AdminController {
 	}
 	public AdministratorMenu getAdministratorMenu() {
 		return administratorMenu;
+	}
+	public void activate(){
+		this.administratorMenu.setVisible(true);
 	}
 
 }

@@ -9,7 +9,7 @@ import validators.Notification;
 
 public interface AccountService {
 	
-	public List<Account> showAllAccountsOfClient(String client);
+	public List<Account> showAllAccountsOfClient(Long clientId);
 	
 	public List<Account> showAllAccounts();
 	

@@ -13,6 +13,7 @@ import services.client.ClientService;
 import services.record.RecordService;
 import validators.Notification;
 import view.AddAccount;
+import view.RegEmployeeMenu;
 
 public class AddAccountController {
 	
@@ -24,14 +25,15 @@ public class AddAccountController {
 			private final AccountService accountService;
 			private final RecordService recordService;
 			private final ClientService clientService;
+			private final RegEmployeeMenu regEmployeeMenu;
 			
 			
-			
-			public AddAccountController(AddAccount addAccountView, AccountService accountService,ClientService clientService,RecordService recordService){
+			public AddAccountController(AddAccount addAccountView, AccountService accountService,ClientService clientService,RecordService recordService, RegEmployeeMenu regEmployeeMenu){
 				this.addAccountView = addAccountView;
 				this.accountService = accountService;
 				this.clientService = clientService;
 				this.recordService = recordService;
+				this.regEmployeeMenu = regEmployeeMenu;
 			  addAccountView.setAddListener(new AddAccountButtonListener());	
 			}
 			
@@ -65,6 +67,10 @@ public class AddAccountController {
 				}
 			}
 
+			public void activateView(int selectedRow){
+				addAccountView.setClientTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());	
+				addAccountView.setVisible(true);
+			}
 		
 }
 

@@ -20,6 +20,20 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	 public ClientRepositoryMySQL(Connection connection) {
 	        this.connection = connection;
 	    }
+	 
+	 @Override
+		public void removeAll() {
+		 try {
+				Statement statement = connection.createStatement();
+         	String sql = "DELETE from "+CLIENT+" where id >= 0";
+         	statement.executeUpdate(sql);
+         	String sqlResetIncrement = "ALTER TABLE "+CLIENT+" AUTO_INCREMENT = 1";
+        	statement.executeUpdate(sqlResetIncrement);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+     }
+		}
+	 
 	@Override
 	public List<Client> findAll() {
 			List<Client> clients = new ArrayList<Client>();
@@ -74,30 +88,12 @@ public class ClientRepositoryMySQL implements ClientRepository{
 	        }
 	}
 	
-	@Override
-	public Client findClientByCardId(Long cardId) throws EntityNotFoundException {
-		 try {
-	            Statement statement = connection.createStatement();
-	            String sql = "Select * from "+ CLIENT + " where cardIdNumber =" + cardId;
-	            ResultSet rs = statement.executeQuery(sql);
-
-	            if (rs.next()) {
-	                return getClientFromResultSet(rs);
-	            } else {
-	                throw new EntityNotFoundException(cardId, Client.class.getSimpleName());
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            throw new EntityNotFoundException(cardId, Client.class.getSimpleName());
-	        }
-	}
-
 
 	@Override
 	public boolean addClient(Client client) {
 		 try {
 	            PreparedStatement insertQuery = connection
-	                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?, ?)");
+	                    .prepareStatement("INSERT INTO "+CLIENT+" values (null, ?, ?, ?, ?)");
 	            insertQuery.setString(1, client.getName());
 	            insertQuery.setString(2, client.getAddress());
 	            insertQuery.setString(3, client.getCNP());
@@ -145,5 +141,6 @@ public class ClientRepositoryMySQL implements ClientRepository{
                 .build();
        
     }
+	
 
 }

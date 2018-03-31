@@ -6,7 +6,6 @@ import java.util.List;
 import model.Record;
 import model.builder.RecordBuilder;
 import repository.record.RecordRepository;
-import validators.Notification;
 
 public class RecordServiceImplementation implements RecordService{
 
@@ -16,6 +15,7 @@ public class RecordServiceImplementation implements RecordService{
 	public RecordServiceImplementation(RecordRepository recordRepository) {
 		this.recordRepository = recordRepository;
 	}
+	
 	@Override
 	public void addRecord(Long clientId,  String name,LocalDate date) {
 		Record record = new RecordBuilder()
@@ -41,4 +41,5 @@ public class RecordServiceImplementation implements RecordService{
 	public void setEmployeeId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
+
 }

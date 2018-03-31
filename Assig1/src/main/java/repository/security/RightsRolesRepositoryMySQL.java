@@ -128,7 +128,7 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
 	        try {
 	            for (Role role : roles) {
 	                PreparedStatement insertEmployeeRoleStatement = connection
-	                        .prepareStatement("INSERT INTO `employee_role` values (null, ?, ?)");
+	                        .prepareStatement("INSERT INTO "+ EMPLOYEE_ROLE+" values (null, ?, ?)");
 	                insertEmployeeRoleStatement.setLong(1, employee.getId());
 	                insertEmployeeRoleStatement.setLong(2, role.getId());
 	                insertEmployeeRoleStatement.executeUpdate();

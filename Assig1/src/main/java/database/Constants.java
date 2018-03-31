@@ -24,8 +24,9 @@ public class Constants {
         public static final String ROLE_RIGHT = "role_right";
         public static final String EMPLOYEE_ROLE = "employee_role";
         public static final String RECORD = "record";
+        public static final String BILL = "bill";
 
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{ CLIENT, ROLE, RIGHTS, ROLE_RIGHT, ACCOUNT,EMPLOYEE,EMPLOYEE_ROLE,RECORD};
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{ CLIENT, ROLE, RIGHTS, ROLE_RIGHT, ACCOUNT,EMPLOYEE,EMPLOYEE_ROLE,RECORD,BILL};
     }
 
     public static class Roles {

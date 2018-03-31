@@ -75,6 +75,13 @@ private final RegEmployeeMenu regEmployeeMenu;
 	public UpdateClientView getUpdateClientView() {
 		return updateClientView;
 	}
+	public void activateView(int selectedRow){
+		updateClientView.setAddressTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 1).toString());
+		updateClientView.setNameTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 0).toString());
+		updateClientView.setCnpTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());
+		updateClientView.setCardIdTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 3).toString());
+		updateClientView.setVisible(true);
+	}
 
 	
 }

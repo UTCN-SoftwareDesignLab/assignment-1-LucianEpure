@@ -65,6 +65,8 @@ private final AccountOperations accountOperations;
 		return transactionView;
 	}
 
-	
+	public void activateView(){
+		transactionView.setVisible(true);
+	}
 	
 }

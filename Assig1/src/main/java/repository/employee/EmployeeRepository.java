@@ -23,4 +23,6 @@ public interface EmployeeRepository {
 	    void removeAll();
 	    
 		void removeRegEmployeeById(Long id);
+
+		Notification<Employee> findRegEmployeeById(Long id);
 }

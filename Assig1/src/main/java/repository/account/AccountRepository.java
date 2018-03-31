@@ -20,5 +20,7 @@ public interface AccountRepository {
 	
 	public Long findClientId(Long accountId);
 	
+	public void removeAll();
+	
 
 }

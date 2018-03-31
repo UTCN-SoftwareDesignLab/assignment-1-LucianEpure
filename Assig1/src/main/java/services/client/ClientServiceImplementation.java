@@ -9,6 +9,7 @@ import model.Account;
 import model.Client;
 import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
+import repository.account.AccountRepository;
 import repository.client.ClientRepository;
 import validators.ClientValidator;
 import validators.Notification;
@@ -17,26 +18,23 @@ import validators.Notification;
 public class ClientServiceImplementation implements ClientService{
 
 	private final ClientRepository clientRepository;
+	private final AccountRepository accountRepository;
 	
 	
-	
-	  public ClientServiceImplementation(ClientRepository clientRepository) {
+	  public ClientServiceImplementation(ClientRepository clientRepository, AccountRepository accountRepository) {
 	        this.clientRepository = clientRepository;
+	        this.accountRepository = accountRepository;
 	    }
-	@Override
-	public List<Client> showAll() {
-		return  clientRepository.findAll();	
-	}
+
 	@Override
 	public Notification<Boolean> addClient(String name, String address, String CNP, String cardIdNumber) {
 		
-		Long cardId = Long.parseLong(cardIdNumber); 
-		System.out.println(name);
+
         Client client = new ClientBuilder()
                .setClientName(name)
                .setClientAddress(address)
                .setClientCNP(CNP)
-               .setClientCardIdNumber(cardId)
+               .setClientCardIdNumber(Long.parseLong(cardIdNumber))
                .setAccounts(new ArrayList<Account>())
                .build();
 
@@ -56,17 +54,21 @@ public class ClientServiceImplementation implements ClientService{
 	
 	@Override
 	public Client findClientById(Long id) throws EntityNotFoundException {
-		return clientRepository.findClientById(id);
+		Client client = clientRepository.findClientById(id);
+				client.setAccounts(accountRepository.findAccountsOfClient(id));
+		return client;
 	}
 	@Override
 	public Client findClientByCnp(String CNP) throws EntityNotFoundException {
 		Client client = clientRepository.findClientByCNP(CNP);
+			     client.setAccounts(accountRepository.findAccountsOfClient(client.getId()));
 		return client;
 	}
 	@Override
-	public Client findClientByCardId(Long cardId) throws EntityNotFoundException {
-		return clientRepository.findClientByCardId(cardId);
+	public List<Client> showAll() {
+		return  clientRepository.findAll();	
 	}
+
 	@Override
 	public Notification<Boolean> updateClient(Client client, String name, String address,  String cardId) {
 		Client newClient = new ClientBuilder()

@@ -4,6 +4,8 @@ import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
+import repository.bill.BillRepository;
+import repository.bill.BillRepositoryMySQL;
 import repository.client.ClientRepository;
 import repository.client.ClientRepositoryMySQL;
 import repository.employee.EmployeeRepository;
@@ -31,7 +33,8 @@ import java.sql.Connection;
 public class ComponentFactory {
 
     private final AuthenticationService authenticationService;
-    private final EmployeeService employeeService;
+    private final BillRepository billRepository;
+   private final EmployeeService employeeService;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
     private final AccountRepository accountRepository;
@@ -56,15 +59,16 @@ public class ComponentFactory {
        
         this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         this.accountRepository = new AccountRepositoryMySQL(connection);
+        this.billRepository = new BillRepositoryMySQL(connection);
         this.employeeRepository = new EmployeeRepositoryMySQL(connection, rightsRolesRepository);
         this.authenticationService = new AuthenticationServiceMySQL(this.employeeRepository, this.rightsRolesRepository);
         this.clientRepository = new ClientRepositoryMySQL(connection);
         this.recordRepository = new RecordRepositoryMySQL(connection);
         this.employeeService = new EmployeeServiceImplementation(this.employeeRepository,this.rightsRolesRepository);
         this.recordService = new RecordServiceImplementation(this.getRecordRepository());
-        this.clientService = new ClientServiceImplementation(this.getClientRepository());
-        this.accountService = new AccountServiceImplementation(this.getAccountRepository(),this.getClientRepository());
-        this.accountOperations = new AccountOperationsImplementation(this.getAccountRepository());
+        this.clientService = new ClientServiceImplementation(this.getClientRepository(), this.getAccountRepository());
+        this.accountService = new AccountServiceImplementation(this.getAccountRepository());
+        this.accountOperations = new AccountOperationsImplementation(this.getAccountRepository(),this.getBillRepository());
     }
 
     public AuthenticationService getAuthenticationService() {
@@ -105,5 +109,9 @@ public class ComponentFactory {
 	public RecordService getRecordService(){
 		return recordService;
 	}
+	 public BillRepository getBillRepository() {
+			return billRepository;
+		}
+		
 
 }

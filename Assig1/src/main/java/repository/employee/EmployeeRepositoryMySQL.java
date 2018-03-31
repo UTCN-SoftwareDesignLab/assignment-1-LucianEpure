@@ -26,6 +26,18 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 	        this.rightsRolesRepository = rightsRolesRepository;
 	    }
 
+	   @Override
+		public void removeAll() {
+			try {
+					Statement statement = connection.createStatement();
+	            	String sql = "DELETE from employee where id >= 0";
+	            	statement.executeUpdate(sql);
+	            	String sqlResetIncrement = "ALTER TABLE "+EMPLOYEE+ " AUTO_INCREMENT = 1";
+	            	statement.executeUpdate(sqlResetIncrement);
+			} catch (SQLException e) {
+			    e.printStackTrace();
+	        }
+		}
 
 	@Override
 	public List<Employee> findAll() {
@@ -143,16 +155,7 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 
 
 
-	@Override
-	public void removeAll() {
-		try {
-				Statement statement = connection.createStatement();
-            	String sql = "DELETE from employee where id >= 0";
-            	statement.executeUpdate(sql);
-		} catch (SQLException e) {
-		    e.printStackTrace();
-        }
-	}
+	
 
 	
 
@@ -175,6 +178,27 @@ public class EmployeeRepositoryMySQL implements EmployeeRepository {
 			}
 		}
 		
+		@Override
+		public Notification<Employee> findRegEmployeeById(Long id) {
+			Notification<Employee> findByIdNotification = new Notification<>();
+			try {
+				Statement statement = connection.createStatement();
+				String findQuery = "Select * from `" + EMPLOYEE + "` where `id`=\'" + id + "\'";
+				ResultSet employeeResultSet = statement.executeQuery(findQuery);
+				employeeResultSet.next();
+				
+				Employee employee =  getEmployeeFromResultSet(employeeResultSet);
+				if(employee.getRoles().get(0).toString().equalsIgnoreCase(ADMINISTRATOR))
+					findByIdNotification.addError("Not a regular employee!");
+				else
+				findByIdNotification.setResult(employee);
+				return findByIdNotification;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			 findByIdNotification.addError("Invalid id!");
+	         return findByIdNotification;
+	    }
+		}
 
 		@Override
 		public void removeRegEmployeeById(Long id) {
