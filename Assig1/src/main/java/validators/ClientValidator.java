@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import model.Client;
 
-public class ClientValidator {
+public class ClientValidator implements IValidator{
 
 	
 	private final List<String> errors;
@@ -26,7 +26,7 @@ public class ClientValidator {
 		return errors.isEmpty();
 	}
 	
-	public void validateCNP(String CNP){
+	private void validateCNP(String CNP){
 		if(CNP.length()<13){
 			errors.add("Too short CNP");
 		}
@@ -38,7 +38,7 @@ public class ClientValidator {
 	        }
 	}
 	
-	public void validateCardId(Long cardId){
+	private void validateCardId(Long cardId){
 		if(cardId<100000){
 			errors.add("Too short cardId");
 		}
@@ -51,9 +51,4 @@ public class ClientValidator {
 	        return errors;
 	    }
 
-	 public boolean isInteger( String input )
-	 {
-	    Long.parseLong(input);
-	       return true;
-	 }
 }

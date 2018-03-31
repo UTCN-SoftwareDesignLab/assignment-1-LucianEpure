@@ -6,7 +6,7 @@ import java.util.List;
 import model.Account;
 import model.Transaction;
 
-public class TransactionValidator {
+public class TransactionValidator implements IValidator{
 	private final List<String> errors;
 	private final Transaction transaction;
 
@@ -15,18 +15,6 @@ public class TransactionValidator {
 		this.transaction = transaction;
 		errors = new ArrayList<String>();
 	}
-	
-	public void validateSum (String sum){
-		
-		  if (Double.parseDouble(sum) < 0)
-			  errors.add("No negative ammount!");
-	}
-	
-	public void checkIfEnoughMoney(Account accountFrom, double sum){
-			if(sum > accountFrom.getSum())
-				errors.add("Not enough money!");
-	}
-	
 	public boolean validate() {
 		validateSum(String.valueOf(transaction.getSum()));
 		checkIfEnoughMoney(transaction.getAccountFrom(),transaction.getSum());
@@ -36,4 +24,17 @@ public class TransactionValidator {
 	public List<String> getErrors() {
         return errors;
     }
+	
+	private void validateSum (String sum){
+		
+		  if (Double.parseDouble(sum) < 0)
+			  errors.add("No negative ammount!");
+	}
+	
+	private void checkIfEnoughMoney(Account accountFrom, double sum){
+			if(sum > accountFrom.getSum())
+				errors.add("Not enough money!");
+	}
+	
+	
 }

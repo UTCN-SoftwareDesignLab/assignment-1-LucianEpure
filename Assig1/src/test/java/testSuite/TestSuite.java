@@ -3,6 +3,7 @@ package testSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import account.AccountOperationsTest;
 import account.AccountServiceTest;
 import client.ClientServiceTest;
 import employee.EmployeeServiceTest;
@@ -14,6 +15,7 @@ import record.RecordServiceTest;
 	EmployeeServiceTest.class,
 	ClientServiceTest.class,
 	AccountServiceTest.class,
+	AccountOperationsTest.class,
 	RecordServiceTest.class
 	
 })

@@ -65,10 +65,10 @@ public class ComponentFactory {
         this.clientRepository = new ClientRepositoryMySQL(connection);
         this.recordRepository = new RecordRepositoryMySQL(connection);
         this.employeeService = new EmployeeServiceImplementation(this.employeeRepository,this.rightsRolesRepository);
-        this.recordService = new RecordServiceImplementation(this.getRecordRepository());
-        this.clientService = new ClientServiceImplementation(this.getClientRepository(), this.getAccountRepository());
-        this.accountService = new AccountServiceImplementation(this.getAccountRepository());
-        this.accountOperations = new AccountOperationsImplementation(this.getAccountRepository(),this.getBillRepository());
+        this.recordService = new RecordServiceImplementation(this.recordRepository);
+        this.clientService = new ClientServiceImplementation(this.clientRepository, this.accountRepository);
+        this.accountService = new AccountServiceImplementation(this.accountRepository);
+        this.accountOperations = new AccountOperationsImplementation(this.accountRepository,this.billRepository);
     }
 
     public AuthenticationService getAuthenticationService() {
@@ -83,16 +83,7 @@ public class ComponentFactory {
         return rightsRolesRepository;
     }
     
-    public ClientRepository getClientRepository(){
-    	return clientRepository;
-    }
-    public AccountRepository getAccountRepository(){
-    	return accountRepository;
-    }
-    public RecordRepository getRecordRepository(){
-    	return recordRepository;
-    }
-
+   
 	public EmployeeService getEmployeeService() {
 		return employeeService;
 		

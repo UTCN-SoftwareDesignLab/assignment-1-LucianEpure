@@ -8,12 +8,13 @@ import model.builder.AccountBuilder;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import validators.AccountValidator;
+import validators.IValidator;
 import validators.Notification;
 
 public class AccountServiceImplementation implements AccountService{
 
 	private final AccountRepository accountRepository;
-
+	private  IValidator accountValidator;
 	 public AccountServiceImplementation(AccountRepository accountRepository) {
 	        this.accountRepository = accountRepository;
 	    }
@@ -28,7 +29,7 @@ public class AccountServiceImplementation implements AccountService{
                .setDate(accountDate)
                .build();
 
-        AccountValidator accountValidator = new AccountValidator(account);
+        accountValidator = new AccountValidator(account);
         boolean accountValid = accountValidator.validate();
         Notification<Boolean> accountAddNotification = new Notification<>();
     
@@ -71,7 +72,7 @@ public class AccountServiceImplementation implements AccountService{
                .setDate(date)
                 .build();
 	
-		AccountValidator accountValidator = new AccountValidator(newAccount);
+		accountValidator = new AccountValidator(newAccount);
         boolean accountValid = accountValidator.validate();
         Notification<Boolean> accountUpdateNotification = new Notification<>();
 
@@ -89,6 +90,12 @@ public class AccountServiceImplementation implements AccountService{
 	@Override
 	public boolean removeAccount(Long id) {
 		return accountRepository.removeAccount(id);
+	}
+
+
+	@Override
+	public void removeAll() {
+		accountRepository.removeAll();
 	}
 
 

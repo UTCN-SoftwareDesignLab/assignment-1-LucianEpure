@@ -32,22 +32,7 @@ public class ControllerFactory {
         return instance;
     }
 	
-	/*
-	public ControllerFactory(){
-		this.adminViewFactory = AdminViewFactory.instance();
-		this.componentFactory = ComponentFactory.instance();
-		this.regEmpViewFactory = RegEmpViewFactory.instance();
-		this.adminController = new AdminController(adminViewFactory.getAdministratorMenu(),componentFactory.getEmployeeService(),componentFactory.getAuthenticationService());
-		this.regEmployeeController = new RegEmployeeController(regEmpViewFactory.getRegEmployeeMenu(),componentFactory.getClientService(),componentFactory.getAccountService(),componentFactory.getAccountOperations(),componentFactory.getRecordService()
-																,regEmpViewFactory.getAddClientView(),regEmpViewFactory.getShowClient(),regEmpViewFactory.getUpdateClientView(),regEmpViewFactory.getAddAccount(),regEmpViewFactory.getUpdateAccountView()
-																,regEmpViewFactory.getTransactionView(), regEmpViewFactory.getProcessBills());
-		this.addClientController = new AddClientController(regEmpViewFactory.getRegEmployeeMenu(),regEmpViewFactory.getAddClientView(),componentFactory.getClientService(),componentFactory.getRecordService());
-		this.addAccountController = new AddAccountController(regEmpViewFactory.getAddAccount(),componentFactory.getAccountService(),componentFactory.getClientService(),componentFactory.getRecordService());
-		this.processBillsController = new ProcessBillsController(componentFactory.getAccountOperations(),componentFactory.getClientService(),regEmpViewFactory.getProcessBills(), regEmpViewFactory.getRegEmployeeMenu(),componentFactory.getRecordService());
-		this.showClientController = new ShowClientController(regEmpViewFactory.getShowClient(),regEmpViewFactory.getRegEmployeeMenu(),componentFactory.getClientService(),componentFactory.getRecordService());
-		this.transactionController = new TransactionController(regEmpViewFactory.getTransactionView(),componentFactory.getAccountOperations(),componentFactory.getRecordService(),regEmpViewFactory.getRegEmployeeMenu());
-		this.updateClientController = new UpdateClientController(regEmpViewFactory.getUpdateClientView(),regEmpViewFactory.getRegEmployeeMenu(),componentFactory.getClientService(),componentFactory.getRecordService());
-	}*/
+
 	
 	public ControllerFactory(){
 		this.adminViewFactory = AdminViewFactory.instance();

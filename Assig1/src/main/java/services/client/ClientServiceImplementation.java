@@ -12,6 +12,7 @@ import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.client.ClientRepository;
 import validators.ClientValidator;
+import validators.IValidator;
 import validators.Notification;
 
 
@@ -20,7 +21,7 @@ public class ClientServiceImplementation implements ClientService{
 	private final ClientRepository clientRepository;
 	private final AccountRepository accountRepository;
 	
-	
+	private IValidator clientValidator;
 	  public ClientServiceImplementation(ClientRepository clientRepository, AccountRepository accountRepository) {
 	        this.clientRepository = clientRepository;
 	        this.accountRepository = accountRepository;
@@ -38,7 +39,7 @@ public class ClientServiceImplementation implements ClientService{
                .setAccounts(new ArrayList<Account>())
                .build();
 
-        ClientValidator clientValidator = new ClientValidator(client);
+        clientValidator = new ClientValidator(client);
         boolean clientValid = clientValidator.validate();
         Notification<Boolean> clientAddNotification = new Notification<>();
  
@@ -80,7 +81,7 @@ public class ClientServiceImplementation implements ClientService{
                .setAccounts(client.getAccounts())
                 .build();
 	
-		ClientValidator clientValidator = new ClientValidator(newClient);
+		clientValidator = new ClientValidator(newClient);
         boolean clientValid = clientValidator.validate();
         Notification<Boolean> clientUpdateNotification = new Notification<>();
 
@@ -113,6 +114,11 @@ public class ClientServiceImplementation implements ClientService{
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void removeAll() {
+		clientRepository.removeAll();
 	}
 
 }

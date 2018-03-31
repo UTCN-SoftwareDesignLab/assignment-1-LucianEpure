@@ -7,13 +7,14 @@ import model.builder.EmployeeBuilder;
 import repository.employee.EmployeeRepository;
 import repository.security.RightsRolesRepository;
 import validators.EmployeeValidator;
+import validators.IValidator;
 import validators.Notification;
 
 public class EmployeeServiceImplementation implements EmployeeService{
 
 	private final EmployeeRepository employeeRepository;
 	private final RightsRolesRepository rightsRolesRepository;
-
+	private IValidator employeeValidator;
     public EmployeeServiceImplementation(EmployeeRepository employeeRepository,RightsRolesRepository rightsRolesRepository) {
         this.employeeRepository = employeeRepository;
         this.rightsRolesRepository = rightsRolesRepository;
@@ -53,7 +54,7 @@ public class EmployeeServiceImplementation implements EmployeeService{
                 .setId(employee.getId())
                 .build();
 	
-		EmployeeValidator employeeValidator = new EmployeeValidator(newEmployee);
+		employeeValidator = new EmployeeValidator(newEmployee);
         boolean employeeValid = employeeValidator.validate();
         Notification<Boolean> employeeUpdateNotification = new Notification<>();
 

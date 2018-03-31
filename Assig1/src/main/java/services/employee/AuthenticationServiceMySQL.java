@@ -11,6 +11,7 @@ import model.Employee;
 import model.Role;
 import model.builder.EmployeeBuilder;
 import validators.EmployeeValidator;
+import validators.IValidator;
 import repository.security.RightsRolesRepository;
 import repository.employee.EmployeeRepository;
 import validators.Notification;
@@ -19,7 +20,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 	
 	private final EmployeeRepository employeeRepository;
 	private final RightsRolesRepository rightsRolesRepository;
-
+	private IValidator employeeValidator;
     public AuthenticationServiceMySQL(EmployeeRepository employeeRepository, RightsRolesRepository rightsRolesRepository) {
 	     this.employeeRepository = employeeRepository;
 	     this.rightsRolesRepository = rightsRolesRepository;
@@ -54,7 +55,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 	                .setRoles(employeeRoles)
 	                .build();
 
-	        EmployeeValidator employeeValidator = new EmployeeValidator(employee);
+	       employeeValidator = new EmployeeValidator(employee);
 	        boolean employeeValid = employeeValidator.validate();
 	        Notification<Boolean> employeeRegisterNotification = new Notification<>();
 
@@ -80,7 +81,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 	                .setRoles(adminRoles)
 	                .build();
 
-	        EmployeeValidator employeeValidator = new EmployeeValidator(administrator);
+	        employeeValidator = new EmployeeValidator(administrator);
 	        boolean adminValid = employeeValidator.validate();
 	        Notification<Boolean> adminRegisterNotification = new Notification<>();
 

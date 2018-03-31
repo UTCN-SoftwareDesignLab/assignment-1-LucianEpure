@@ -19,4 +19,6 @@ public interface ClientService {
 	public Long generateCardIdNumber();
 	
 	public Notification<Boolean> updateClient(Client client,String name, String address,  String cardId);
+	
+	public void removeAll();
 }

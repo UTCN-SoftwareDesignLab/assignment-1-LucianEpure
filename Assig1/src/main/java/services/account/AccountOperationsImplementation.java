@@ -11,6 +11,7 @@ import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.bill.BillRepository;
 import validators.BillValidator;
+import validators.IValidator;
 import validators.Notification;
 import validators.TransactionValidator;
 
@@ -19,6 +20,8 @@ public class AccountOperationsImplementation implements AccountOperations{
 	
 	private final AccountRepository accountRepository;
 	private final BillRepository billRepository;
+	private IValidator validator;
+	
 	public AccountOperationsImplementation(AccountRepository accountRepository, BillRepository billRepository){
 		 this.accountRepository = accountRepository;
 		 this.billRepository = billRepository;
@@ -40,8 +43,8 @@ public class AccountOperationsImplementation implements AccountOperations{
 				.setSum(sum)
 				.build();
 			
-		TransactionValidator transactionValidator = new TransactionValidator(transaction);
-        boolean transactionValid = transactionValidator.validate();
+		validator = new TransactionValidator(transaction);
+        boolean transactionValid = validator.validate();
         Notification<Boolean> transactionNotification = new Notification<>();
     	
         if (!transactionValid) {
@@ -78,8 +81,8 @@ public class AccountOperationsImplementation implements AccountOperations{
 					.setAccount(billAccount)
 					.setSum(sum)
 					.build();
-		BillValidator billValidator = new BillValidator(bill);
-        boolean billValid = billValidator.validate();
+		validator = new BillValidator(bill);
+        boolean billValid = validator.validate();
         Notification<Boolean> billNotification = new Notification<>();
       
         if(billRepository.findBillById(bill.getBillNumber()))
@@ -89,7 +92,7 @@ public class AccountOperationsImplementation implements AccountOperations{
         }
         
         if (!billValid) {
-            billValidator.getErrors().forEach(billNotification::addError);
+            validator.getErrors().forEach(billNotification::addError);
             billNotification.setResult(Boolean.FALSE);
             return billNotification;
         } else {

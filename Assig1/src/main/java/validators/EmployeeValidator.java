@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class EmployeeValidator {
+public class EmployeeValidator implements IValidator{
     private static final String EMAIL_VALIDATION_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     private static final int MIN_PASSWORD_LENGTH = 8;
 

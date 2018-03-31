@@ -23,5 +23,7 @@ public interface AccountService {
 	
 	public boolean removeAccount(Long id);
 	
+	public void removeAll();
+	
 	
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import model.Account;
 import model.Bill;
 
-public class BillValidator {
+public class BillValidator implements IValidator{
 
 	private final List<String> errors;
 	private final Bill bill;
@@ -15,18 +15,18 @@ public class BillValidator {
 		this.bill = bill;
 		errors = new ArrayList<String>();
 	}
-	public void validateSum (String sum){
+	private void validateSum (String sum){
 		  if(Double.parseDouble(sum) < 0)
 			 errors.add("No negative sum!");
 	}
-	public boolean validateAccount(Account account){
+	private boolean validateAccount(Account account){
 		if(account == null){
 			errors.add("Account not found!");
 			return false;
 		}
 		return true;
 	}
-	public void checkIfEnoughMoney(Account account, double sum){
+	private void checkIfEnoughMoney(Account account, double sum){
 		if(account.getSum()< sum)
 			
 			errors.add("Not enough money!");

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Account;
 
-
-
-
-public class AccountValidator {
+public class AccountValidator implements  IValidator{
 	private final List<String> errors;
 	private final Account account;
 	
@@ -16,7 +13,7 @@ public class AccountValidator {
 		errors = new ArrayList<String>();
 	}
 	
-	public void validateSum (String sum){
+	private void validateSum (String sum){
 		
 		  if(Double.parseDouble(sum) < 0)
 			 errors.add("No negative sum!");
