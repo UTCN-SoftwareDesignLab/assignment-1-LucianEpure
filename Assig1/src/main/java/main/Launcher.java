@@ -1,4 +1,4 @@
-package testMain;
+package main;
 import controller.AuthenticationController;
 
 import view.LoginForm;

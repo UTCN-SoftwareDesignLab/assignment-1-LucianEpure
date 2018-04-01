@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import javax.swing.JOptionPane;
 
 
@@ -48,8 +50,10 @@ public class AddAccountController {
 					
 					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-					LocalDate accDate = LocalDate.parse(date, formatter);
 					
+					
+						LocalDate accDate = LocalDate.parse(date, formatter);
+				
 					
 					try {
 						Notification<Boolean> addAccountNotification = accountService.addAccount(type,Double.parseDouble(sum), accDate, clientService.findClientByCnp(cnp).getId());

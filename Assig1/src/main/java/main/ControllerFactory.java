@@ -1,4 +1,4 @@
-package testMain;
+package main;
 
 import controller.adminControllers.AdminController;
 import controller.regEmployeeControllers.RegEmployeeController;

@@ -54,7 +54,6 @@ public class AdministratorMenu extends JFrame {
 	
 	public AdministratorMenu() {
 		setTitle("Administrator menu");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 765, 571);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

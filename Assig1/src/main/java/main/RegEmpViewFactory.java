@@ -1,4 +1,4 @@
-package testMain;
+package main;
 
 
 import view.AddAccount;

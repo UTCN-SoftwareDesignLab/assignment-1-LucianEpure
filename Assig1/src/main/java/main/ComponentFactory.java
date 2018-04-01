@@ -1,4 +1,4 @@
-package testMain;
+package main;
 import database.DBConnectionFactory;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
