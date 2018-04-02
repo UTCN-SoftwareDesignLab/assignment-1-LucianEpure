@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
+import controller.IController;
 import repository.EntityNotFoundException;
 import services.client.ClientService;
 import services.record.RecordService;
@@ -14,7 +15,7 @@ import validators.Notification;
 import view.AddClientView;
 import view.RegEmployeeMenu;
 
-    public class AddClientController {
+    public class AddClientController implements IController{
 	private final AddClientView addClientView;
 	private final ClientService clientService;
 	private final RegEmployeeMenu regEmployeeMenu;
@@ -65,9 +66,6 @@ import view.RegEmployeeMenu;
 	}
 	
 
-	public AddClientView getAddClientView() {
-		return addClientView;
-	}
 	
 	public void activateView(){
 		addClientView.setVisible(true);

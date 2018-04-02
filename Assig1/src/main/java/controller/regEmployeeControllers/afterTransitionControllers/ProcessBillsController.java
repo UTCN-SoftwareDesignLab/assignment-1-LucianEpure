@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+
+import controller.IControllerParameter;
 import repository.EntityNotFoundException;
 import services.account.AccountOperations;
 import services.client.ClientService;
@@ -13,7 +15,7 @@ import validators.Notification;
 import view.ProcessBillsView;
 import view.RegEmployeeMenu;
 
-public class ProcessBillsController{
+public class ProcessBillsController implements IControllerParameter{
 	
 	private final AccountOperations accountOperations;
 	private final ClientService clientService;
@@ -61,10 +63,6 @@ public class ProcessBillsController{
 		}
 		 
 	 }
-	 
-	 public ProcessBillsView getProcessBillsView() {
-			return processBillsView;
-		}
 
 	public void activateView(int selectedRow){
 		processBillsView.setClientTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());

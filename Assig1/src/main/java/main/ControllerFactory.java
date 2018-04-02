@@ -1,5 +1,7 @@
 package main;
 
+import controller.IController;
+import controller.IControllerParameter;
 import controller.adminControllers.AdminController;
 import controller.regEmployeeControllers.RegEmployeeController;
 import controller.regEmployeeControllers.afterTransitionControllers.AddAccountController;
@@ -12,18 +14,21 @@ import controller.regEmployeeControllers.afterTransitionControllers.UpdateClient
 
 public class ControllerFactory {
 	private static ControllerFactory instance;
-	private AdminController adminController;
-	private RegEmployeeController regEmployeeController;
+	
 	private AdminViewFactory adminViewFactory;
 	private ComponentFactory componentFactory;
 	private RegEmpViewFactory regEmpViewFactory;
-	private AddAccountController addAccountController;
-	private AddClientController addClientController;
-	private ProcessBillsController processBillsController;
-	private ShowClientController showClientController;
-	private TransactionController transactionController;
-	private UpdateClientController updateClientController;
-	private UpdateAccountController updateAccountController;
+	private IController adminController;
+	private IController regEmployeeController;
+	
+	
+	private IControllerParameter addAccountController;
+	private IController addClientController;
+	private IControllerParameter processBillsController;
+	private IController showClientController;
+	private IController transactionController;
+	private IControllerParameter updateClientController;
+	private IControllerParameter updateAccountController;
 
 	public static ControllerFactory instance() {
         if (instance == null) {
@@ -72,11 +77,11 @@ public class ControllerFactory {
 	public ComponentFactory getComponentFactory() {
 		return componentFactory;
 	}
-	public AdminController getAdminController() {
+	public IController getAdminController() {
 		return adminController;
 	}
 
-	public RegEmployeeController getRegEmployeeController() {
+	public IController getRegEmployeeController() {
 		return regEmployeeController;
 	}
 

@@ -15,11 +15,12 @@ public class Launcher {
         //RegEmployeeComponentFactory regEmployeeComponentFactory = RegEmployeeComponentFactory.instance();
         ControllerFactory controllerFactory = ControllerFactory.instance();
     	LoginForm window = new LoginForm();
-		window.getFrmLogin().setVisible(true);	
+		//window.getFrmLogin().setVisible(true);	
         new AuthenticationController(window, controllerFactory.getComponentFactory().getAuthenticationService(),
         		controllerFactory.getComponentFactory().getRecordService(),
         		controllerFactory.getAdminController(),
         		controllerFactory.getRegEmployeeController());
+        
         
 
     }

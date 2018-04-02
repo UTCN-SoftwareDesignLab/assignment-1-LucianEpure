@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
+import controller.IControllerParameter;
 import model.Client;
 import repository.EntityNotFoundException;
 import services.client.ClientService;
@@ -15,7 +16,7 @@ import validators.Notification;
 import view.RegEmployeeMenu;
 import view.UpdateClientView;
 
-public class UpdateClientController {
+public class UpdateClientController implements IControllerParameter{
 
 	private final UpdateClientView updateClientView;
 private final RegEmployeeMenu regEmployeeMenu;
@@ -72,9 +73,7 @@ private final RegEmployeeMenu regEmployeeMenu;
 		}
 		
 	}
-	public UpdateClientView getUpdateClientView() {
-		return updateClientView;
-	}
+
 	public void activateView(int selectedRow){
 		updateClientView.setAddressTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 1).toString());
 		updateClientView.setNameTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 0).toString());

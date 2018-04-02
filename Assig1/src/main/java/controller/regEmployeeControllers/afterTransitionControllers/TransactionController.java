@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
-
+import controller.IController;
 import repository.EntityNotFoundException;
 import services.account.AccountOperations;
 import services.record.RecordService;
@@ -15,7 +15,7 @@ import validators.Notification;
 import view.RegEmployeeMenu;
 import view.TransactionView;
 
-public class TransactionController {
+public class TransactionController implements IController{
 
 	private final TransactionView transactionView;
 private final AccountOperations accountOperations;
@@ -61,9 +61,6 @@ private final AccountOperations accountOperations;
 		}
 
 	}	
-	public TransactionView getTransactionView() {
-		return transactionView;
-	}
 
 	public void activateView(){
 		transactionView.setVisible(true);

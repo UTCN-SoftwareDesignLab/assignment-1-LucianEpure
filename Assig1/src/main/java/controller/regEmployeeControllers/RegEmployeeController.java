@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import controller.IController;
+import controller.IControllerParameter;
 import controller.regEmployeeControllers.afterTransitionControllers.AddAccountController;
 import controller.regEmployeeControllers.afterTransitionControllers.AddClientController;
 import controller.regEmployeeControllers.afterTransitionControllers.ProcessBillsController;
@@ -24,25 +26,25 @@ import services.client.ClientService;
 import services.record.RecordService;
 import view.RegEmployeeMenu;
 
-public class RegEmployeeController {
+public class RegEmployeeController implements IController {
 
 	private final RegEmployeeMenu regEmployeeMenu;
 private final ClientService clientService;
 	private final AccountService accountService;
 	private final RecordService recordService;
-	private AddAccountController addAccountController;
-	private AddClientController addClientController;
-	private ProcessBillsController processBillsController;
-	private ShowClientController showClientController;
-	private TransactionController transactionController;
-	private UpdateClientController updateClientController;
-	private UpdateAccountController updateAccountController;
+	private IControllerParameter addAccountController;
+	private IController addClientController;
+	private IControllerParameter processBillsController;
+	private IController showClientController;
+	private IController transactionController;
+	private IControllerParameter updateClientController;
+	private IControllerParameter updateAccountController;
 	private int selectedRow = 0;
 	
 
 	public RegEmployeeController(RegEmployeeMenu regEmployeeMenu,ClientService clientService,AccountService accountService,AccountOperations accountOperations, RecordService recordService
-	,AddClientController addClientController,AddAccountController addAccountController, ProcessBillsController processBillsController, ShowClientController showClientController
-	,TransactionController transactionController, UpdateClientController updateClientController, UpdateAccountController updateAccountController)
+	,IController addClientController,IControllerParameter addAccountController, IControllerParameter processBillsController, IController showClientController
+	,IController transactionController, IControllerParameter updateClientController, IControllerParameter updateAccountController)
   {
 	this.regEmployeeMenu = regEmployeeMenu;
 	this.clientService = clientService;
@@ -185,7 +187,7 @@ private final ClientService clientService;
 	class TableListenerClients implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
-				setSelectedRow(regEmployeeMenu.getClients().rowAtPoint(e.getPoint()));
+				selectedRow = regEmployeeMenu.getClients().rowAtPoint(e.getPoint());
 		}
 		
 		@Override
@@ -205,7 +207,7 @@ private final ClientService clientService;
 	class TableListenerAccounts implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
-				setSelectedRow(regEmployeeMenu.getAccounts().rowAtPoint(e.getPoint()));
+				selectedRow = regEmployeeMenu.getAccounts().rowAtPoint(e.getPoint());
 		}
 		
 		@Override
@@ -223,14 +225,13 @@ private final ClientService clientService;
 	}
 	
 	
-	public void setSelectedRow(int selectedRow) {
-		this.selectedRow = selectedRow;
-	}
-	public RegEmployeeMenu getRegEmployeeMenu() {
-		return regEmployeeMenu;
-	}
-	public void activate(){
+
+
+
+	@Override
+	public void activateView() {
 		this.regEmployeeMenu.setVisible(true);
+		
 	}
 
 	

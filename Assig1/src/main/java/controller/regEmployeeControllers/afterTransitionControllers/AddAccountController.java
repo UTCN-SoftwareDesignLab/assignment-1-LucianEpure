@@ -8,7 +8,8 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.JOptionPane;
 
-
+import controller.IController;
+import controller.IControllerParameter;
 import repository.EntityNotFoundException;
 import services.account.AccountService;
 import services.client.ClientService;
@@ -17,7 +18,7 @@ import validators.Notification;
 import view.AddAccount;
 import view.RegEmployeeMenu;
 
-public class AddAccountController {
+public class AddAccountController implements IControllerParameter{
 	
 			private final AddAccount addAccountView;
 			public AddAccount getAddAccountView() {
@@ -70,11 +71,12 @@ public class AddAccountController {
 					}
 				}
 			}
-
+			@Override
 			public void activateView(int selectedRow){
 				addAccountView.setClientTf(regEmployeeMenu.getClients().getValueAt(selectedRow, 2).toString());	
 				addAccountView.setVisible(true);
 			}
-		
+
+			
 }
 

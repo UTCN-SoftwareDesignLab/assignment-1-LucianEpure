@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
+import controller.IController;
 import model.Employee;
 import model.Record;
 import services.employee.AuthenticationService;
@@ -19,7 +19,7 @@ import services.record.RecordService;
 import validators.Notification;
 import view.AdministratorMenu;
 
-public class AdminController {
+public class AdminController implements IController{
 	private final AdministratorMenu administratorMenu;
 	private final EmployeeService employeeService;
 	private final AuthenticationService authenticationService;
@@ -155,8 +155,8 @@ public class AdminController {
 	class TableListenerEmployees implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
-				setSelectedRow(administratorMenu.getEmployees().rowAtPoint(e.getPoint()));
-				setSelectedCol(administratorMenu.getEmployees().columnAtPoint(e.getPoint()));
+				selectedRow = administratorMenu.getEmployees().rowAtPoint(e.getPoint());
+				selectedCol = administratorMenu.getEmployees().columnAtPoint(e.getPoint());
 				administratorMenu.setFireEmployee(administratorMenu.getEmployees().getValueAt(selectedRow, 2).toString());
 				administratorMenu.setIdTf(administratorMenu.getEmployees().getValueAt(selectedRow, 0).toString());
 				administratorMenu.setUpdateUsernameTf(administratorMenu.getEmployees().getValueAt(selectedRow, 2).toString());
@@ -178,8 +178,8 @@ public class AdminController {
 	class TableListenerRecords implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
-				setSelectedRow(administratorMenu.getRecords().rowAtPoint(e.getPoint()));
-				setSelectedCol(administratorMenu.getRecords().columnAtPoint(e.getPoint()));
+				selectedRow = administratorMenu.getRecords().rowAtPoint(e.getPoint());
+				selectedCol = administratorMenu.getRecords().columnAtPoint(e.getPoint());
 		}
 		
 		@Override
@@ -195,25 +195,8 @@ public class AdminController {
 		public void mouseExited(MouseEvent e) {
 		}
 	}
-	
-	
-	
-	public int getSelectedRow() {
-		return selectedRow;
-	}
-	public void setSelectedRow(int selectedRow) {
-		this.selectedRow = selectedRow;
-	}
-	public int getSelectedCol() {
-		return selectedCol;
-	}
-	public void setSelectedCol(int selectedCol) {
-		this.selectedCol = selectedCol;
-	}
-	public AdministratorMenu getAdministratorMenu() {
-		return administratorMenu;
-	}
-	public void activate(){
+		
+	public void activateView(){
 		this.administratorMenu.setVisible(true);
 	}
 

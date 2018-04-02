@@ -16,18 +16,16 @@ import services.record.RecordService;
 import validators.Notification;
 import view.LoginForm;
 
-public class AuthenticationController {
+public class AuthenticationController implements IController{
 	    private final LoginForm loginForm;
 	    private final AuthenticationService authenticationService;
 	    private final RecordService recordService;
-	    //private final RegEmployeeMenu regEmployeeMenu;
-	    //private final AdministratorMenu administratorMenu;
-	    private final AdminController administrationController;
-	    private final RegEmployeeController regEmployeeController;
+	    private final IController administrationController;
+	    private final IController regEmployeeController;
 	    private Long employeeId;
 	  
 	   
-	    public AuthenticationController(LoginForm loginForm, AuthenticationService authenticationService, RecordService recordService, AdminController administrationController, RegEmployeeController regEmployeeController) {
+	    public AuthenticationController(LoginForm loginForm, AuthenticationService authenticationService, RecordService recordService, IController administrationController, IController regEmployeeController) {
 	        this.loginForm = loginForm;
 	        this.authenticationService = authenticationService;
 	        this.recordService = recordService;
@@ -35,15 +33,17 @@ public class AuthenticationController {
 	        this.regEmployeeController = regEmployeeController;
 	        loginForm.setLoginButtonListener(new LoginButtonListener());
 	        loginForm.setRegisterButtonListener(new RegisterButtonListener());
+	        this.activateView();
+	      
 	    }
 
 	    public void decideWhichView(Employee employee){
 			if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(ADMINISTRATOR)){
-				administrationController.activate();
+				administrationController.activateView();
 			}
 			
 			else if(employee.getRoles().get(0).getRoleTitle().equalsIgnoreCase(REGEMPLOYEE)){	
-				regEmployeeController.activate();
+				regEmployeeController.activateView();
 				recordService.setEmployeeId(employeeId);
 			}
 		}
@@ -81,5 +81,10 @@ public class AuthenticationController {
 		            }
 			}
 			
+		}
+
+		@Override
+		public void activateView() {
+			loginForm.getFrmLogin().setVisible(true);
 		}
 }

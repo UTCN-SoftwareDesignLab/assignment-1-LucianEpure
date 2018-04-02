@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import controller.IController;
 import model.Client;
 import repository.EntityNotFoundException;
 import services.client.ClientService;
@@ -13,7 +14,7 @@ import view.RegEmployeeMenu;
 import view.ShowClient;
 
 
-public class ShowClientController {
+public class ShowClientController implements IController{
 	
 	private final ShowClient showClientView;
 	private final RegEmployeeMenu regEmployeeMenu;
@@ -49,10 +50,6 @@ public class ShowClientController {
 		
 	}
 
-	public ShowClient getShowClientView() {
-		return showClientView;
-	}
-	
 	public void activateView(){
 		showClientView.setVisible(true);
 	}
